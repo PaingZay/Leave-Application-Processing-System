@@ -5,5 +5,5 @@
   - maintain the leave types
   - maintain calendar of public holidays for the current year.
 2. Manage Leave Type
-  -be able to enter/update Employee’s annual leave entitlements for the current year
+  - Be able to enter/update Employee’s annual leave entitlements for the current year
 
