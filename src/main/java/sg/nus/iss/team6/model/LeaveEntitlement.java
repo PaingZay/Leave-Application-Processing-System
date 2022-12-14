@@ -24,7 +24,7 @@ public class LeaveEntitlement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 
-	private int balanceLeave;
+	private Integer balanceLeave;
 	
 	@ManyToOne
 	@JoinColumn(name="leaveTypeId")

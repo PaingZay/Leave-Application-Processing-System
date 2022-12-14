@@ -35,6 +35,9 @@ public class LeaveType {
     @Enumerated(EnumType.STRING)
     private LeaveTypeStatus status;
 	
+	@Column(name="defaultOfDay", nullable=false)
+	private Integer defaultOfDay;
+	
 	@OneToMany(mappedBy = "leaveType")
 	private List<LeaveEntitlement> leaveEntitles;
 }
