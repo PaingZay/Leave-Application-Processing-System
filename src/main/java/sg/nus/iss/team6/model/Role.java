@@ -19,7 +19,6 @@ import lombok.Data;
 public class Role {
 	
 	@Column(name="role_Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int Id;
 	

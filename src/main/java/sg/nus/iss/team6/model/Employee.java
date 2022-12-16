@@ -31,10 +31,6 @@ public class Employee {
     @Column(name = "emailAdress")
     private String emailAdress;
 
-
-    @Column(name = "role_Id", nullable = false)
-    private int roleId;
-
     @Column(name = "team_Id", nullable = false)
     private int teamId;
 
@@ -61,18 +57,21 @@ public class Employee {
 				&& Objects.equals(name, other.name)
 				&& Double.doubleToLongBits(overtimeBalance) == Double.doubleToLongBits(other.overtimeBalance)
 				&& Objects.equals(password, other.password) && Objects.equals(phone, other.phone)
-				&& Objects.equals(role, other.role) && roleId == other.roleId && teamId == other.teamId
+				&& Objects.equals(role, other.role) && teamId == other.teamId
 				&& Objects.equals(username, other.username);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(active, emailAdress, id, name, overtimeBalance, password, phone, role, roleId, teamId,
-				username);
+		return Objects.hash(active, emailAdress, id, name, overtimeBalance, password, phone, role, teamId, username);
 	}
 
-	public Employee(int id, String username, String password, String name, String phone, String emailAdress, int roleId,
-			int teamId, double overtimeBalance, boolean active) {
+	public Employee() {
+		super();
+	}
+
+	public Employee(int id, String username, String password, String name, String phone, String emailAdress, int teamId,
+			double overtimeBalance, Role role, boolean active) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -80,9 +79,9 @@ public class Employee {
 		this.name = name;
 		this.phone = phone;
 		this.emailAdress = emailAdress;
-		this.roleId = roleId;
 		this.teamId = teamId;
 		this.overtimeBalance = overtimeBalance;
+		this.role = role;
 		this.active = active;
 	}
 	

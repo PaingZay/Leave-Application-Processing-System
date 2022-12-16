@@ -35,9 +35,6 @@ public class LeaveType {
 	@Column(name = "type_name", unique = true, nullable = false)
 	private String name;
 	
-	@Column(name = "role_Id", unique = true, nullable = false )
-	private int roleId;
-	
 	@Column(name = "maxEntitle", nullable = false)
     private int maxEntitlement;
 	
@@ -54,21 +51,43 @@ public class LeaveType {
     @JoinColumn(name="role_Id")
     private Role role;
     
-    @OneToMany(mappedBy="leaveType_Id")
-    private List<LeaveApplication> listLeaveApp;
+	/*
+	 * @OneToMany(mappedBy="leaveType_Id") private List<LeaveApplication>
+	 * listLeaveApp;
+	 */
 
-	public LeaveType(int id, String name, int roleId, int maxEntitlement, double minGranularity, String descrition,
-			boolean active) {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LeaveType other = (LeaveType) obj;
+		return Id == other.Id && active == other.active && Objects.equals(descrition, other.descrition)
+				&& maxEntitlement == other.maxEntitlement
+				&& Double.doubleToLongBits(minGranularity) == Double.doubleToLongBits(other.minGranularity)
+				&& Objects.equals(name, other.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(Id, active, descrition, maxEntitlement, minGranularity, name);
+	}
+
+	public LeaveType(int id, String name, int maxEntitlement, double minGranularity, String descrition, boolean active,
+			Role role) {
 		super();
 		Id = id;
 		this.name = name;
-		this.roleId = roleId;
 		this.maxEntitlement = maxEntitlement;
 		this.minGranularity = minGranularity;
 		this.descrition = descrition;
 		this.active = active;
+		this.role = role;
 	}
 
-    
-    
+
+	
 }

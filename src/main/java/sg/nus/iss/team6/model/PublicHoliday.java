@@ -12,7 +12,6 @@ import sg.nus.iss.team6.util.dayEnum;
 import sg.nus.iss.team6.util.observanceStatus;
 
 @Data
-@Entity
 public class PublicHoliday {
 
 	public PublicHoliday() {

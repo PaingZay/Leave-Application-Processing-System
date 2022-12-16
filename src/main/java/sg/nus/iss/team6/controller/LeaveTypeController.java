@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.Data;
 import sg.nus.iss.team6.model.LeaveType;
-import sg.nus.iss.team6.service.LeaveTypeService;
+import sg.nus.iss.team6.service.LeaveTypeServiceImpl;
 
 @Data
 @Controller
@@ -20,7 +20,7 @@ public class LeaveTypeController {
 		// TODO Auto-generated constructor stub
 	}
 	
-	private LeaveTypeService leaveTypeService;
+	private LeaveTypeServiceImpl leaveTypeService;
 	
 	@GetMapping(value = "/add")
     public String addPerson(Model model) {
@@ -33,7 +33,7 @@ public class LeaveTypeController {
 	@PostMapping(value="/add")
 	public String addNewLeaveType(@ModelAttribute(value="leaveType") LeaveType lt) {
 		
-		leaveTypeService.save(lt);
+		leaveTypeService.createLeaveType(lt);
 		return "Redirect:leave/list";
 		
 	}
