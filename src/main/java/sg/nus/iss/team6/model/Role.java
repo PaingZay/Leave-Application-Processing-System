@@ -60,5 +60,18 @@ public class Role {
 	public int hashCode() {
 		return Objects.hash(active, description, hierarchyValue, Id, listEmployee, listLeaveType, name);
 	}
+
+	public Role(int id, int hierarchyValue, String name, String description, boolean active) {
+		super();
+		Id = id;
+		this.hierarchyValue = hierarchyValue;
+		this.name = name;
+		this.description = description;
+		this.active = active;
+	}
+
+	public Role() {
+	}
     
+	
 }

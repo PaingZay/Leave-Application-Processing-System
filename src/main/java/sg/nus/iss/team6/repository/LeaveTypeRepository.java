@@ -16,6 +16,6 @@ public interface LeaveTypeRepository extends JpaRepository<LeaveType, Integer>{
 	  @Query("SELECT lt from LeaveType lt WHERE lt.Id = :ltid AND lt.active =true ")
 	  List<LeaveType> findActiveLeaveTypeByLTID(@Param("ltid") Integer ltid);
 	  
-	  @Query(value = "SELECT * FROM course WHERE status = ?0", nativeQuery = true)
+	  @Query(value = "SELECT * FROM course WHERE status = true")
 	  List<LeaveType> findPendingCoursesByStatus(String status);
 }

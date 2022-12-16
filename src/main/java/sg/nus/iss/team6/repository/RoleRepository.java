@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import sg.nus.iss.team6.model.Role;
 
-public interface RoleRepository extends JpaRepository<Role, String>{
+public interface RoleRepository extends JpaRepository<Role, Integer>{
 	  @Query("SELECT r.name FROM Role r")
 	  List<String> findAllRolesNames();
 	  

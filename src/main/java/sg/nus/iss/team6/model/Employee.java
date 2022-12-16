@@ -70,5 +70,20 @@ public class Employee {
 		return Objects.hash(active, emailAdress, id, name, overtimeBalance, password, phone, role, roleId, teamId,
 				username);
 	}
+
+	public Employee(int id, String username, String password, String name, String phone, String emailAdress, int roleId,
+			int teamId, double overtimeBalance, boolean active) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.phone = phone;
+		this.emailAdress = emailAdress;
+		this.roleId = roleId;
+		this.teamId = teamId;
+		this.overtimeBalance = overtimeBalance;
+		this.active = active;
+	}
 	
 }

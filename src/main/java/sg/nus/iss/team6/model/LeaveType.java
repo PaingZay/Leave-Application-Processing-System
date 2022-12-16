@@ -57,4 +57,18 @@ public class LeaveType {
     @OneToMany(mappedBy="leaveType_Id")
     private List<LeaveApplication> listLeaveApp;
 
+	public LeaveType(int id, String name, int roleId, int maxEntitlement, double minGranularity, String descrition,
+			boolean active) {
+		super();
+		Id = id;
+		this.name = name;
+		this.roleId = roleId;
+		this.maxEntitlement = maxEntitlement;
+		this.minGranularity = minGranularity;
+		this.descrition = descrition;
+		this.active = active;
+	}
+
+    
+    
 }
