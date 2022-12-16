@@ -29,13 +29,12 @@ import sg.nus.iss.team6.util.RoleValidator;
 public class RoleController {
 	@Autowired
 	private RoleService rService;
-	@Autowired
-	private RoleValidator rValidator;
-
-	@InitBinder("role")
-	private void initRoleBinder(WebDataBinder binder) {
-		binder.addValidators(rValidator);
-	}
+	/*
+	 * @Autowired private RoleValidator rValidator;
+	 * 
+	 * @InitBinder("role") private void initRoleBinder(WebDataBinder binder) {
+	 * binder.addValidators(rValidator); }
+	 */
 
 	/**
 	 * ROLE CRUD OPERATIONS

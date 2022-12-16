@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <h3>leavetype List Page</h3>
+  <a th:href="@{/admin/leavetype/create}">Add leave type</a>
+
+  <div th:if="${not #lists.isEmpty(leaveTypeList)}">
+    <table style="border: 1;">
+      <tr class="listHeading">
+        <th><span th:text="#{fieldLabel.typeId}"></span></th>
+        <th><span th:text="#{fieldLabel.typeName}"></span></th>
+        <th><span th:text="#{fieldLabel.maxEntitlement}"></span></th>
+        <th><span th:text="#{fieldLabel.minGranularity}"></span></th>
+        <th><span th:text="#{fieldLabel.description}"></span></th>
+        <th><span th:text="#{fieldLabel.active}"></span></th>
+        <th><span th:text="#{fieldLabel.roleId}"></span></th>
+        <th><span th:text="#{caption.edit}"></span></th>
+      </tr>
+      <tr th:each="leavetype : ${leaveTypeList}" class="listRecord">
+        <td align="left" th:text="${leavetype.Id}">Id</td>
+         <td align="left" th:text="${leavetype.name}">Name</td>
+        <td align="left" th:text="${leavetype.maxEntitlement}">maxEntitlement</td>
+        <td align="left" th:text="${leavetype.minGranularity}">minGranularity</td>
+        <td align="left" th:text="${leavetype.descrition}">Description</td>
+        <td align="left" th:text="${leavetype.active}">Active Status</td>
+        <td align="left" th:text="${leavetype.role.Id}">Role Id</td>
+        <td><a th:href="@{/admin/leavetype/edit/}+${leavetype.Id}" class="btn btn-default">
+                <span th:text="#{caption.edit}"></span></a></td>
+        
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

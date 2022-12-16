@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/layout.html :: html_head"/>
 
 <body>
 
-  <div th:replace="fragments/layout.html :: menu"/>
-  <div th:replace="fragments/layout.html :: header"/> 
   <h3>Edit Role page</h3>
 
-  <form action="#" th:action="@{/admin/role/edit/}+${role.roleId}" th:object="${role}" method="post">
+  <form action="#" th:action="@{/admin/role/edit/}+${role.Id}" th:object="${role}" method="post">
     <table>
       <tbody>
         <tr>
           <td><span th:text="#{fieldLabel.roleId}"></span></td>
           <td>
-            <fieldset><input type="text" th:field="*{roleId}" readonly="readonly" /></fieldset>
+            <fieldset><input type="text" th:field="*{Id}" readonly="readonly" /></fieldset>
           </td>
-          <td th:if="${#fields.hasErrors('roleId')}" th:errors="*{roleId}"></td>
+          <td th:if="${#fields.hasErrors('Id')}" th:errors="*{Id}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.hierarchyValue}"></span></td>
+          <td><input type="text" th:field="*{hierarchyValue}" /></td>
+          <td th:if="${#fields.hasErrors('hierarchyValue')}" th:errors="*{hierarchyValue}"></td>
         </tr>
         <tr>
           <td><span th:text="#{fieldLabel.roleName}"></span></td>
@@ -27,6 +29,11 @@
           <td><span th:text="#{fieldLabel.description}"></span></td>
           <td><input type="text" th:field="*{description}" /></td>
           <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
+        </tr>
+         <tr>
+          <td><span th:text="#{fieldLabel.active}"></span></td>
+          <td><input type="text" th:field="*{active}" /></td>
+          <td th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></td>
         </tr>
         <tr>
           <td><input type="submit" value="Update" class="blcass" /></td>

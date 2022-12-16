@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+  <h3>Edit leavetype page</h3>
+
+  <form action="#" th:action="@{/admin/leavetype/edit/}+${leaveType.Id}" th:object="${leaveType}" method="post">
+    <table>
+      <tbody>
+        <tr>
+          <td><span th:text="#{fieldLabel.typeId}"></span></td>
+          <td>
+            <fieldset><input type="text" th:field="*{Id}" readonly="readonly" /></fieldset>
+          </td>
+          <td th:if="${#fields.hasErrors('Id')}" th:errors="*{Id}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.typeName}"></span></td>
+          <td><input type="text" th:field="*{name}" /></td>
+          <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.maxEntitlement}"></span></td>
+          <td><input type="text" th:field="*{maxEntitlement}" /></td>
+          <td th:if="${#fields.hasErrors('maxEntitlement')}" th:errors="*{maxEntitlement}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.minGranularity}"></span></td>
+          <td><input type="text" th:field="*{minGranularity}" /></td>
+          <td th:if="${#fields.hasErrors('minGranularity')}" th:errors="*{minGranularity}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.description}"></span></td>
+          <td><input type="text" th:field="*{descrition}" /></td>
+          <td th:if="${#fields.hasErrors('descrition')}" th:errors="*{descrition}"></td>
+        </tr>
+         <tr>
+          <td><span th:text="#{fieldLabel.active}"></span></td>
+          <td><input type="text" th:field="*{active}" /></td>
+          <td th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></td>
+         </tr>
+          <tr>
+          <td><span th:text="#{fieldLabel.roleId}"></span></td>
+          <td><input type="text" th:field="*{role.Id}" /></td>
+          <td th:if="${#fields.hasErrors('role.Id')}" th:errors="*{role.Id}"></td>
+         </tr>
+      	 <tr>
+          <td><input type="submit" value="Update" class="blcass" /></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+</body>
+
+</html>

@@ -29,7 +29,7 @@ public class LeaveType {
 	
 	@Id
 	@Column(name="leaveTypeId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id;
 	
 	@Column(name = "type_name", unique = true, nullable = false)

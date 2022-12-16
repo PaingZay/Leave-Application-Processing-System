@@ -7,6 +7,7 @@ import org.springframework.validation.Validator;
 
 import sg.nus.iss.team6.model.Role;
 
+
 @Component
 public class RoleValidator implements Validator {
 
