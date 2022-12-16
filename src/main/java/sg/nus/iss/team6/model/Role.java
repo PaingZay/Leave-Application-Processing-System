@@ -21,7 +21,7 @@ public class Role {
 	@Column(name="role_Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	private int id;
+	private int Id;
 	
     @Column(name = "hie_value", nullable = false)
 	private int hierarchyValue;
@@ -37,6 +37,9 @@ public class Role {
     
     @OneToMany(mappedBy="role")
     private List<Employee> listEmployee;
+    
+    @OneToMany(mappedBy="role")
+    private List<LeaveType> listLeaveType;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,14 +51,14 @@ public class Role {
 			return false;
 		Role other = (Role) obj;
 		return active == other.active && Objects.equals(description, other.description)
-				&& hierarchyValue == other.hierarchyValue && id == other.id
-				&& Objects.equals(listEmployee, other.listEmployee) && Objects.equals(name, other.name);
+				&& hierarchyValue == other.hierarchyValue && Id == other.Id
+				&& Objects.equals(listEmployee, other.listEmployee)
+				&& Objects.equals(listLeaveType, other.listLeaveType) && Objects.equals(name, other.name);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(active, description, hierarchyValue, id, listEmployee, name);
+		return Objects.hash(active, description, hierarchyValue, Id, listEmployee, listLeaveType, name);
 	}
-
     
 }

@@ -24,6 +24,9 @@ public class Employee {
     
     @Column(name = "full_name", nullable = false)
     private String name;
+    
+    @Column(name="phone")
+    private String phone;
 
     @Column(name = "emailAdress")
     private String emailAdress;
@@ -45,28 +48,27 @@ public class Employee {
     @Column
     private boolean active;
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		return active == other.active && Objects.equals(emailAdress, other.emailAdress) && id == other.id
+				&& Objects.equals(name, other.name)
+				&& Double.doubleToLongBits(overtimeBalance) == Double.doubleToLongBits(other.overtimeBalance)
+				&& Objects.equals(password, other.password) && Objects.equals(phone, other.phone)
+				&& Objects.equals(role, other.role) && roleId == other.roleId && teamId == other.teamId
+				&& Objects.equals(username, other.username);
+	}
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Employee employee = (Employee) o;
-        return Objects.equals(id, employee.id) &&
-                Objects.equals(username, employee.username) &&
-                Objects.equals(password, employee.password) &&
-                Objects.equals(name, employee.name) &&
-                Objects.equals(emailAdress, employee.emailAdress) &&
-                Objects.equals(roleId, employee.roleId) &&
-                Objects.equals(teamId, employee.teamId) &&
-                Objects.equals(overtimeBalance, employee.overtimeBalance) &&
-                Objects.equals(role, employee.role) &&
-                Objects.equals(active, employee.active);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, teamId, overtimeBalance, role, active);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(active, emailAdress, id, name, overtimeBalance, password, phone, role, roleId, teamId,
+				username);
+	}
 	
 }
