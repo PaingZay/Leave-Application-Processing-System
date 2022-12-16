@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Person Listing</title>
+</head>
+<body>
+    <h1 th:text="${listofPersons}"></h1>
+
+    <br>
+    <a href="/leave/add">Add New Leave Type</a>
+    <br>
+
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="person: ${persons}">
+            <td th:utext="${person.id}"></td>
+            <td th:text="${person.firstName}"></td>
+            <td th:text="${person.lastName}"></td>
+            <td>
+                <form th:action="@{/persons/update}" th:object="${person}" method="POST">
+                    <input type="hidden" name="id" th:value="${person.id}" />
+                    <input type="hidden" name="firstName" th:value="${person.firstName}" />
+                    <input type="hidden" name="lastName" th:value="${person.lastName}" />
+                    <input type="submit" value="Update">
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/persons/deletePerson}" th:object="${person}" method="POST">
+                    <input type="hidden" name="id" th:value="${person.id}" />
+                    <input type="hidden" name="firstName" th:value="${person.firstName}" />
+                    <input type="hidden" name="lastName" th:value="${person.lastName}" />
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
