@@ -1,12 +1,8 @@
 package sg.nus.iss.team6.model;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -17,65 +13,60 @@ public class Employee {
     @Id
     @Column(name = "employee_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long employeeId;
+    private int id;
 
-    @Column(name = "first_name")
-    private String firstName;
 
-    @Column(name = "middle_name")
-    private String middleName;
-
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "username", unique = true, nullable = false)
+    @Column(name = "user_name", unique = true, nullable = false)
     private String username;
 
     @Column(name = "password", nullable = false)
     private String password;
-
-    @Column(name = "role", nullable = false)
-    private String role;
-
-    @Column(name = "phone_number", nullable = false)
-    private String phoneNumber;
-
-    @Column(name = "created_at", nullable = false)
-    @CreationTimestamp
-    private LocalDateTime createdAt;
     
-    @OneToMany(mappedBy = "leaveType")
-    private List<LeaveEntitlement> listEntitles;
+    @Column(name = "full_name", nullable = false)
+    private String name;
+
+    @Column(name = "emailAdress")
+    private String emailAdress;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="supervisor")
-    private Employee supervisor;
+    @Column(name = "role_Id", nullable = false)
+    private int roleId;
+
+    @Column(name = "team_Id", nullable = false)
+    private int teamId;
+
+    @Column(name = "ot_balance", nullable = false)
+    private double overtimeBalance;
+    
+    @ManyToOne
+    @JoinColumn(name="role_Id")
+    private Role role;
+    
+    @Column
+    private boolean active;
+
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(employeeId, employee.employeeId) &&
-                Objects.equals(firstName, employee.firstName) &&
-                Objects.equals(middleName, employee.middleName) &&
-                Objects.equals(lastName, employee.lastName) &&
-                Objects.equals(email, employee.email) &&
+        return Objects.equals(id, employee.id) &&
                 Objects.equals(username, employee.username) &&
                 Objects.equals(password, employee.password) &&
+                Objects.equals(name, employee.name) &&
+                Objects.equals(emailAdress, employee.emailAdress) &&
+                Objects.equals(roleId, employee.roleId) &&
+                Objects.equals(teamId, employee.teamId) &&
+                Objects.equals(overtimeBalance, employee.overtimeBalance) &&
                 Objects.equals(role, employee.role) &&
-                Objects.equals(phoneNumber, employee.phoneNumber) &&
-                Objects.equals(createdAt, employee.createdAt) &&
-                Objects.equals(supervisor, employee.supervisor);
+                Objects.equals(active, employee.active);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employeeId, firstName, middleName, lastName, email, username, password, role, phoneNumber, createdAt,supervisor);
+        return Objects.hash(id, username, teamId, overtimeBalance, role, active);
     }
 	
 }
