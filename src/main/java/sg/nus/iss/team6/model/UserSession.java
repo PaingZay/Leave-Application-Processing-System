@@ -1,4 +1,4 @@
-package sg.nus.iss.laps.model;
+package sg.nus.iss.team6.model;
 
 import java.util.List;
 

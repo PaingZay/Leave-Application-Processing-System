@@ -1,8 +1,8 @@
-package sg.nus.iss.laps.service;
+package sg.nus.iss.team6.service;
 
 import java.util.List;
 
-import sg.nus.iss.laps.model.Employee;
+import sg.nus.iss.team6.model.Employee;
 
 public interface UserService {
 	public Employee findByName(String username, String password);

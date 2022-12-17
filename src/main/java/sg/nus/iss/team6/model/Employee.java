@@ -1,4 +1,4 @@
-package sg.nus.iss.laps.model;
+package sg.nus.iss.team6.model;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class Employee {
 	private int id;
 	
 	@OneToMany(mappedBy="employee")
-	private List<Application> applications;
+	private List<LeaveApplication> applications;
 	
 	private String username;
 	
@@ -56,11 +56,11 @@ public class Employee {
 		this.id = id;
 	}
 
-	public List<Application> getApplications() {
+	public List<LeaveApplication> getApplications() {
 		return applications;
 	}
 
-	public void setApplications(List<Application> applications) {
+	public void setApplications(List<LeaveApplication> applications) {
 		this.applications = applications;
 	}
 

@@ -1,4 +1,4 @@
-package sg.nus.iss.laps.service;
+package sg.nus.iss.team6.service;
 
 //import java.time.LocalDate;
 import java.util.List;
@@ -6,36 +6,37 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sg.nus.iss.laps.model.Application;
-import sg.nus.iss.laps.repository.ApplicationRepository;
+
+import sg.nus.iss.team6.model.LeaveApplication;
+import sg.nus.iss.team6.repository.LeaveApplicationRepository;
 
 
 
 @Service
-public class ApplicationServiceImpl implements ApplicationService {
+public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 
   @Autowired
-  ApplicationRepository applicationRepository;
+  LeaveApplicationRepository applicationRepository;
 
   @Transactional
-  public void addBooking(Application application) {
+  public void addBooking(LeaveApplication application) {
     applicationRepository.save(application);
   }
   
   @Override
-  public List<Application> findAllApplication() {
+  public List<LeaveApplication> findAllApplication() {
     return applicationRepository.findAll();
   }
   
   @Override
   @Transactional
-  public Application findApplication(Integer id) {
+  public LeaveApplication findApplication(Integer id) {
     return applicationRepository.findById(id).orElse(null);
   }
   
   @Override
   @Transactional
-  public Application changeApplication(Application application) {
+  public LeaveApplication changeApplication(LeaveApplication application) {
     return applicationRepository.saveAndFlush(application);
   }
 

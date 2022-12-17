@@ -1,11 +1,12 @@
-package sg.nus.iss.laps.service;
+package sg.nus.iss.team6.service;
 
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sg.nus.iss.laps.model.Employee;
-import sg.nus.iss.laps.repository.EmployeeRepository;
+
+import sg.nus.iss.team6.model.Employee;
+import sg.nus.iss.team6.repository.EmployeeRepository;
 
 @Service
 public class UserServiceImpl implements UserService{

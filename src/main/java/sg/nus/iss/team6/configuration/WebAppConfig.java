@@ -1,3 +1,4 @@
+package sg.nus.iss.team6.configuration;
 //package sg.nuus.iss.laps.configuration;
 //
 ////import org.springframework.beans.factory.annotation.Autowired;

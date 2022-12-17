@@ -1,4 +1,4 @@
-package sg.nus.iss.laps.model;
+package sg.nus.iss.team6.model;
 
 import java.time.LocalDate;
 
@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Application
+public class LeaveApplication
 {
 	/**
 	 * 
@@ -54,7 +54,7 @@ public class Application
 	private ApplicationStatus status;
 	
 	// No args and argument constructor
-	public Application(){}
+	public LeaveApplication(){}
 //	public Application(@NotEmpty Employee employee, @NotEmpty LocalDate applicationDate, @FutureOrPresent LocalDate leaveStartDate, @FutureOrPresent LocalDate leaveEndDate, String leaveType, ApplicationStatus status, String comment)
 //	{
 //		this.employee = employee;
@@ -65,7 +65,7 @@ public class Application
 //		this.status = status;
 //		this.comment = comment;
 //	}
-	public Application(Employee employee,LocalDate applicationDate,LocalDate leaveStartDate,LocalDate leaveEndDate, String leaveType, ApplicationStatus status, String comment)
+	public LeaveApplication(Employee employee,LocalDate applicationDate,LocalDate leaveStartDate,LocalDate leaveEndDate, String leaveType, ApplicationStatus status, String comment)
 	{
 		this.employee = employee;
 		this.applicationDate = applicationDate;

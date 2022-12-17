@@ -1,4 +1,4 @@
-package sg.nus.iss.laps.service;
+package sg.nus.iss.team6.service;
 
 public enum AppplicationStatus {
 	

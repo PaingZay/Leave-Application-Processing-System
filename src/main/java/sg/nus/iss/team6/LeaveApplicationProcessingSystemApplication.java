@@ -1,4 +1,4 @@
-package sg.nus.iss.laps;
+package sg.nus.iss.team6;
 
 import java.time.LocalDate;
 
@@ -10,11 +10,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import sg.nus.iss.laps.model.Application;
-import sg.nus.iss.laps.model.ApplicationStatus;
-import sg.nus.iss.laps.model.Employee;
-import sg.nus.iss.laps.repository.ApplicationRepository;
-import sg.nus.iss.laps.repository.EmployeeRepository;
+
+import sg.nus.iss.team6.model.LeaveApplication;
+import sg.nus.iss.team6.model.ApplicationStatus;
+import sg.nus.iss.team6.model.Employee;
+import sg.nus.iss.team6.repository.LeaveApplicationRepository;
+import sg.nus.iss.team6.repository.EmployeeRepository;
 
 
 @SpringBootApplication
@@ -31,15 +32,15 @@ public class LeaveApplicationProcessingSystemApplication {
 	  }
 	  
 	  @Bean
-	  CommandLineRunner initData(ApplicationRepository applicationRepository, EmployeeRepository employeeRepository) 
+	  CommandLineRunner initData(LeaveApplicationRepository applicationRepository, EmployeeRepository employeeRepository) 
 	  {
 	    return (args) -> {
 	    	
-	      Employee pz = employeeRepository.saveAndFlush(new Employee("Paing", "123456", "Paing Zay", "PZ@gmail.com", 00001, 1, 20.0));
-	      Employee dio = employeeRepository.saveAndFlush(new Employee("Dio", "123457", "Dio Brando", "dio@gmail.com", 00002, 2, 20.0));
-	      Employee jotaro = employeeRepository.saveAndFlush(new Employee("Jotaro", "123458", "Kujo Jotaro", "jojo@gmail.com", 00003, 2, 30));
+	      Employee pz = employeeRepository.saveAndFlush(new Employee("Paing", "123456", "Paing Zay", "PZ@gmail.com", 1, 1, 20.0));
+	      Employee dio = employeeRepository.saveAndFlush(new Employee("Dio", "123457", "Dio Brando", "dio@gmail.com", 2, 2, 20.0));
+	      Employee jotaro = employeeRepository.saveAndFlush(new Employee("Jotaro", "123458", "Kujo Jotaro", "jojo@gmail.com", 3, 2, 30));
 	      
-	      Application app1=new Application();
+	      LeaveApplication app1=new LeaveApplication();
 	      app1.setEmployee(pz);
 	      app1.setApplicationDate(LocalDate.now());
 	      app1.setLeaveStartDate(LocalDate.of(2023,9,11));
@@ -48,7 +49,7 @@ public class LeaveApplicationProcessingSystemApplication {
 	      app1.setStatus(ApplicationStatus.APPLIED);
 	      applicationRepository.saveAndFlush(app1);
 	      
-	      Application app2=new Application();
+	      LeaveApplication app2=new LeaveApplication();
 	      app2.setEmployee(dio);
 	      app2.setApplicationDate(LocalDate.now());
 	      app2.setLeaveStartDate(LocalDate.of(2023,9,12));
@@ -57,7 +58,7 @@ public class LeaveApplicationProcessingSystemApplication {
 	      app2.setStatus(ApplicationStatus.APPLIED);
 	      applicationRepository.saveAndFlush(app2);
 	      
-	      Application app3=new Application();
+	      LeaveApplication app3=new LeaveApplication();
 	      app3.setEmployee(jotaro);
 	      app3.setApplicationDate(LocalDate.now());
 	      app3.setLeaveStartDate(LocalDate.of(2023,9,15));
@@ -65,11 +66,6 @@ public class LeaveApplicationProcessingSystemApplication {
 	      app3.setLeaveType("Annual");
 	      app3.setStatus(ApplicationStatus.APPLIED);
 	      applicationRepository.saveAndFlush(app3);
-
-//	      Application app4=new Application();
-//	      app4.setEmployee(jotaro);
-//	      app4.setStatus(ApplicationStatus.APPLIED);
-//	      applicationRepository.saveAndFlush(app4);
 	    };
 	  }
 
