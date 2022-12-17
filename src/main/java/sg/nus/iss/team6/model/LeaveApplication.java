@@ -1,5 +1,6 @@
 package sg.nus.iss.team6.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,10 +16,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import sg.nus.iss.team6.controller.service.EmployeeService;
+import sg.nus.iss.team6.controller.service.EmployeeServiceImpl;
 import sg.nus.iss.team6.util.LeaveTypeStatus;
+import sg.nus.iss.team6.util.ldt;
 
 @Data
 @Entity
@@ -174,6 +179,28 @@ public class LeaveApplication {
 		this.status=LeaveTypeStatus.APPLIED;
 		this.active=true;
 	}
+	
+	//update with form input, rather than static method
+	public void updateUsingForm(LeaveAppForm leaveAppForm, LocalDateTime inputTime,LeaveType lt) {
+		
+		EmployeeServiceImpl eService=new EmployeeServiceImpl();
+		Employee desiredEmployee=eService.findEmployeeByName(leaveAppForm.getWorkDelegate());
+		
+		//return null for invalid application
+	    if(!ldt.isValid(leaveAppForm.getLeaveStartDate().atTime(0,0,0), leaveAppForm.getLeaveEndDate().atTime(0,0,0))) {
+	    	return;
+	    }
+			this.applicationDate = inputTime;
+			this.leaveStartDate = leaveAppForm.getLeaveStartDate().atTime(0,0,0);
+			this.leaveEndDate = leaveAppForm.getLeaveEndDate().atTime(0,0,0);
+			this.workDelegate = desiredEmployee;
+			this.overseasPhone = leaveAppForm.getOverseasPhone();
+			this.reason = leaveAppForm.getReason();
+			this.leavetype = lt;
+			
+			this.status=LeaveTypeStatus.UPDATED;	
+	}
+	
 	
 	
 	//---Override ToString---

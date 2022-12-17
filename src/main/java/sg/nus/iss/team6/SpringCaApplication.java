@@ -90,7 +90,7 @@ public class SpringCaApplication {
 			alpha.setTeamMembers(toAdd);
 			teamRepo.saveAndFlush(alpha);
 			
-			PublicHoliday christmas = publicHolidayRepo.save(new PublicHoliday("Christmas Day", 25, 12));
+			PublicHoliday christmas = publicHolidayRepo.save(new PublicHoliday("Christmas Day", 25, 12, 1));
 					
 //			System.out.println(christmas.getPHDay(2022));
 //			System.out.println(christmas.getPHDayIndex(2022));

@@ -40,11 +40,57 @@ public class LeaveType {
     
 	//added by Jason--------------------------------------------------------
 	
+    
+    //Getters/Setters------------------------------------------
+    
+    public String getTypeName() {
+		return typeName;
+	}
+
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
+
+	public Double getMaxEntitlement() {
+		return maxEntitlement;
+	}
+
+
+	public void setMaxEntitlement(Double maxEntitlement) {
+		this.maxEntitlement = maxEntitlement;
+	}
+
+
+	public Double getMinGranularity() {
+		return minGranularity;
+	}
+
+
+	public void setMinGranularity(Double minGranularity) {
+		this.minGranularity = minGranularity;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+    
+    //Constructors---------------------------------------------
 
 	
 	public LeaveType() {}
 	
 	
+	
+
+
 	//set both maxEntitlement and minGranularity to Double so they are nullable
 	public LeaveType(String typeName, Double maxEntitlement, Double minGranularity, String description) {
 		this.typeName = typeName;

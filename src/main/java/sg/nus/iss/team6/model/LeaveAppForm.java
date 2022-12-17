@@ -31,8 +31,53 @@ public class LeaveAppForm {
 	
 	private String reason;
 	
+	
+	
+	
 	//private LeaveType leavetype;
 
+	public LocalDate getLeaveStartDate() {
+		return leaveStartDate;
+	}
+
+	public void setLeaveStartDate(LocalDate leaveStartDate) {
+		this.leaveStartDate = leaveStartDate;
+	}
+
+	public LocalDate getLeaveEndDate() {
+		return leaveEndDate;
+	}
+
+	public void setLeaveEndDate(LocalDate leaveEndDate) {
+		this.leaveEndDate = leaveEndDate;
+	}
+
+	public String getWorkDelegate() {
+		return workDelegate;
+	}
+
+	public void setWorkDelegate(String workDelegate) {
+		this.workDelegate = workDelegate;
+	}
+
+	public String getOverseasPhone() {
+		return overseasPhone;
+	}
+
+	public void setOverseasPhone(String overseasPhone) {
+		this.overseasPhone = overseasPhone;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	
+	//constructors-----------
 	public LeaveAppForm() {
 	}
 

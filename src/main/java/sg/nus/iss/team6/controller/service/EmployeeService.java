@@ -13,6 +13,14 @@ public interface EmployeeService {
 
 	  Employee findEmployee(Integer eid);
 	  
+	  Employee findEmployeeByName(String name);
+	  
 	  List<Employee> findEmployeesByTeam(Integer tid);
+	  
+	  Integer findEmployeeRoleId (Integer eid);
+	  
+
+	  
+	  
 
 }

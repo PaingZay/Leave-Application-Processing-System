@@ -29,7 +29,21 @@ public class EmployeeServiceImpl implements EmployeeService{
 	  
 	  @Override
 	  @Transactional
+	  public Employee findEmployeeByName(String name) {
+		  return eRepository.findEmployeeByName(name);
+	  }
+	  
+	  @Override
+	  @Transactional
 	  public List<Employee> findEmployeesByTeam(Integer tid) {
 		  return eRepository.findEmployeeByTID(tid);
 	  }
+	  
+	  @Override
+	  @Transactional
+	  public Integer findEmployeeRoleId (Integer eid) {
+		  return eRepository.findEmployeeEmployeeRoleId(eid);
+	  }
+	  
+	
 }

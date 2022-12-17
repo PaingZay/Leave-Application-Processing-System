@@ -4,6 +4,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Year;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,28 +35,115 @@ public class PublicHoliday {
 	@Column(nullable = false)
 	private Integer phMonth;
 	
+	@Column(nullable = false)
+	private Integer phLength;
+	
 	@Column(name = "active_status", nullable = false)
 	private boolean active;
 	
 	
-	public PublicHoliday() {}
+	//Getters/setters
+	
 
 
-	public PublicHoliday(String name, Integer day, Integer month) {
-		this.name = name;
-		this.phDay = day;
-		this.phMonth = month;
-		
-		this.active=true;
+	public String getName() {
+		return name;
 	}
 
 
+	public void setName(String name) {
+		this.name = name;
+	}
 
+
+	public Integer getPhDay() {
+		return phDay;
+	}
+
+
+	public void setPhDay(Integer phDay) {
+		this.phDay = phDay;
+	}
+
+
+	public Integer getPhMonth() {
+		return phMonth;
+	}
+
+
+	public void setPhMonth(Integer phMonth) {
+		this.phMonth = phMonth;
+	}
+
+
+	public Integer getPhLength() {
+		return phLength;
+	}
+
+
+	public void setPhLength(Integer phLength) {
+		this.phLength = phLength;
+	}
+
+
+	public boolean isActive() {
+		return active;
+	}
+
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	
+	
+	//Constructors
+	public PublicHoliday() {}
+
+
+
+	public PublicHoliday(String name, Integer day, Integer month, Integer phLength) {
+		this.name = name;
+		this.phDay = day;
+		this.phMonth = month;
+		this.phLength = phLength;
+		
+		this.active=true;
+	}
+	
+	
+	
+
+	
+	
+	
+	
+	//Methods
+
+	public LocalDateTime getLDTCurrYear() {
+		int currYear = Calendar.getInstance().get(Calendar.YEAR);
+		LocalDate date = LocalDate.of(currYear, this.phMonth, this.phDay);
+		LocalTime time = LocalTime.of(0,0);
+		return LocalDateTime.of(date,time);
+	}
+	
+	public LocalDateTime getLDTEndCurrYear() {
+		
+		LocalDateTime start=getLDTCurrYear();
+		return start.plusDays(getPhLength());
+	}
+	
 	public LocalDateTime getLDTByYear(Integer year) {
 		LocalDate date = LocalDate.of(year, this.phMonth, this.phDay);
 		LocalTime time = LocalTime.of(0,0);
 		return LocalDateTime.of(date,time);
 	}
+	
+	public LocalDateTime getLDTEndByYear(Integer year) {
+		
+		LocalDateTime start=getLDTByYear(year);
+		return start.plusDays(getPhLength());
+	}
+	
 	
 	public DayOfWeek getPHDay (Integer year) {
 		LocalDate date = LocalDate.of(year, this.phMonth, this.phDay);

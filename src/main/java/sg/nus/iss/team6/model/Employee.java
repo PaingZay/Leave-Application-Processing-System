@@ -61,10 +61,53 @@ public class Employee {
 	private boolean active;
     
     
+    
+    //---Getters/Setters-------
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+    
+    public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public List<LeaveApplication> getLeaveApplications() {
+		return leaveApplications;
+	}
+
+	public void setLeaveApplications(List<LeaveApplication> leaveApplications) {
+		this.leaveApplications = leaveApplications;
+	}
+	
+	
+	
     //METHODS-------------------------------------------------------------------
     
-    public Employee() {}
+	public void addLeaveApplication(LeaveApplication la) {
+		if (leaveApplications==null) {
+			List<LeaveApplication> toAdd=new ArrayList<>();
+			toAdd.add(la);
+			this.leaveApplications=toAdd;
+		}
+		else {
+			leaveApplications.add(la);
+		}
+	}
+
+
+
+	public Employee() {}
     
+
+
 	public Employee(String username, String password, String name, String phone) {
 		this.username = username;
 		this.password = password;
@@ -89,16 +132,7 @@ public class Employee {
 	}
 	
 	
-	public void addLeaveApplication(LeaveApplication la) {
-		if (leaveApplications==null) {
-			List<LeaveApplication> toAdd=new ArrayList<>();
-			toAdd.add(la);
-			this.leaveApplications=toAdd;
-		}
-		else {
-			leaveApplications.add(la);
-		}
-	}
+
 
 
 
@@ -126,5 +160,7 @@ public class Employee {
     public int hashCode() {
         return Objects.hash(id, username, overtimeBalance, role, active);
     }
+
+
 	
 }

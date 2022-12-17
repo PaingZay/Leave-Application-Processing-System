@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -35,8 +36,9 @@ public class Role {
 	@Column(name = "role_description", nullable = true)
 	private String description;
 	
-	@OneToMany (cascade = CascadeType.ALL)
-	@JoinColumn(name="role_id") 
+	//@OneToMany (cascade = CascadeType.ALL)
+	//@JoinColumn(name="role_id") 
+	@ManyToMany	
 	private List<LeaveType> leaveTypes;
 
 	// changed by Jason--------------------------------------------------------
@@ -48,7 +50,36 @@ public class Role {
 //	@JoinColumn(name="role_id") 
 //	private List<Employee> listEmployee;
 	
+	//--Getters/Setters---------
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
+	public List<LeaveType> getLeaveTypes() {
+		return leaveTypes;
+	}
+	
+	public void setLeaveTypes(List<LeaveType> lt) {
+		this.leaveTypes=lt;
+	}
+//	public void addRole(Employee employee) {
+//		// toadd validation
+//		listEmployee.add(employee);
+//	}
+	
+	//--Constructors-----
+	
+
+
 	public Role() {}
+
+
 
 	public Role(int hValue, String name, String description) {
 		this.hierarchyValue = hValue;
@@ -59,13 +90,7 @@ public class Role {
 		this.active = true;
 	}
 
-	public void setLeaveTypes(List<LeaveType> lt) {
-		this.leaveTypes=lt;
-	}
-//	public void addRole(Employee employee) {
-//		// toadd validation
-//		listEmployee.add(employee);
-//	}
+
 
 	// ------------------------------------------------------
 	@Override
