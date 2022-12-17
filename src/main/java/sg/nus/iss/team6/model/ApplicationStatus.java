@@ -5,3 +5,4 @@ public enum ApplicationStatus {
 	APPLIED, UPDATED, DELETED, APPROVED, REJECTED
 	
 }
+ 
