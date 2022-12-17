@@ -1,6 +1,9 @@
 # SPRINGCA:Leave Application Processing System (LAPS)
 
 Forked from Cyrus's Branch
+## Fixed:
+  Form bugs
+  
 ## Working on:
 
   1. logic
