@@ -20,7 +20,7 @@ import sg.nus.iss.team6.service.LeaveApplicationService;
 
 @Controller
 @RequestMapping(value = "/leaveapplication")
-public class ApplicationController {
+public class LeaveApplicationController {
 	
 	@Autowired
 	  private LeaveApplicationService applicationService;
