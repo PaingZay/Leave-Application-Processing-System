@@ -24,6 +24,8 @@ public class Employee {
 	private String password;
 	
 	private String name;
+
+	private String phone;
 	
 	private String emailAddress;
 	
@@ -33,19 +35,23 @@ public class Employee {
 	
 	private double overtimeBalance;
 
+	private boolean active = true;
+
 	@Column(name = "managerid")
 	private String managerId;
 
 	public Employee() { }
 	  
-	public Employee(String username, String password, String name, String emailAddress, int roleId, int teamId, double overtimeBalance){
+	public Employee(String username, String password, String name, String phone, String emailAddress, int roleId, int teamId, double overtimeBalance, boolean active){
 		this.username = username;
 		this.password = password;
 		this.name = name;
+		this.phone = phone;
 		this.emailAddress = emailAddress;
 		this.roleId = roleId;
 	    this.teamId = teamId;
 	    this.overtimeBalance = overtimeBalance;
+		this.active = active;
 	}
 
 	public int getId() {
@@ -120,11 +126,27 @@ public class Employee {
 		this.overtimeBalance = overtimeBalance;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	public String getManagerId() {
 		return managerId;
 	}
 
 	public void setManagerId(String managerId) {
 		this.managerId = managerId;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 }

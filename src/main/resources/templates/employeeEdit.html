@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset = "ISO-8859-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expend-lg navbar-light bg-light">
+	<h5 th:text="Edit"></h5>
+	<a href="http://localhost:8080/admin/menu" class = "nav-link active mr-auto">Home</a>
+	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 
+	</nav>
+	
+	<center><form method="post" action="#" th:action="@{/admin/edit/'+employee.username}" th:object="${employee}">
+	    <table class="framed">
+
+	      <tr>
+	        <fieldset><input type="text" class="fadeIn second" th:field="*{username}" readonly="readonly" /></fieldset>
+	      </tr>  
+	      <br></br>
+	      
+	      <tr>
+	        <fieldset><input type="text" class="fadeIn second" th:field="*{name}" /></fieldset>
+	      </tr>  
+	      <br></br>
+	      
+	      <tr>
+	        <fieldset><input type="text" class="fadeIn second" th:field="*{phone}" /></fieldset>
+	      </tr>  
+	      <br></br>
+	      
+	      <tr>
+	        <fieldset><input type="text" class="fadeIn second" th:field="*{emailAddress}" /></fieldset>
+	      </tr>
+	      <tr>  
+	      <br></br>
+	      
+          <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Admin" name="Admin" class="custom-control-input" value="1" th:field="*{roleId}">
+                <label class="custom-control-label" for="Admin">Admin</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Manager" name="Manager" class="custom-control-input" value="2" th:field="*{roleId}">
+                <label class="custom-control-label" for="Manager">Manager</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Staff" name="Staff" class="custom-control-input" value="3" th:field="*{roleId}">
+                <label class="custom-control-label" for="Staff">Staff</label>
+          </div>
+          <br></br>
+	      <br></br>
+	      
+          <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Team1" name="Team1" class="custom-control-input" value="1" th:field="*{teamId}">
+                <label class="custom-control-label" for="Team1">Team1</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Team2" name="Team2" class="custom-control-input" value="2" th:field="*{teamId}">
+                <label class="custom-control-label" for="Team2">Team2</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Team3" name="Team3" class="custom-control-input" value="3" th:field="*{teamId}">
+                <label class="custom-control-label" for="Team3">Team3</label>
+          </div>
+          <br></br>
+	      <br></br>
+	      
+	      <td>&nbsp;</td>
+	      <td>
+	        <input class="btn btn-secondary" type="submit" value="Update">
+	      </td>
+	      </tr>
+	      
+	    </table>
+	  </form>
+	</center>
+
+</body>
+
+</html>

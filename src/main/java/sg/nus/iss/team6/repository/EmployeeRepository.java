@@ -29,4 +29,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 		
 	@Query("SELECT e FROM Employee e where e.username = :username")
 	public Employee findUser(@Param("username") String username);
+	
+	@Query("SELECT DISTINCT e.username FROM Employee e")
+	List<String> findAllUsernames();
 }

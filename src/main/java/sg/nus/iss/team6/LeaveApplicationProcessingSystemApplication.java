@@ -36,9 +36,9 @@ public class LeaveApplicationProcessingSystemApplication {
 	  {
 	    return (args) -> {
 	    	
-	      Employee pz = employeeRepository.saveAndFlush(new Employee("Paing", "123456", "Paing Zay", "PZ@gmail.com", 2, 1, 20.0));
-	      Employee dio = employeeRepository.saveAndFlush(new Employee("Dio", "123457", "Dio Brando", "dio@gmail.com", 2, 2, 20.0));
-	      Employee jotaro = employeeRepository.saveAndFlush(new Employee("Jotaro", "123458", "Kujo Jotaro", "jojo@gmail.com", 3, 2, 30));
+	      Employee pz = employeeRepository.saveAndFlush(new Employee("Paing", "123456", "Paing Zay","+65 11111111", "PZ@gmail.com", 2, 1, 20.0,true));
+	      Employee dio = employeeRepository.saveAndFlush(new Employee("Dio", "123457", "Dio Brando","+65 11111112", "dio@gmail.com", 2, 2, 20.0,true));
+	      Employee jotaro = employeeRepository.saveAndFlush(new Employee("Jotaro", "123458", "Kujo Jotaro","+65 11111114","jojo@gmail.com", 1, 2, 30,true));
 	      
 	      LeaveApplication app1=new LeaveApplication();
 	      app1.setEmployee(pz);
