@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: html_head"/>
+<body>
+  <div th:replace="fragments/layout.html :: menu"/>
+  <div th:replace="fragments/layout.html :: header"/> 
+    <h3>Edit Course Application Page</h3>
+  <form action="#" th:action="@{/leaveapplication/viewdetail/}+${appdetails.id}"
+    th:object="${appdetails}" method="post">
+    <table>
+      <tbody>
+        <tr>
+          <td>
+          		<input type="text" th:value="*{id}" /><!--th:value|applicationId-->
+          		<input type="hidden" th:field="*{employee}" /><!--th:field|employee-->
+          		<span th:text="#{fieldLabel.courseName}"></span>
+          	  	<input type="text"	 th:value="*{employee.id}" disabled="disabled"/><!--th:value|employeeId-->
+          	  	<span th:text="#{fieldLabel.courseName}"></span>
+           	  	<input type="text"	 th:field="*{employee.name}" size="40" disabled="disabled"/>
+          </td>
+          <td th:if="${#fields.hasErrors('employee.name')}" th:errors="*{employee.name}"></td>
+        </tr>
+        <tr>
+          <td>
+          		<input type="hidden" th:field="*{applicationDate}" /><!--th:field|applicationDate-->
+          		
+          		<span th:text="#{fieldLabel.startDate}"></span>
+          		<input type="date" th:field="*{leaveStartDate}" size="40" disabled="disabled"/><!--th:field|leaveStartDate-->
+          		<!--<td th:if="${#fields.hasErrors('leaveStartDate')}" th:errors="*{leaveStartDate}">-->  
+          		 
+          		<span th:text="#{fieldLabel.endDate}"></span>
+          		<input type="date" th:field="*{leaveEndDate}" size="40" disabled="disabled"/><!--th:field|leaveEndDate-->
+          		<!--<td th:if="${#fields.hasErrors('leaveEndDate')}" th:errors="*{leaveEndDate}">-->
+          </td>
+        </tr>
+        <tr>
+          <td>
+          		<span th:text="#{fieldLabel.leaveType}"></span>
+          		<input type="text" th:field="*{leaveType}" size="20" disabled="disabled"/>
+          
+          		<span th:text="#{fieldLabel.status}"></span>
+          		<input type="text" th:field="*{status}" size="20" disabled="disabled" />
+          </td>
+        </tr>
+         <tr>
+          <td>
+          		<span th:text="#{fieldLabel.numberOfDays}"></span>
+          		<input type="text" th:value="*{leaveType}" size="20" disabled="disabled"/>
+          </td>
+        </tr>
+       	<tr>
+          <td>
+          	<textarea type="text" th:field="*{comment}" rows="4" cols="50"></textarea>
+          </td>
+        </td>	
+        <tr>
+          <td>
+            <input type="submit" value="Approve" class="blcass" />
+            <input type="submit" value="Reject" class="blcass" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</body>
+</html>

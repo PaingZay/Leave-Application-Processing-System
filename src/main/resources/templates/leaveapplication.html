@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: html_head"/>
+<body>
+  <div th:replace="fragments/layout.html :: menu"/>
+  <div th:replace="fragments/layout.html :: header"/> 
+  <h2>Your Course History</h2>
+  
+  <div th:if="${#lists.isEmpty(chistory)}">
+    <p>You have no courses. Start applying a new one.</p>
+  </div>
+  
+  <div th:if="${not #lists.isEmpty(chistory)}">
+    <table style=" border: 1;">
+      <tr class="listHeading">
+        <th><span th:text="#{fieldLabel.number}"></span></th>
+        <th><span th:text="#{fieldLabel.empId}"></span></th>
+        <th><span th:text="#{fieldLabel.empName}"></span></th>
+        <th><span th:text="#{fieldLabel.startDate}"></span></th>
+        <th><span th:text="#{fieldLabel.endDate}"></span></th>
+        <th><span th:text="#{fieldLabel.leaveType}"></span></th>
+        <th><span th:text="#{fieldLabel.status}"></span></th>
+      </tr>
+      
+      <tr th:each="application1 : ${chistory}" class="listRecord">
+        <td align="left" th:text="${application1.id}">Id</td>
+        <td align="left" th:text="${application1.employee.id}">Employee</td>
+        <td align="left" th:text="${application1.employee.name}">Name</td>
+        <td align="left" th:text="${#temporals.format(application1.leaveStartDate, 'yyyy-MM-dd')}">From</td>
+        <td align="left" th:text="${#temporals.format(application1.leaveEndDate, 'yyyy-MM-dd')}">To</td>
+        <td align="left" th:text="${application1.leaveType}">Fees</td>
+        <td align="left" th:text="${application1.status}">Status</td>
+        <td>
+          <div
+            th:if="${#strings.equals(application1.status, 'APPLIED')  or #strings.equals(application1.status,'UPDATED')}">
+            <a th:href="@{/leaveapplication/viewdetail/}+${application1.id}">APPROVE</a>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>
