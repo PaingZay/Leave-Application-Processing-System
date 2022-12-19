@@ -16,6 +16,6 @@ public class WebAppConfig implements WebMvcConfigurer{
 	public void addInterceptors(
 	InterceptorRegistry registry) {
 
-	registry.addInterceptor(securityInterceptor).addPathPatterns("/leaveapplication/*","/manager/*","/staff/*");
+	registry.addInterceptor(securityInterceptor).addPathPatterns("/leaveapplication/*","/manager/*","/admin/*");
 	}
 }

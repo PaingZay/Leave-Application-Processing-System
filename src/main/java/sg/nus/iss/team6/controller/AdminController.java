@@ -135,6 +135,8 @@ public class AdminController {
         employee1.setEmailAddress(employee.getEmailAddress());
 		employee1.setRoleId((employee.getRoleId()));
 		employee1.setTeamId((employee.getTeamId()));
+		System.out.println(employee1.getName());
+		System.out.println(employee1.getPhone());
 		  
         employeeService.createEmployee(employee1);
 

@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 //import javax.validation.constraints.FutureOrPresent;
 //import javax.validation.constraints.NotEmpty;
 //import javax.validation.constraints.NotNull;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,21 +31,21 @@ public class LeaveApplication
 	@ManyToOne
 	private Employee employee;
 	
-//	@NotNull(message = "Application date must be provided")
-//	@FutureOrPresent
+	@NotNull(message = "Application date must be provided")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate applicationDate;
 	
-//	@NotNull(message = "Start date must be provided")
-//	@FutureOrPresent
+	@NotNull(message = "Start date must be provided")
+	@FutureOrPresent
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate leaveStartDate;
 	
-//	@NotNull(message = "End date must be provided")
-//	@FutureOrPresent
+	@NotNull(message = "End date must be provided")
+	@FutureOrPresent
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate leaveEndDate;
 	
+	@NotNull(message = "End date must be provided")
 	private String leaveType;
 	
 	private String comment;
@@ -52,19 +54,8 @@ public class LeaveApplication
 	@Column(name = "status", columnDefinition = "ENUM('APPLIED','UPDATED','DELETED','APPROVED','REJECTED')")
 	@Enumerated(EnumType.STRING)
 	private ApplicationStatus status;
-	
-	// No args and argument constructor
+
 	public LeaveApplication(){}
-//	public Application(@NotEmpty Employee employee, @NotEmpty LocalDate applicationDate, @FutureOrPresent LocalDate leaveStartDate, @FutureOrPresent LocalDate leaveEndDate, String leaveType, ApplicationStatus status, String comment)
-//	{
-//		this.employee = employee;
-//		this.applicationDate = applicationDate;
-//		this.leaveStartDate = leaveStartDate;
-//		this.leaveEndDate = leaveEndDate;
-//		this.leaveType = leaveType;
-//		this.status = status;
-//		this.comment = comment;
-//	}
 	public LeaveApplication(Employee employee,LocalDate applicationDate,LocalDate leaveStartDate,LocalDate leaveEndDate, String leaveType, ApplicationStatus status, String comment)
 	{
 		this.employee = employee;
@@ -75,7 +66,6 @@ public class LeaveApplication
 		this.status = status;
 		this.comment = comment;
 	}
-	
 	
 	//Following are auto-generated getters and setters
 	

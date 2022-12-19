@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 
 @Entity
@@ -19,14 +21,19 @@ public class Employee {
 	@OneToMany(mappedBy="employee")
 	private List<LeaveApplication> applications;
 	
+	@NotBlank(message = "Username is required")
 	private String username;
 	
+	@NotBlank(message = "Password is required")
 	private String password;
 	
+	@NotBlank(message = "Name is required")
 	private String name;
 
 	private String phone;
 	
+	@NotBlank(message = "Email is required")
+	@Email(message = "Invalid Email Format")
 	private String emailAddress;
 	
 	private int roleId;
