@@ -1,7 +1,10 @@
 # SPRINGCA:Leave Application Processing System (LAPS)
 
 Forked from Cyrus's Branch
-  
+ 
+## Fully Functional:
+Create for Annual and Medical are functional
+
 ## Working on:
 
   1. logic
