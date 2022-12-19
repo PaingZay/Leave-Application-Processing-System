@@ -38,10 +38,11 @@ import sg.nus.iss.team6.util.LeaveTypeStatus;
 import sg.nus.iss.team6.util.ldt;
 import sg.nus.iss.team6.validator.AnnualLeaveValidator;
 import sg.nus.iss.team6.validator.LeaveAppFormValidator;
+import sg.nus.iss.team6.validator.MedicalLeaveValidator;
 
 @Controller
 @RequestMapping(value = "/leave")
-public class LeaveApplicationController {
+public class LeaveApplicationCompensationController {
 
 	@Autowired
 	private LeaveApplicationService laService;
@@ -62,12 +63,12 @@ public class LeaveApplicationController {
 	private LeaveAppFormValidator leaveAppFormValidator;
 
 	@Autowired
-	private AnnualLeaveValidator annualLeaveValidator;
+	private MedicalLeaveValidator medicalLeaveValidator;
 
 	@InitBinder("leaveAppForm")
 	private void initCourseBinder(WebDataBinder binder) {
 		binder.addValidators(leaveAppFormValidator);
-		binder.addValidators(annualLeaveValidator);
+		binder.addValidators(medicalLeaveValidator);
 	}
 
 	/**
@@ -76,50 +77,56 @@ public class LeaveApplicationController {
 	 * @return
 	 */
 
-	@RequestMapping(value = "/history")
-	public String LeaveApplicationHistory(HttpSession session, Model model) {
+	
+
+
+	@GetMapping("/apply/compensation")
+	public String newMedicalLeaveApplication(Model model) {
+
+		model.addAttribute("leaveAppForm", new LeaveAppForm());
+
+		return "leaveApplicationCompensation";
+	}
+	
+	@PostMapping("/apply/compensation")
+	public String createNewMedicalLeaveApplication(@ModelAttribute @Valid LeaveAppForm leaveAppForm, BindingResult result,
+			HttpSession session) {
+
+		// check for errors
+		if (result.hasErrors()) {
+			return "leaveApplicationCompensation";
+		}
 
 		// TODO combine with UserSession
 		// hardcode EmployeeId first
-		int currentUserId = 1;
+		int currentUserId = leaveAppForm.getApplicantId();
+
 		Employee currentUser = eService.findEmployee(currentUserId);
-		System.out.println(currentUser.getName());
+		LeaveType leaveType = ltService.findLeaveTypeByNameAndRole("Medical", currentUser.getRole());
+		Double maxEntitlement = leaveType.getMaxEntitlement();
+		Employee desiredEmployee = eService.findEmployeeByName(leaveAppForm.getWorkDelegate());
 
-		List<LeaveApplication> leaveApplications = currentUser.getLeaveApplications();
-		List<LeaveApplication> laAnnual= new ArrayList<>();
-		List<LeaveApplication> laMedical= new ArrayList<>();
-		List<LeaveApplication> laCompensation= new ArrayList<>();
-		for(LeaveApplication la:leaveApplications) {
-			if(!la.getActive())
-				continue;
-			if (la.getLeaveType().getTypeName()=="Annual") 
-				laAnnual.add(la);
-			if (la.getLeaveType().getTypeName()=="Medical") 
-				laMedical.add(la);
-			if (la.getLeaveType().getTypeName()=="Compensation") 
-				laCompensation.add(la);
-		}
-		
-		model.addAttribute("laAnnual", laAnnual);
-		model.addAttribute("laMedical", laMedical);
-		model.addAttribute("laCompensation", laCompensation);
+		// get year of leave
+		Integer leaveAppStartYear = leaveAppForm.getLeaveStartDate().getYear();
 
+		LocalDateTime leaveStart = leaveAppForm.getLeaveStartDate().atTime(leaveAppForm.getLeaveStartTime(), 0, 0);
+		LocalDateTime leaveEnd = leaveAppForm.getLeaveEndDate().atTime(leaveAppForm.getLeaveEndTime(), 0, 0);
 
-		return "leaveApplicationHistory";
+		LeaveApplication myLA = leaveAppForm.convertToLA(LocalDateTime.now(), leaveType, desiredEmployee, leaveStart,
+				leaveEnd);
+		laService.createLeaveApplication(myLA);
+
+		currentUser.addLeaveApplication(myLA);
+		eService.changeEmployee(currentUser);
+
+		String message = "New leave application was successfully created.";
+		System.out.println(message);
+
+		return "redirect:/leave/apply/compensation";
 	}
 	
 	
-	
-	
-	
-	
 
-	
-	
-	
-	
-
-//
 //  @GetMapping("/course/edit/{id}")
 //  public String editCoursePage(@PathVariable Integer id, Model model) {
 //    Course course = courseService.findCourse(id);

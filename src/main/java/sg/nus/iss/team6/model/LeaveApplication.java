@@ -67,12 +67,21 @@ public class LeaveApplication {
 	private Boolean active;
 	
 	@ManyToOne
-	private LeaveType leavetype;
+	private LeaveType leaveType;
 	
 	
 	
 	
 	//--Getters and setters----
+	
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public LocalDateTime getApplicationDate() {
 		return applicationDate;
@@ -83,7 +92,15 @@ public class LeaveApplication {
 		this.applicationDate = applicationDate;
 	}
 	
-	
+
+	public LocalDateTime getApprovalDate() {
+		return approvalDate;
+	}
+
+
+	public void setApprovalDate(LocalDateTime approvalDate) {
+		this.approvalDate = approvalDate;
+	}
 
 	public LocalDateTime getLeaveStartDate() {
 		return leaveStartDate;
@@ -124,26 +141,56 @@ public class LeaveApplication {
 		this.overseasPhone = overseasPhone;
 	}
 
+	public void setStatus(LeaveTypeStatus status) {
+		this.status=status;
+	}
+	
+	public LeaveTypeStatus getStatus() {
+		return status;
+	}
+
 
 	public String getReason() {
 		return reason;
 	}
+	
+	public String getComment() {
+		return comment;
+	}
 
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
 
 
-	public void setStatus(LeaveTypeStatus status) {
-		this.status=status;
+	public Boolean getActive() {
+		return active;
 	}
 
 
-	public void setActive(boolean b) {
-		this.active=b;
-		
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
+
+	public LeaveType getLeaveType() {
+		return leaveType;
+	}
+
+
+	public void setLeaveType(LeaveType leavetype) {
+		this.leaveType = leavetype;
+	}
+
+
+
+
+
+	
 	
 	//---Constructors-----
 	
@@ -157,7 +204,7 @@ public class LeaveApplication {
 		this.leaveStartDate = leaveStartDate;
 		this.leaveEndDate = leaveEndDate;
 		this.reason = reason;
-		this.leavetype = leavetype;
+		this.leaveType = leavetype;
 		
 		this.status=LeaveTypeStatus.APPLIED;
 		this.active=true;
@@ -174,7 +221,7 @@ public class LeaveApplication {
 		this.workDelegate = workDelegate;
 		this.overseasPhone = overseasPhone;
 		this.reason = reason;
-		this.leavetype = leavetype;
+		this.leaveType = leavetype;
 		
 		this.status=LeaveTypeStatus.APPLIED;
 		this.active=true;
@@ -196,7 +243,7 @@ public class LeaveApplication {
 			this.workDelegate = desiredEmployee;
 			this.overseasPhone = leaveAppForm.getOverseasPhone();
 			this.reason = leaveAppForm.getReason();
-			this.leavetype = lt;
+			this.leaveType = lt;
 			
 			this.status=LeaveTypeStatus.UPDATED;	
 	}

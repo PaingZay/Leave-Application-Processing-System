@@ -3,6 +3,7 @@ package sg.nus.iss.team6.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,11 +12,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import sg.nus.iss.team6.controller.service.EmployeeService;
 import sg.nus.iss.team6.util.LeaveTypeStatus;
 
 public class LeaveAppForm {
+	@Autowired
+	private EmployeeService eService;
 
 	//private LocalDateTime applicationDate;
 	
@@ -25,11 +30,21 @@ public class LeaveAppForm {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate leaveEndDate;
 	
+	private Integer leaveStartTime;
+	
+	private Integer leaveEndTime;
+	
 	private String workDelegate;
 	
 	private String overseasPhone;
 	
 	private String reason;
+	
+	//important!---------------
+	
+	private String leaveTypeName;
+	
+	private String applicantId;
 	
 	
 	
@@ -50,6 +65,24 @@ public class LeaveAppForm {
 
 	public void setLeaveEndDate(LocalDate leaveEndDate) {
 		this.leaveEndDate = leaveEndDate;
+	}
+	
+	
+
+	public Integer getLeaveStartTime() {
+		return leaveStartTime;
+	}
+
+	public void setLeaveStartTime(Integer leaveStartTime) {
+		this.leaveStartTime = leaveStartTime;
+	}
+
+	public Integer getLeaveEndTime() {
+		return leaveEndTime;
+	}
+
+	public void setLeaveEndTime(Integer leaveEndTime) {
+		this.leaveEndTime = leaveEndTime;
 	}
 
 	public String getWorkDelegate() {
@@ -75,8 +108,24 @@ public class LeaveAppForm {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-
 	
+
+	public String getLeaveTypeName() {
+		return leaveTypeName;
+	}
+
+	public void setLeaveTypeName(String leaveTypeName) {
+		this.leaveTypeName = leaveTypeName;
+	}
+
+	public Integer getApplicantId() {
+		return Integer.valueOf(applicantId);
+	}
+
+	public void setApplicantId(Integer applicantId) {
+		this.applicantId = applicantId.toString();
+	}
+
 	//constructors-----------
 	public LeaveAppForm() {
 	}
@@ -93,15 +142,44 @@ public class LeaveAppForm {
 		this.reason = reason;
 	}
 	
-	public LeaveApplication convertToLA(LocalDateTime applicationDate,LeaveType leavetype) {
+
+	public LeaveApplication convertToLA(LocalDateTime applicationDate,LeaveType leavetype,Employee desiredEmployee) {
+
+
+		LeaveApplication myLA = new LeaveApplication();
+		myLA.setApplicationDate(applicationDate);
+		myLA.setApprovalDate(null);
+		myLA.setLeaveStartDate(this.leaveStartDate.atTime(this.leaveStartTime,0,0));
+		myLA.setLeaveEndDate(this.leaveEndDate.atTime(this.leaveEndTime,0,0));
+		myLA.setWorkDelegate(desiredEmployee);
+		myLA.setOverseasPhone(this.overseasPhone);
+		myLA.setStatus(LeaveTypeStatus.APPLIED);
+		myLA.setComment(null);
+		myLA.setReason(this.reason);
+		myLA.setActive(true);
+		myLA.setLeaveType(leavetype);
 		
-		return null;
-		
-//		LeaveApplication returnThis = new LeaveApplication(applicationDate,leaveStartDate,leaveEndDate,
-//				workDelegate, overseasPhone, reason, leavetype);
-		
+		return myLA;
 	}
 	
+
+	public LeaveApplication convertToLA(LocalDateTime applicationDate,LeaveType leavetype,Employee desiredEmployee,LocalDateTime newStart,LocalDateTime newEnd) {
+		
+		LeaveApplication myLA = new LeaveApplication();
+		myLA.setApplicationDate(applicationDate);
+		myLA.setApprovalDate(null);
+		myLA.setLeaveStartDate(newStart);
+		myLA.setLeaveEndDate(newEnd);
+		myLA.setWorkDelegate(desiredEmployee);
+		myLA.setOverseasPhone(this.overseasPhone);
+		myLA.setStatus(LeaveTypeStatus.APPLIED);
+		myLA.setComment(null);
+		myLA.setReason(this.reason);
+		myLA.setActive(true);
+		myLA.setLeaveType(leavetype);
+		
+		return myLA;
+	}
 	
 	@Override
 	public String toString() {

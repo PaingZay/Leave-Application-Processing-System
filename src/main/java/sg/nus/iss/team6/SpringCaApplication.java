@@ -91,6 +91,7 @@ public class SpringCaApplication {
 			teamRepo.saveAndFlush(alpha);
 			
 			PublicHoliday christmas = publicHolidayRepo.save(new PublicHoliday("Christmas Day", 25, 12, 1));
+			PublicHoliday diwali = publicHolidayRepo.save(new PublicHoliday("Deepavali, Festival of Lights", 24, 10, 1));
 					
 //			System.out.println(christmas.getPHDay(2022));
 //			System.out.println(christmas.getPHDayIndex(2022));
@@ -98,7 +99,7 @@ public class SpringCaApplication {
 			//create a leave application
 			LocalDateTime applyDate=LocalDateTime.of(2022, 1, 8, 0, 0, 0, 0);
 			LocalDateTime lSDate=LocalDateTime.of(2022, 12, 23, 0, 0, 0, 0);
-			LocalDateTime lEDate=LocalDateTime.of(2022, 12, 26, 0, 0, 0, 0);
+			LocalDateTime lEDate=LocalDateTime.of(2022, 12, 23, 8, 0, 0, 0);
 			
 			LeaveApplication johnsLeave = leaveApplicationRepo.save(new LeaveApplication(applyDate, lSDate, lEDate, "Spending the holidays with my children.",annualS));
 			john.addLeaveApplication(johnsLeave);

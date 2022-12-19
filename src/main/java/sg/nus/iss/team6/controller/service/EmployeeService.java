@@ -9,18 +9,16 @@ import sg.nus.iss.team6.model.Employee;
 @Service
 public interface EmployeeService {
 
-	  List<Employee> findAllEmployees();
+	List<Employee> findAllEmployees();
 
-	  Employee findEmployee(Integer eid);
-	  
-	  Employee findEmployeeByName(String name);
-	  
-	  List<Employee> findEmployeesByTeam(Integer tid);
-	  
-	  Integer findEmployeeRoleId (Integer eid);
-	  
+	Employee findEmployee(Integer eid);
 
-	  
-	  
+	Employee findEmployeeByName(String name);
+
+	List<Employee> findEmployeesByTeam(Integer tid);
+
+	Integer findEmployeeRoleId(Integer eid);
+
+	Employee changeEmployee(Employee employee);
 
 }

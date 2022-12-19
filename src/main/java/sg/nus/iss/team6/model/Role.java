@@ -60,7 +60,22 @@ public class Role {
 		this.id = id;
 	}
 	
-	
+	public int getHierarchyValue() {
+		return hierarchyValue;
+	}
+
+	public void setHierarchyValue(int hierarchyValue) {
+		this.hierarchyValue = hierarchyValue;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public List<LeaveType> getLeaveTypes() {
 		return leaveTypes;
 	}

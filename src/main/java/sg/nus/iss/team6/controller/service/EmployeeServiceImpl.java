@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.nus.iss.team6.model.Employee;
+import sg.nus.iss.team6.model.LeaveApplication;
 import sg.nus.iss.team6.repository.EmployeeRepository;
 
 @Service
@@ -43,6 +44,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 	  @Transactional
 	  public Integer findEmployeeRoleId (Integer eid) {
 		  return eRepository.findEmployeeEmployeeRoleId(eid);
+	  }
+	  
+	  @Override
+	  @Transactional
+	  public Employee changeEmployee(Employee employee) {
+	    return eRepository.saveAndFlush(employee);
 	  }
 	  
 	
