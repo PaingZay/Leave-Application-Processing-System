@@ -3,7 +3,8 @@
 Forked from Cyrus's Branch
  
 ## Fully Functional:
-Create for Annual and Medical are functional
+ 1. Create for Annual and Medical are functional
+ 2. 221220 fixed bug relating to retrieving userId for leaveAppFormValidator
 
 ## Working on:
 
@@ -13,10 +14,11 @@ Create for Annual and Medical are functional
   
  ## TODO:
  
-  //toresume: logical delete cascade? ask someone
-  //toresume: implementing the root hierarchy?
-  //toresume: hook up to userSession
-  //toresume: make fields mandatory
+  1. logical delete cascade?
+  2. implementing the root hierarchy?
+  3. hook up to userSession
+  4. make fields mandatory
+  5. in-model validation (hours) for formfield
 
 ## Fixed:
   Form bugs
