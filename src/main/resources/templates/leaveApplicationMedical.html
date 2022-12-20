@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+	<h1>New Leave Application Page</h1>
+	<form action="#" th:action="@{/leave/apply/medical}" th:object="${leaveAppForm}" method="post">
+		<table>
+			<tbody>
+
+				<tr>
+					<td><label>Leave Start Date:</label></td>
+					<td><input type="date" th:value="*{leaveStartDate}" th:field="*{leaveStartDate}" /></td>
+					<td th:if="${#fields.hasErrors('leaveStartDate')}" th:errors="*{leaveStartDate}"></td>
+				</tr>
+				<tr>
+					<td><label>Leave End Date:</label></td>
+					<td><input type="date" th:value="*{leaveEndDate}" th:field="*{leaveEndDate}" /></td>
+					<td th:if="${#fields.hasErrors('leaveEndDate')}" th:errors="*{leaveEndDate}"></td>
+				</tr>
+				<tr>
+					<td><label>Leave Start Time:</label></td>
+					<td><input type="number" th:value="*{leaveStartTime}" th:field="*{leaveStartTime}" /></td>
+					<td th:if="${#fields.hasErrors('leaveStartTime')}" th:errors="*{leaveStartTime}"></td>
+				</tr>
+				<tr>
+					<td><label>Leave End Time:</label></td>
+					<td><input type="number" th:value="*{leaveEndTime}" th:field="*{leaveEndTime}" /></td>
+					<td th:if="${#fields.hasErrors('leaveEndTime')}" th:errors="*{leaveEndTime}"></td>
+				</tr>
+				<tr>
+					<td><label>Work Dissemination:</label></td>
+					<td><input type="text" th:field="*{workDelegate}" size="40" /></td>
+					<td th:if="${#fields.hasErrors('workDelegate')}" th:errors="*{workDelegate}"></td>
+				</tr>
+
+				<tr>
+					<td><label>Overseas Phone Number:</label></td>
+					<td><input type="text" th:field="*{overseasPhone}" size="40" /></td>
+					<td th:if="${#fields.hasErrors('overseasPhone')}" th:errors="*{overseasPhone}"></td>
+				</tr>
+
+				<tr>
+					<td><label>Reason for Leave:</label></td>
+					<td><input type="text" th:field="*{reason}" size="40" /></td>
+					<td th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}"></td>
+				</tr>
+
+				<!--Set hidden values here- Assign session dynamically-->
+				<!--ref: https://www.baeldung.com/spring-thymeleaf-hidden-inputs-->
+				<tr>
+					<td><input type="hidden" name="leaveTypeName" value="Annual" /></td>
+				</tr>
+				<tr>
+					<!--Make this dynamic using ${} tag from session-->
+					<td><input type="hidden" name="applicantId" value="1" /></td>
+				</tr>
+
+				<tr>
+					<td></td>
+					<td>
+						<input type="submit" value="Create" class="blcass" />
+						<input type="reset" value="Reset" class="blcass" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</body>
+
+</html>
