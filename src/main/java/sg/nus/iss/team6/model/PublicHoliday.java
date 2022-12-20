@@ -1,33 +1,67 @@
 package sg.nus.iss.team6.model;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import lombok.Data;
-import sg.nus.iss.team6.util.dayEnum;
-import sg.nus.iss.team6.util.observanceStatus;
 
 @Data
+@Entity
+@Table(name = "PUBLIC_HOLIDAY") 
 public class PublicHoliday {
 
-	public PublicHoliday() {
-		// TODO Auto-generated constructor stub
-	}
+	@Id
+	@Column(name="publicHolidayId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	
-	private Date date;
+	@Column(nullable = false)
 	private String name;
 	
-	@Column(name = "day", nullable = false)
-    @Enumerated(EnumType.STRING)
-	private dayEnum day;
-	private Date observance;
+	@Column(nullable = false)
+	@Min(value=1)
+	@Max(value=31)
+	private Integer phDay;
 	
-	@Column(name = "observanceStrategy", nullable = false)
-    @Enumerated(EnumType.STRING)
-	private observanceStatus observanceStrategy;
+	@Column(nullable = false)
+	@Min(value=1)
+	@Max(value=12)
+	private Integer phMonth;
+	
+	@Max(value=15)
+	@Column(nullable = false)
+	private Integer phLength;
+	
+	@Column(name = "active_status", nullable = false)
+	private boolean active;
+	
+	
+	public PublicHoliday() {}
+
+
+	public PublicHoliday(String name, Integer day, Integer month, Integer phLength) {
+		this.name = name;
+		this.phDay = day;
+		this.phMonth = month;
+		this.phLength = phLength;
+		
+		this.active=true;
+	}
+	
 
 }

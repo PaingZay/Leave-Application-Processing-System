@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+  <h3>Edit Public Holiday page</h3>
+
+  <form action="#" th:action="@{/publicholiday/edit/}+${publicholiday.id}" th:object="${publicholiday}" method="post">
+    <table>
+      <tbody>
+        <tr>
+          <td><span th:text="#{fieldLabel.Id}"></span></td>
+          <td>
+            <fieldset><input type="text" th:field="*{id}" readonly="readonly" /></fieldset>
+          </td>
+          <td th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.name}"></span></td>
+          <td><input type="text" th:field="*{name}" /></td>
+          <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.day}"></span></td>
+          <td><input type="text" th:field="*{phDay}" /></td>
+          <td th:if="${#fields.hasErrors('phDay')}" th:errors="*{phDay}"></td>
+        </tr>
+         <tr>
+          <td><span th:text="#{fieldLabel.month}"></span></td>
+          <td><input type="text" th:field="*{phMonth}" /></td>
+          <td th:if="${#fields.hasErrors('phMonth')}" th:errors="*{phMonth}"></td>
+        </tr>
+         <tr>
+          <td><span th:text="#{fieldLabel.period}"></span></td>
+          <td><input type="text" th:field="*{phLength}" /></td>
+          <td th:if="${#fields.hasErrors('phLength')}" th:errors="*{phLength}"></td>
+        </tr>
+         <tr>
+          <td><span th:text="#{fieldLabel.active}"></span></td>
+          <td><input type="text" th:field="*{active}" /></td>
+          <td th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></td>
+        </tr>
+        <tr>
+          <td><input type="submit" value="Update" class="blcass" /></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+</body>
+
+</html>

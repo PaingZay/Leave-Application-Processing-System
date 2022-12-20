@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <h3>Public Holiday List Page</h3>
+  <a th:href="@{/publicholiday/create}">Add new holiday</a>
+
+  <div th:if="${not #lists.isEmpty(phList)}">
+    <table style="border: 1;">
+      <tr class="listHeading">
+        <th><span th:text="#{fieldLabel.Id}"></span></th>
+        <th><span th:text="#{fieldLabel.name}"></span></th>
+        <th><span th:text="#{fieldLabel.day}"></span></th>
+        <th><span th:text="#{fieldLabel.month}"></span></th>
+        <th><span th:text="#{fieldLabel.period}"></span></th>
+        <th><span th:text="#{fieldLabel.active}"></span></th>
+        <th><span th:text="#{caption.edit}"></span></th>
+      </tr>
+      <tr th:each="ph : ${phList}" class="listRecord">
+        <td align="left" th:text="${ph.id}">Id</td>
+        <td align="left" th:text="${ph.name}">Name</td>
+         <td align="left" th:text="${ph.phDay}">Day</td>
+        <td align="left" th:text="${ph.phMonth}">Month</td>
+        <td align="left" th:text="${ph.phLength}">Period</td>
+        <td align="left" th:text="${ph.active}">Active Status</td>
+        <td><a th:href="@{/publicholiday/edit/}+${ph.id}" class="btn btn-default">
+                <span th:text="#{caption.edit}"></span></a></td>
+        
+      </tr>
+    </table>
+  </div>
+</body>
+</html>
