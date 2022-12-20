@@ -76,8 +76,6 @@ public class LeaveApplicationAnnualController {
 	 * @return
 	 */
 
-	
-
 	@GetMapping("/apply/annual")
 	public String newAnnualLeaveApplication(Model model) {
 
@@ -87,8 +85,8 @@ public class LeaveApplicationAnnualController {
 	}
 
 	@PostMapping("/apply/annual")
-	public String createNewAnnualLeaveApplication(@ModelAttribute @Valid LeaveAppForm leaveAppForm, BindingResult result,
-			HttpSession session) {
+	public String createNewAnnualLeaveApplication(@ModelAttribute @Valid LeaveAppForm leaveAppForm,
+			BindingResult result, HttpSession session) {
 
 		// check for errors
 		if (result.hasErrors()) {
@@ -112,118 +110,134 @@ public class LeaveApplicationAnnualController {
 		long leaveStartUnix = ldt.getUnixTimeStampSG(leaveStart);
 		long leaveEndUnix = ldt.getUnixTimeStampSG(leaveEnd);
 
-		// get list of all public holidays, weekends
-		List<PublicHoliday> publicHolidays = phService.findAllPublicHolidays();
+		Integer leaveDuration = (int) Duration.between(leaveStart, leaveEnd).toDays();
 
-		List<PublicHoliday> overlappingPh = new ArrayList<>();
-		List<PublicHoliday> overlappingPhFound = new ArrayList<>();
-		List<LocalDateTime> overlappingWeekends = ldt.getWeekendDates(leaveStart, leaveEnd);
-		List<LocalDateTime> overlappingWkendFound = new ArrayList<>();
+		if (leaveDuration <= 14) {
+			// get list of all public holidays, weekends
+			List<PublicHoliday> publicHolidays = phService.findAllPublicHolidays();
 
-		Map<LocalDateTime, Integer> overlappingUnified = new HashMap<LocalDateTime, Integer>();
+			List<PublicHoliday> overlappingPh = new ArrayList<>();
+			List<PublicHoliday> overlappingPhFound = new ArrayList<>();
+			List<LocalDateTime> overlappingWeekends = ldt.getWeekendDates(leaveStart, leaveEnd);
+			List<LocalDateTime> overlappingWkendFound = new ArrayList<>();
 
-		// assign these in case there are no conflicting PH/Weekends
-		LocalDateTime newLeaveEndDateLdt = leaveEnd;
-		long newLeaveEndDateUnix = leaveEndUnix;
-		// LocalDateTime newLeaveStartDateLdt;
+			Map<LocalDateTime, Integer> overlappingUnified = new HashMap<LocalDateTime, Integer>();
 
-		// create a list for conflicting public holidays
-		// check if it is empty, not null?
+			// assign these in case there are no conflicting PH/Weekends
+			LocalDateTime newLeaveEndDateLdt = leaveEnd;
+			long newLeaveEndDateUnix = leaveEndUnix;
+			// LocalDateTime newLeaveStartDateLdt;
 
-		// check for overlaps with PH
-		// add to new list
-		for (PublicHoliday phol : publicHolidays) {
+			// create a list for conflicting public holidays
+			// check if it is empty, not null?
 
-			if (ldt.isOverlap(leaveStart, leaveEnd, phol.getLDTByYear(leaveAppStartYear),
-					phol.getLDTEndByYear(leaveAppStartYear))) {
-				overlappingPh.add(phol);
+			// check for overlaps with PH
+			// add to new list
+			for (PublicHoliday phol : publicHolidays) {
+
+				if (ldt.isOverlap(leaveStart, leaveEnd, phol.getLDTByYear(leaveAppStartYear),
+						phol.getLDTEndByYear(leaveAppStartYear))) {
+					overlappingPh.add(phol);
+				}
 			}
-		}
 
-		// Check for PH overlaps with weekend
-		for (PublicHoliday phol : overlappingPh) {
+			// Check for PH overlaps with weekend
+			for (PublicHoliday phol : overlappingPh) {
 
-			for (LocalDateTime wkend : overlappingWeekends) {
+				for (LocalDateTime wkend : overlappingWeekends) {
 
-				if (ldt.isOverlap(phol.getLDTByYear(leaveAppStartYear), phol.getLDTEndByYear(leaveAppStartYear), wkend,
-						wkend.plusDays(2))) {
+					if (ldt.isOverlap(phol.getLDTByYear(leaveAppStartYear), phol.getLDTEndByYear(leaveAppStartYear),
+							wkend, wkend.plusDays(2))) {
 
-					long newUniEndDateUnix;
-					LocalDateTime newUniStartDateLdt;
-					LocalDateTime newUniEndDateLdt;
+						long newUniEndDateUnix;
+						LocalDateTime newUniStartDateLdt;
+						LocalDateTime newUniEndDateLdt;
 
-					long toAdd = ldt.getOverlapInSeconds(phol.getLDTByYear(leaveAppStartYear),
-							phol.getLDTEndByYear(leaveAppStartYear), wkend, wkend.plusDays(2));
-					long pholEndUnix = ldt.getUnixTimeStampSG(phol.getLDTEndByYear(leaveAppStartYear));
-					long wkendEndUnix = ldt.getUnixTimeStampSG(wkend.plusDays(2));
+						long toAdd = ldt.getOverlapInSeconds(phol.getLDTByYear(leaveAppStartYear),
+								phol.getLDTEndByYear(leaveAppStartYear), wkend, wkend.plusDays(2));
+						long pholEndUnix = ldt.getUnixTimeStampSG(phol.getLDTEndByYear(leaveAppStartYear));
+						long wkendEndUnix = ldt.getUnixTimeStampSG(wkend.plusDays(2));
 
-					if (pholEndUnix > wkendEndUnix) {
-						newUniEndDateUnix = pholEndUnix + toAdd;
-					} else {
-						newUniEndDateUnix = wkendEndUnix + toAdd;
+						if (pholEndUnix > wkendEndUnix) {
+							newUniEndDateUnix = pholEndUnix + toAdd;
+						} else {
+							newUniEndDateUnix = wkendEndUnix + toAdd;
+						}
+
+						newUniStartDateLdt = ldt.getMin(phol.getLDTByYear(leaveAppStartYear), wkend);
+						newUniEndDateLdt = ldt.getUnixTimeStampSGInLdt(newUniEndDateUnix);
+
+						Integer daysBetween = (int) Duration.between(newUniStartDateLdt, newUniEndDateLdt).toDays();
+
+						overlappingUnified.put(newUniStartDateLdt, daysBetween);
+						overlappingPhFound.add(phol);
+						overlappingWkendFound.add(wkend);
 					}
 
-					newUniStartDateLdt = ldt.getMin(phol.getLDTByYear(leaveAppStartYear), wkend);
-					newUniEndDateLdt = ldt.getUnixTimeStampSGInLdt(newUniEndDateUnix);
-
-					Integer daysBetween = (int) Duration.between(newUniStartDateLdt, newUniEndDateLdt).toDays();
-
-					overlappingUnified.put(newUniStartDateLdt, daysBetween);
-					overlappingPhFound.add(phol);
-					overlappingWkendFound.add(wkend);
 				}
 
 			}
+			// circumvent concurrency error
+			overlappingPh.removeAll(overlappingPhFound);
+			overlappingWeekends.removeAll(overlappingWkendFound);
+			// purge to re-add
+			overlappingPhFound = new ArrayList<>();
+			overlappingWkendFound = new ArrayList<>();
 
-		}
-		// circumvent concurrency error
-		overlappingPh.removeAll(overlappingPhFound);
-		overlappingWeekends.removeAll(overlappingWkendFound);
-		// purge to re-add
-		overlappingPhFound = new ArrayList<>();
-		overlappingWkendFound = new ArrayList<>();
-
-		// add everything to unified list
-		for (PublicHoliday phol : overlappingPh) {
-			overlappingUnified.put(phol.getLDTByYear(leaveAppStartYear), phol.getPhLength());
-			overlappingPhFound.add(phol);
-		}
-		for (LocalDateTime wkend : overlappingWeekends) {
-			overlappingUnified.put(wkend, 2);
-			overlappingWkendFound.add(wkend);
-		}
-		// circumvent concurrency error
-		overlappingPh.removeAll(overlappingPhFound);
-		overlappingWeekends.removeAll(overlappingWkendFound);
-
-		for (Map.Entry<LocalDateTime, Integer> entry : overlappingUnified.entrySet()) {
-
-			long toAdd = ldt.getOverlapInSeconds(leaveStart, leaveEnd, entry.getKey(),
-					entry.getKey().plusDays(entry.getValue()));
-			long uniEndUnix = ldt.getUnixTimeStampSG(entry.getKey().plusDays(entry.getValue()));
-
-			if (uniEndUnix > leaveEndUnix) {
-				newLeaveEndDateUnix = uniEndUnix + toAdd;
-			} else {
-				newLeaveEndDateUnix = leaveEndUnix + toAdd;
+			// add everything to unified list
+			for (PublicHoliday phol : overlappingPh) {
+				overlappingUnified.put(phol.getLDTByYear(leaveAppStartYear), phol.getPhLength());
+				overlappingPhFound.add(phol);
 			}
+			for (LocalDateTime wkend : overlappingWeekends) {
+				overlappingUnified.put(wkend, 2);
+				overlappingWkendFound.add(wkend);
+			}
+			// circumvent concurrency error
+			overlappingPh.removeAll(overlappingPhFound);
+			overlappingWeekends.removeAll(overlappingWkendFound);
+
+			for (Map.Entry<LocalDateTime, Integer> entry : overlappingUnified.entrySet()) {
+
+				long toAdd = ldt.getOverlapInSeconds(leaveStart, leaveEnd, entry.getKey(),
+						entry.getKey().plusDays(entry.getValue()));
+				long uniEndUnix = ldt.getUnixTimeStampSG(entry.getKey().plusDays(entry.getValue()));
+
+				if (uniEndUnix > leaveEndUnix) {
+					newLeaveEndDateUnix = uniEndUnix + toAdd;
+				} else {
+					newLeaveEndDateUnix = leaveEndUnix + toAdd;
+				}
+			}
+			newLeaveEndDateLdt = ldt.getUnixTimeStampSGInLdt(newLeaveEndDateUnix);
+
+			LeaveApplication myLA = leaveAppForm.convertToLA(LocalDateTime.now(), leaveType, desiredEmployee,
+					leaveStart, newLeaveEndDateLdt);
+			laService.createLeaveApplication(myLA);
+
+			currentUser.addLeaveApplication(myLA);
+			eService.changeEmployee(currentUser);
+
+			String message = "New leave application was successfully created, excluding PH and weekends.";
+			System.out.println(message);
+
+			return "redirect:/leave/apply/annual";
 		}
-		newLeaveEndDateLdt = ldt.getUnixTimeStampSGInLdt(newLeaveEndDateUnix);
+		else {
+			LeaveApplication myLA = leaveAppForm.convertToLA(LocalDateTime.now(), leaveType, desiredEmployee,
+					leaveStart, leaveEnd);
+			laService.createLeaveApplication(myLA);
 
-		LeaveApplication myLA = leaveAppForm.convertToLA(LocalDateTime.now(), leaveType, desiredEmployee, leaveStart,
-				newLeaveEndDateLdt);
-		laService.createLeaveApplication(myLA);
+			currentUser.addLeaveApplication(myLA);
+			eService.changeEmployee(currentUser);
 
-		currentUser.addLeaveApplication(myLA);
-		eService.changeEmployee(currentUser);
+			String message = "New leave application was successfully created.";
+			System.out.println(message);
 
-		String message = "New leave application was successfully created.";
-		System.out.println(message);
+			return "redirect:/leave/apply/annual";
+		}
 
-		return "redirect:/leave/apply/annual";
 	}
-	
-	
 
 //  @GetMapping("/course/edit/{id}")
 //  public String editCoursePage(@PathVariable Integer id, Model model) {

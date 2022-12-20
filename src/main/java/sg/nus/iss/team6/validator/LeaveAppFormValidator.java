@@ -39,6 +39,22 @@ public class LeaveAppFormValidator implements Validator {
 		LeaveAppForm leaveAppForm = (LeaveAppForm) target;
 		LocalDateTime now = LocalDateTime.now();
 		
+		if (leaveAppForm.getLeaveStartTime() != null && leaveAppForm.getLeaveEndTime() != null) {
+			
+			if (leaveAppForm.getLeaveStartTime() < 0|| leaveAppForm.getLeaveEndTime()< 0) {
+				errors.reject("leaveStartTime", "Start/End time cannot be negative.");
+				errors.rejectValue("leaveStartTime", "error.dates", "Start/End time cannot be negative.");
+			}
+			
+			if (leaveAppForm.getLeaveStartTime()>23 || leaveAppForm.getLeaveEndTime() >23) {
+				errors.reject("leaveStartTime", "If you wish to book leave extending past the end day, please select the following day.");
+				errors.rejectValue("leaveStartTime", "error.dates", "If you wish to book leave extending past the end day, please select the following day.");
+			}
+			
+
+		}
+		
+
 		if (leaveAppForm.getLeaveStartDate() != null && leaveAppForm.getLeaveEndDate() != null) {
 
 			if (!ldt.isValid(leaveAppForm.getLeaveStartDate().atTime(leaveAppForm.getLeaveStartTime(), 0, 0),
@@ -57,8 +73,9 @@ public class LeaveAppFormValidator implements Validator {
 				errors.rejectValue("leaveEndDate", "error.dates", "Leave must not cross between years.");
 				//do not allow to cross x days/year maxEntitlement
 			}
+			
 		}
-		
+
 		
 
 		if (leaveAppForm.getApplicantId() != null) {
@@ -76,13 +93,20 @@ public class LeaveAppFormValidator implements Validator {
 					// "+lt.getMaxEntitlement()+" "+lt.getMinGranularity());
 
 				// find employees from the same team
-				List<Employee> teamEmployees = eService.findEmployeesByTeam(leaveAppForm.getApplicantId());
+				List<Employee> teamEmployees = eService.findEmployeesByTeam(eService.findTIDByEmployee(leaveAppForm.getApplicantId()));
 				// remove self from the team list
 				teamEmployees.remove(eService.findEmployee(leaveAppForm.getApplicantId()));
 				// look for desired employee
 				Employee desiredEmployee = eService.findEmployeeByName(leaveAppForm.getWorkDelegate());
+				
+				if(desiredEmployee ==null && leaveAppForm.getWorkDelegate().trim().length() > 0) {
+					errors.reject("workDelegate", "Colleague does not exist!");
+					errors.rejectValue("workDelegate", "error.dates",
+							"Colleague does not exist!");
+				}
 
-				if (!teamEmployees.contains(desiredEmployee)) {
+				//TODO: debug
+				if (!teamEmployees.contains(desiredEmployee) && desiredEmployee !=null) {
 					errors.reject("workDelegate", "Please delegate your tasks to a colleague on the same team.");
 					errors.rejectValue("workDelegate", "error.dates",
 							"Please delegate your tasks to a colleague on the same team.");

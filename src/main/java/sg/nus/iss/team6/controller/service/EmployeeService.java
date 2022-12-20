@@ -20,5 +20,7 @@ public interface EmployeeService {
 	Integer findEmployeeRoleId(Integer eid);
 
 	Employee changeEmployee(Employee employee);
+	
+	Integer findTIDByEmployee(Integer empId);
 
 }

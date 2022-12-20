@@ -78,7 +78,7 @@ public class SpringCaApplication {
 			//add employees
 			Employee john=employeeRepo.save(new Employee("Jonjon1", "Password", "John Chan Hao", "9344 6789", adminRole));
 			Employee adeline=employeeRepo.save(new Employee("Lunchlady2", "Password", "Adeline Ong", "8445 3389", userRole));
-			Employee georgie=employeeRepo.save(new Employee("Elegant1", "Password", "George Koh", "9335 3389", userRole));
+			Employee georgie=employeeRepo.save(new Employee("Elegant1", "Password", "George Koh", "9335 3389", managerRole));
 			
 			List<Employee> toAdd=new ArrayList<Employee>();
 			toAdd.add(john);

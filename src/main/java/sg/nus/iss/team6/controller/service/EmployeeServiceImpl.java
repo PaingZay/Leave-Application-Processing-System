@@ -52,5 +52,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	    return eRepository.saveAndFlush(employee);
 	  }
 	  
+	  @Override
+	  @Transactional
+	  public Integer findTIDByEmployee(Integer empId) {
+		  return eRepository.findTIDByEmployee(empId);
+	  }
+	  
 	
 }
