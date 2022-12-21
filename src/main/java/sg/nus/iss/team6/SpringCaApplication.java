@@ -20,7 +20,7 @@ import sg.nus.iss.team6.model.Role;
 import sg.nus.iss.team6.model.Team;
 import sg.nus.iss.team6.repository.*;
 import sg.nus.iss.team6.util.LeaveStatusEnum_ToCompile;
-import sg.nus.iss.team6.util.LeaveTypeStatus;
+import sg.nus.iss.team6.util.ApplicationStatus;
 
 @SpringBootApplication
 public class SpringCaApplication {
@@ -75,7 +75,6 @@ public class SpringCaApplication {
 			roleRepo.saveAndFlush(staffRole);
 			roleRepo.saveAndFlush(managerRole);
 			
-			
 			//add team
 			Team alpha = teamRepo.save(new Team("Alpha","Striving for excellence!"));
 			
@@ -104,16 +103,15 @@ public class SpringCaApplication {
 			
 			//create a leave application
 			LocalDateTime applyDate=LocalDateTime.of(2022, 1, 8, 0, 0, 0, 0);
-			LocalDateTime lSDate=LocalDateTime.of(2022, 12, 23, 0, 0, 0, 0);
-			LocalDateTime lEDate=LocalDateTime.of(2022, 12, 23, 8, 0, 0, 0);
+			LocalDateTime lSDate=LocalDateTime.of(2022, 1, 10, 0, 0, 0, 0);
+			LocalDateTime lEDate=LocalDateTime.of(2022, 1, 23, 0, 0, 0, 0);
+
 			
 			LeaveApplication johnsLeave = leaveApplicationRepo.save(new LeaveApplication(applyDate, lSDate, lEDate, "Spending the holidays with my children.",annualS));
 			john.addLeaveApplication(johnsLeave);
 			//always flush owning side
 			employeeRepo.saveAndFlush(john);
 			
-	
-
 			LocalDateTime otc001s=LocalDateTime.of(2022, 5, 8,6,0,0,0);
 			LocalDateTime otc001e=LocalDateTime.of(2022, 5, 8,8,0,0,0);
 			LocalDateTime otc002s=LocalDateTime.of(2022, 5, 9,6,0,0,0);
@@ -121,10 +119,10 @@ public class SpringCaApplication {
 			LocalDateTime otc003s=LocalDateTime.of(2022, 5, 10,6,0,0,0);
 			LocalDateTime otc003e=LocalDateTime.of(2022, 5, 10,8,0,0,0);
 			
-			
-			OvertimeChit otc001 = otcRepo.save(new OvertimeChit(otc001s,otc001e,LeaveTypeStatus.APPLIED)); 
-			OvertimeChit otc002 = otcRepo.save(new OvertimeChit(otc002s,otc002e,LeaveTypeStatus.APPLIED));
-			OvertimeChit otc003 = otcRepo.save(new OvertimeChit(otc003s,otc003e,LeaveTypeStatus.APPLIED));
+			//should have 4h in 2022 (2*2 approved, 2 rejected)
+			OvertimeChit otc001 = otcRepo.save(new OvertimeChit(otc001s,otc001e,ApplicationStatus.APPROVED)); 
+			OvertimeChit otc002 = otcRepo.save(new OvertimeChit(otc002s,otc002e,ApplicationStatus.APPROVED));
+			OvertimeChit otc003 = otcRepo.save(new OvertimeChit(otc003s,otc003e,ApplicationStatus.REJECTED));
 			
 			List<OvertimeChit> otcToAdd=new ArrayList<OvertimeChit>();
 			otcToAdd.add(otc001);

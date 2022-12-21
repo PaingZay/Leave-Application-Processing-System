@@ -3,8 +3,8 @@
 
 <body>
 
-	<h1>Medical Leave Application Page</h1>
-	<form action="#" th:action="@{/leave/apply/medical}" th:object="${leaveAppForm}" method="post">
+	<h1>Compensation Leave Application Page</h1>
+	<form action="#" th:action="@{/leave/apply/compensation}" th:object="${leaveAppForm}" method="post">
 		<table>
 			<tbody>
 
@@ -49,7 +49,7 @@
 				<!--Set hidden values here- Assign session dynamically-->
 				<!--ref: https://www.baeldung.com/spring-thymeleaf-hidden-inputs-->
 				<tr>
-					<td><input type="hidden" name="leaveTypeName" value="Medical" /></td>
+					<td><input type="hidden" name="leaveTypeName" value="Compensation" /></td>
 				</tr>
 				<tr>
 					<!--Make this dynamic using ${} tag from session-->

@@ -23,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 import sg.nus.iss.team6.controller.service.EmployeeService;
 import sg.nus.iss.team6.controller.service.EmployeeServiceImpl;
-import sg.nus.iss.team6.util.LeaveTypeStatus;
+import sg.nus.iss.team6.util.ApplicationStatus;
 import sg.nus.iss.team6.util.ldt;
 
 @Data
@@ -60,7 +60,7 @@ public class LeaveApplication {
 	
 	@Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private LeaveTypeStatus status;
+    private ApplicationStatus status;
 	
 	private String comment;
 	
@@ -155,11 +155,11 @@ public class LeaveApplication {
 		this.overseasPhone = overseasPhone;
 	}
 
-	public void setStatus(LeaveTypeStatus status) {
+	public void setStatus(ApplicationStatus status) {
 		this.status=status;
 	}
 	
-	public LeaveTypeStatus getStatus() {
+	public ApplicationStatus getStatus() {
 		return status;
 	}
 
@@ -223,7 +223,7 @@ public class LeaveApplication {
 		this.reason = reason;
 		this.leaveType = leavetype;
 		
-		this.status=LeaveTypeStatus.APPLIED;
+		this.status=ApplicationStatus.APPLIED;
 		this.active=true;
 	}
 
@@ -243,7 +243,7 @@ public class LeaveApplication {
 		this.reason = reason;
 		this.leaveType = leavetype;
 		
-		this.status=LeaveTypeStatus.APPLIED;
+		this.status=ApplicationStatus.APPLIED;
 		this.active=true;
 	}
 	
@@ -269,7 +269,7 @@ public class LeaveApplication {
 			this.reason = leaveAppForm.getReason();
 			this.leaveType = lt;
 			
-			this.status=LeaveTypeStatus.UPDATED;	
+			this.status=ApplicationStatus.UPDATED;	
 	}
 	
 	

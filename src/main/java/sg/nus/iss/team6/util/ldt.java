@@ -119,14 +119,16 @@ public class ldt {
 	public static List<LocalDateTime> getWeekendDates(LocalDateTime ldt1, LocalDateTime ldt2) {
 		List<LocalDateTime> result = new ArrayList<LocalDateTime>();
 		
-		LocalDate start= ldt1.toLocalDate();
-		LocalDate end= ldt2.toLocalDate();
+		LocalDateTime start= ldt1;
+		LocalDateTime end= ldt2;
 		
-		for (LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
+		//ldt1.toLocalDate();
+		
+		for (LocalDateTime date = start; date.isBefore(end); date = date.plusDays(1)) {
 			DayOfWeek day = date.getDayOfWeek();
 			
 			if (day == DayOfWeek.SATURDAY) {
-				result.add(date.atTime(0,0,0));
+				result.add(date.toLocalDate().atTime(0,0,0));
 			}
 		}
 		return result;

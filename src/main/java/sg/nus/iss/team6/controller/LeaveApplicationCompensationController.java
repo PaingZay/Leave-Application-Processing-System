@@ -34,11 +34,11 @@ import sg.nus.iss.team6.model.LeaveApplication;
 import sg.nus.iss.team6.model.LeaveType;
 import sg.nus.iss.team6.model.PublicHoliday;
 import sg.nus.iss.team6.model.Role;
-import sg.nus.iss.team6.util.LeaveTypeStatus;
+import sg.nus.iss.team6.util.ApplicationStatus;
 import sg.nus.iss.team6.util.ldt;
-import sg.nus.iss.team6.validator.AnnualLeaveValidator;
+import sg.nus.iss.team6.validator.CompensationLeaveValidator;
 import sg.nus.iss.team6.validator.LeaveAppFormValidator;
-import sg.nus.iss.team6.validator.MedicalLeaveValidator;
+
 
 @Controller
 @RequestMapping(value = "/leave")
@@ -63,12 +63,12 @@ public class LeaveApplicationCompensationController {
 	private LeaveAppFormValidator leaveAppFormValidator;
 
 	@Autowired
-	private MedicalLeaveValidator medicalLeaveValidator;
+	private CompensationLeaveValidator compensationLeaveValidator;
 
 	@InitBinder("leaveAppForm")
 	private void initCourseBinder(WebDataBinder binder) {
 		binder.addValidators(leaveAppFormValidator);
-		binder.addValidators(medicalLeaveValidator);
+		binder.addValidators(compensationLeaveValidator);
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class LeaveApplicationCompensationController {
 
 
 	@GetMapping("/apply/compensation")
-	public String newMedicalLeaveApplication(Model model) {
+	public String newCompensationLeaveApplication(Model model) {
 
 		model.addAttribute("leaveAppForm", new LeaveAppForm());
 
@@ -89,7 +89,7 @@ public class LeaveApplicationCompensationController {
 	}
 	
 	@PostMapping("/apply/compensation")
-	public String createNewMedicalLeaveApplication(@ModelAttribute @Valid LeaveAppForm leaveAppForm, BindingResult result,
+	public String createNewCompensationLeaveApplication(@ModelAttribute @Valid LeaveAppForm leaveAppForm, BindingResult result,
 			HttpSession session) {
 
 		// check for errors
@@ -102,8 +102,10 @@ public class LeaveApplicationCompensationController {
 		int currentUserId = leaveAppForm.getApplicantId();
 
 		Employee currentUser = eService.findEmployee(currentUserId);
-		LeaveType leaveType = ltService.findLeaveTypeByNameAndRole("Medical", currentUser.getRole());
-		Double maxEntitlement = leaveType.getMaxEntitlement();
+		LeaveType leaveType = ltService.findLeaveTypeByNameAndRole("Compensation", currentUser.getRole());
+		
+		Double minGranularity = leaveType.getMinGranularity();
+		
 		Employee desiredEmployee = eService.findEmployeeByName(leaveAppForm.getWorkDelegate());
 
 		// get year of leave
@@ -119,7 +121,7 @@ public class LeaveApplicationCompensationController {
 		currentUser.addLeaveApplication(myLA);
 		eService.changeEmployee(currentUser);
 
-		String message = "New leave application was successfully created.";
+		String message = "New compensation leave application was successfully created.";
 		System.out.println(message);
 
 		return "redirect:/leave/apply/compensation";

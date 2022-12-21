@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import sg.nus.iss.team6.controller.service.EmployeeService;
-import sg.nus.iss.team6.util.LeaveTypeStatus;
+import sg.nus.iss.team6.util.ApplicationStatus;
 
 public class LeaveAppForm {
 	@Autowired
@@ -165,7 +165,7 @@ public class LeaveAppForm {
 		
 		myLA.setWorkDelegate(desiredEmployee);
 		myLA.setOverseasPhone(this.overseasPhone);
-		myLA.setStatus(LeaveTypeStatus.APPLIED);
+		myLA.setStatus(ApplicationStatus.APPLIED);
 		myLA.setComment(null);
 		myLA.setReason(this.reason);
 		myLA.setActive(true);

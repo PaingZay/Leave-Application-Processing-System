@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
-import sg.nus.iss.team6.util.LeaveTypeStatus;
+import sg.nus.iss.team6.util.ApplicationStatus;
 import sg.nus.iss.team6.util.dayEnum;
 
 @Data
@@ -38,17 +38,16 @@ public class OvertimeChit {
 	
 	@Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private LeaveTypeStatus status;
+    private ApplicationStatus status;
 	
     @Column(nullable = false)
 	private boolean active;
     
-
 	public OvertimeChit() {	}
 
 	//Jason added- autogen Id
 	public OvertimeChit(LocalDateTime starTime, LocalDateTime endTime,
-			LeaveTypeStatus status) {
+			ApplicationStatus status) {
 		this.otStart = starTime;
 		this.otEnd = endTime;
 		this.status = status;
@@ -79,11 +78,11 @@ public class OvertimeChit {
 		this.otEnd = otEnd;
 	}
 
-	public LeaveTypeStatus getStatus() {
+	public ApplicationStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(LeaveTypeStatus status) {
+	public void setStatus(ApplicationStatus status) {
 		this.status = status;
 	}
 

@@ -2,11 +2,13 @@ package sg.nus.iss.team6.model;
 
 import lombok.Data;
 import sg.nus.iss.team6.model.Role;
+import sg.nus.iss.team6.util.ldt;
 
 import javax.persistence.*;
 
 import javax.persistence.Column;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -110,6 +112,25 @@ public class Employee {
 	
     //METHODS-------------------------------------------------------------------
     
+	public List<LeaveApplication> getLeaveApplicationsForPeriodAndType(Integer yearNum, LeaveType leaveType) {
+		
+		List<LeaveApplication> toReturn = getLeaveApplications();
+		List<LeaveApplication> leavesToRemove = new ArrayList<>();
+		
+		LocalDateTime yearStart =LocalDateTime.of(yearNum,1,1, 0,0,0);
+		LocalDateTime yearEnd =LocalDateTime.of(yearNum,12,31, 23,59,59);
+		
+		for(LeaveApplication la:toReturn) {
+			if(la.getLeaveType()!=leaveType) {
+				leavesToRemove.add(la);
+			}
+			else if (!ldt.isOverlap(yearStart, yearEnd, la.getLeaveStartDate(), la.getLeaveEndDate())){
+				leavesToRemove.add(la);
+			}
+		}
+		toReturn.removeAll(leavesToRemove);
+		return toReturn;
+	}
 
 
 	public void addLeaveApplication(LeaveApplication la) {

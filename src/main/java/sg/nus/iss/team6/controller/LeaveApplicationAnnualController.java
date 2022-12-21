@@ -34,7 +34,7 @@ import sg.nus.iss.team6.model.LeaveApplication;
 import sg.nus.iss.team6.model.LeaveType;
 import sg.nus.iss.team6.model.PublicHoliday;
 import sg.nus.iss.team6.model.Role;
-import sg.nus.iss.team6.util.LeaveTypeStatus;
+import sg.nus.iss.team6.util.ApplicationStatus;
 import sg.nus.iss.team6.util.ldt;
 import sg.nus.iss.team6.validator.AnnualLeaveValidator;
 import sg.nus.iss.team6.validator.LeaveAppFormValidator;
@@ -262,7 +262,7 @@ public class LeaveApplicationAnnualController {
 			currentUser.addLeaveApplication(myLA);
 			eService.changeEmployee(currentUser);
 
-			String message = "New leave application was successfully created.";
+			String message = "New annual leave application was successfully created.";
 			System.out.println(message);
 
 			return "redirect:/leave/apply/annual";

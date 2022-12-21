@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import sg.nus.iss.team6.model.LeaveAppForm;
 import sg.nus.iss.team6.model.LeaveApplication;
 import sg.nus.iss.team6.model.LeaveType;
 import sg.nus.iss.team6.model.PublicHoliday;
+import sg.nus.iss.team6.util.ApplicationStatus;
 import sg.nus.iss.team6.util.ldt;
 
 @Component
@@ -54,23 +56,32 @@ public class AnnualLeaveValidator implements Validator {
 				
 				//initialize holder variable
 				long appliedLeavesInSeconds=0;
-				//get all leaves
-				List<LeaveApplication> appliedLeaves = currentUser.getLeaveApplications();
+				//get all leaves for the specific year
+				Integer yearToValidate = leaveAppForm.getLeaveStartDate().getYear();
+				List<LeaveApplication> appliedLeaves = currentUser.getLeaveApplicationsForPeriodAndType(yearToValidate,leaveType);
+				List<LeaveApplication> leavesToRemove = new ArrayList<>();
 				//remove deleted
+				//then remove IF its cancelled OR rejected
 				for (LeaveApplication la:appliedLeaves) {
 					if (la.getActive()==false) {
-						appliedLeaves.remove(la);
+						leavesToRemove.add(la);
+					}
+					else if (la.getStatus()==ApplicationStatus.CANCELLED ||
+							la.getStatus()==ApplicationStatus.REJECTED) {
+						leavesToRemove.add(la);
 					}
 				}
+				appliedLeaves.removeAll(leavesToRemove);
+								
 				//compute amount to subtract from balance
 				for (LeaveApplication la:appliedLeaves) {
-					long temp = ChronoUnit.SECONDS.between(la.getLeaveStartDate(),la.getLeaveEndDate());
+					long temp = la.getLeaveDuration();
 					appliedLeavesInSeconds+=temp;
 				}
-				//set to 9am and 6pm respectively
+				//set to LDT for both
 				long intendedLeavesInSeconds = ChronoUnit.SECONDS.between(leaveAppForm.getLeaveStartDate().atTime(leaveAppForm.getLeaveStartTime(),0,0),leaveAppForm.getLeaveEndDate().atTime(leaveAppForm.getLeaveEndTime(),0,0));
 				
-				if(maxEntitlementInSeconds<appliedLeavesInSeconds+intendedLeavesInSeconds) {
+				if(maxEntitlementInSeconds < appliedLeavesInSeconds+intendedLeavesInSeconds) {
 					errors.reject("leaveEndDate", "You don't have sufficient remaining leave balance for that leave duration!");
 					errors.rejectValue("leaveEndDate", "error.dates", "You don't have sufficient remaining leave balance for that leave duration!");
 				}
