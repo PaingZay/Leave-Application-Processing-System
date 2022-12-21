@@ -130,17 +130,15 @@ public class LeaveApplicationAnnualController {
 			// assign these in case there are no conflicting PH/Weekends
 			LocalDateTime newLeaveEndDateLdt = leaveEnd;
 			long newLeaveEndDateUnix = leaveEndUnix;
-			// LocalDateTime newLeaveStartDateLdt;
 
-			// create a list for conflicting public holidays
-			// check if it is empty, not null?
-
-			// check for overlaps with PH
-			// add to new list
+			// check for leave overlaps with PH
 			for (PublicHoliday phol : publicHolidays) {
 
-				if (ldt.isOverlap(leaveStart, leaveEnd, phol.getLDTByYear(leaveAppStartYear),
-						phol.getLDTEndByYear(leaveAppStartYear))) {
+				if (ldt.isOverlap(
+						leaveStart, 
+						leaveEnd, 
+						phService.getLDTByYear(phol,leaveAppStartYear),
+						phService.getLDTEndByYear(phol,leaveAppStartYear))) {
 					overlappingPh.add(phol);
 				}
 			}
@@ -150,16 +148,16 @@ public class LeaveApplicationAnnualController {
 
 				for (LocalDateTime wkend : overlappingWeekends) {
 
-					if (ldt.isOverlap(phol.getLDTByYear(leaveAppStartYear), phol.getLDTEndByYear(leaveAppStartYear),
+					if (ldt.isOverlap(phService.getLDTByYear(phol,leaveAppStartYear), phService.getLDTEndByYear(phol,leaveAppStartYear),
 							wkend, wkend.plusDays(2))) {
 
 						long newUniEndDateUnix;
 						LocalDateTime newUniStartDateLdt;
 						LocalDateTime newUniEndDateLdt;
 
-						long toAdd = ldt.getOverlapInSeconds(phol.getLDTByYear(leaveAppStartYear),
-								phol.getLDTEndByYear(leaveAppStartYear), wkend, wkend.plusDays(2));
-						long pholEndUnix = ldt.getUnixTimeStampSG(phol.getLDTEndByYear(leaveAppStartYear));
+						long toAdd = ldt.getOverlapInSeconds(phService.getLDTByYear(phol,leaveAppStartYear),
+								phService.getLDTEndByYear(phol,leaveAppStartYear), wkend, wkend.plusDays(2));
+						long pholEndUnix = ldt.getUnixTimeStampSG(phService.getLDTEndByYear(phol,leaveAppStartYear));
 						long wkendEndUnix = ldt.getUnixTimeStampSG(wkend.plusDays(2));
 
 						if (pholEndUnix > wkendEndUnix) {
@@ -168,7 +166,7 @@ public class LeaveApplicationAnnualController {
 							newUniEndDateUnix = wkendEndUnix + toAdd;
 						}
 
-						newUniStartDateLdt = ldt.getMin(phol.getLDTByYear(leaveAppStartYear), wkend);
+						newUniStartDateLdt = ldt.getMin(phService.getLDTByYear(phol,leaveAppStartYear), wkend);
 						newUniEndDateLdt = ldt.getUnixTimeStampSGInLdt(newUniEndDateUnix);
 
 						Integer daysBetween = (int) Duration.between(newUniStartDateLdt, newUniEndDateLdt).toDays();
@@ -190,7 +188,7 @@ public class LeaveApplicationAnnualController {
 
 			// add everything to unified list
 			for (PublicHoliday phol : overlappingPh) {
-				overlappingUnified.put(phol.getLDTByYear(leaveAppStartYear), phol.getPhLength());
+				overlappingUnified.put(phService.getLDTByYear(phol,leaveAppStartYear), phol.getPhLength());
 				overlappingPhFound.add(phol);
 			}
 			for (LocalDateTime wkend : overlappingWeekends) {

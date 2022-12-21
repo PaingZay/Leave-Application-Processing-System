@@ -11,9 +11,9 @@
 ## Working on:
 
 	1. Refactor to service
-		employee model repo (DONE),
-		public holiday,
-		leaveAppForm
+		employee model repo,
+		public holiday (DONE)
+		leaveAppForm (DONE)
 
 	2. minGranularity flat half day for everyone
 	3. check apply for current year

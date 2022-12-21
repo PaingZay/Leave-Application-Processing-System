@@ -118,42 +118,42 @@ public class PublicHoliday {
 	
 	
 	//Methods
-
-	public LocalDateTime getLDTCurrYear() {
-		int currYear = Calendar.getInstance().get(Calendar.YEAR);
-		LocalDate date = LocalDate.of(currYear, this.phMonth, this.phDay);
-		LocalTime time = LocalTime.of(0,0);
-		return LocalDateTime.of(date,time);
-	}
-	
-	public LocalDateTime getLDTEndCurrYear() {
-		
-		LocalDateTime start=getLDTCurrYear();
-		return start.plusDays(getPhLength());
-	}
-	
-	public LocalDateTime getLDTByYear(Integer year) {
-		LocalDate date = LocalDate.of(year, this.phMonth, this.phDay);
-		LocalTime time = LocalTime.of(0,0);
-		return LocalDateTime.of(date,time);
-	}
-	
-	public LocalDateTime getLDTEndByYear(Integer year) {
-		
-		LocalDateTime start=getLDTByYear(year);
-		return start.plusDays(getPhLength());
-	}
-	
-	
-	public DayOfWeek getPHDay (Integer year) {
-		LocalDate date = LocalDate.of(year, this.phMonth, this.phDay);
-		return date.getDayOfWeek();
-	}
-	
-	public Integer getPHDayIndex (Integer year) {
-		LocalDate date = LocalDate.of(year, this.phMonth, this.phDay);
-		DayOfWeek day = date.getDayOfWeek();
-	    return day.getValue();
-	}
+//
+//	public LocalDateTime getLDTCurrYear() {
+//		int currYear = Calendar.getInstance().get(Calendar.YEAR);
+//		LocalDate date = LocalDate.of(currYear, this.phMonth, this.phDay);
+//		LocalTime time = LocalTime.of(0,0);
+//		return LocalDateTime.of(date,time);
+//	}
+//	
+//	public LocalDateTime getLDTEndCurrYear() {
+//		
+//		LocalDateTime start=getLDTCurrYear();
+//		return start.plusDays(getPhLength());
+//	}
+//	
+//	public LocalDateTime getLDTByYear(Integer year) {
+//		LocalDate date = LocalDate.of(year, this.phMonth, this.phDay);
+//		LocalTime time = LocalTime.of(0,0);
+//		return LocalDateTime.of(date,time);
+//	}
+//	
+//	public LocalDateTime getLDTEndByYear(Integer year) {
+//		
+//		LocalDateTime start=getLDTByYear(year);
+//		return start.plusDays(getPhLength());
+//	}
+//	
+//	
+//	public DayOfWeek getPHDay (Integer year) {
+//		LocalDate date = LocalDate.of(year, this.phMonth, this.phDay);
+//		return date.getDayOfWeek();
+//	}
+//	
+//	public Integer getPHDayIndex (Integer year) {
+//		LocalDate date = LocalDate.of(year, this.phMonth, this.phDay);
+//		DayOfWeek day = date.getDayOfWeek();
+//	    return day.getValue();
+//	}
 
 }
