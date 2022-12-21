@@ -31,11 +31,6 @@
   Form bugs
   Annual + Medical Controller bugs
   
-
-## Upload
-
-	//BACKUP BEFORE REFACTORING METHODS IN LEAVEAPPLICATION
-	
 ## OLD
 		
   1. logic
