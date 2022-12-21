@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.nus.iss.team6.controller.service.EmployeeService;
+import sg.nus.iss.team6.controller.service.LeaveAppFormService;
 import sg.nus.iss.team6.controller.service.LeaveApplicationService;
 import sg.nus.iss.team6.controller.service.LeaveTypeService;
 import sg.nus.iss.team6.controller.service.PublicHolidayService;
@@ -39,10 +40,12 @@ import sg.nus.iss.team6.util.ldt;
 import sg.nus.iss.team6.validator.CompensationLeaveValidator;
 import sg.nus.iss.team6.validator.LeaveAppFormValidator;
 
-
 @Controller
 @RequestMapping(value = "/leave")
 public class LeaveApplicationCompensationController {
+	
+	@Autowired
+	private LeaveAppFormService lafService;
 
 	@Autowired
 	private LeaveApplicationService laService;
@@ -114,7 +117,7 @@ public class LeaveApplicationCompensationController {
 		LocalDateTime leaveStart = leaveAppForm.getLeaveStartDate().atTime(leaveAppForm.getLeaveStartTime(), 0, 0);
 		LocalDateTime leaveEnd = leaveAppForm.getLeaveEndDate().atTime(leaveAppForm.getLeaveEndTime(), 0, 0);
 
-		LeaveApplication myLA = leaveAppForm.convertToLA(LocalDateTime.now(), leaveType, desiredEmployee,
+		LeaveApplication myLA = lafService.convertToLA(leaveAppForm,LocalDateTime.now(), leaveType, desiredEmployee,
 				leaveEnd);
 		laService.createLeaveApplication(myLA);
 

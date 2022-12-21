@@ -20,8 +20,6 @@ import sg.nus.iss.team6.controller.service.EmployeeService;
 import sg.nus.iss.team6.util.ApplicationStatus;
 
 public class LeaveAppForm {
-	@Autowired
-	private EmployeeService eService;
 
 	//private LocalDateTime applicationDate;
 	
@@ -145,34 +143,34 @@ public class LeaveAppForm {
 
 	
 
-	public LeaveApplication convertToLA(LocalDateTime applicationDate,LeaveType leavetype,Employee desiredEmployee,LocalDateTime newEnd) {
-		
-		long secondsBetween= (long) Duration.between(this.leaveStartDate.atTime(this.leaveStartTime,0,0), this.leaveEndDate.atTime(this.leaveEndTime,0,0)).toSeconds();
-		LeaveApplication myLA = new LeaveApplication();
-		
-		myLA.setApplicationDate(applicationDate);
-		myLA.setApprovalDate(null);
-		myLA.setLeaveStartDate(this.leaveStartDate.atTime(this.leaveStartTime,0,0));
-		
-		if(newEnd==null) {
-			myLA.setLeaveEndDate(this.leaveEndDate.atTime(this.leaveEndTime,0,0));
-		}
-		else {
-			myLA.setLeaveEndDate(newEnd);
-		}
-		
-		myLA.setLeaveDuration(secondsBetween);
-		
-		myLA.setWorkDelegate(desiredEmployee);
-		myLA.setOverseasPhone(this.overseasPhone);
-		myLA.setStatus(ApplicationStatus.APPLIED);
-		myLA.setComment(null);
-		myLA.setReason(this.reason);
-		myLA.setActive(true);
-		myLA.setLeaveType(leavetype);
-		
-		return myLA;
-	}
+//	public LeaveApplication convertToLA(LocalDateTime applicationDate,LeaveType leavetype,Employee desiredEmployee,LocalDateTime newEnd) {
+//		
+//		long secondsBetween= (long) Duration.between(this.leaveStartDate.atTime(this.leaveStartTime,0,0), this.leaveEndDate.atTime(this.leaveEndTime,0,0)).toSeconds();
+//		LeaveApplication myLA = new LeaveApplication();
+//		
+//		myLA.setApplicationDate(applicationDate);
+//		myLA.setApprovalDate(null);
+//		myLA.setLeaveStartDate(this.leaveStartDate.atTime(this.leaveStartTime,0,0));
+//		
+//		if(newEnd==null) {
+//			myLA.setLeaveEndDate(this.leaveEndDate.atTime(this.leaveEndTime,0,0));
+//		}
+//		else {
+//			myLA.setLeaveEndDate(newEnd);
+//		}
+//		
+//		myLA.setLeaveDuration(secondsBetween);
+//		
+//		myLA.setWorkDelegate(desiredEmployee);
+//		myLA.setOverseasPhone(this.overseasPhone);
+//		myLA.setStatus(ApplicationStatus.APPLIED);
+//		myLA.setComment(null);
+//		myLA.setReason(this.reason);
+//		myLA.setActive(true);
+//		myLA.setLeaveType(leavetype);
+//		
+//		return myLA;
+//	}
 	
 	@Override
 	public String toString() {

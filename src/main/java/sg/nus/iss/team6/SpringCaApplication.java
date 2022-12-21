@@ -30,7 +30,8 @@ public class SpringCaApplication {
 	}
 
 	@Bean
-	CommandLineRunner loadData(EmployeeRepository employeeRepo, 
+	CommandLineRunner loadData(
+			EmployeeRepository employeeRepo, 
 			LeaveApplicationRepository leaveApplicationRepo, 
 			LeaveTypeRepository leaveTypeRepo, 
 			PublicHolidayRepository publicHolidayRepo,
