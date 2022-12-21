@@ -6,21 +6,18 @@
 *Necessary for deriving leaveBalance
  
 ## Fully Functional:
- 1. Create (annual, medical, compensation)
+	1. Create (annual, medical, compensation)
+		Fully refactored to service.
+		
+	2. Cannot apply for leave < half a day in duration
 
 ## Working on:
 
-	1. Refactor to service
-		employee model repo (DONE)
-		public holiday (DONE)
-		leaveAppForm (DONE)
-
-	2. minGranularity flat half day for everyone
-	
-	3. check apply for current year
-
-	4. pump userId into the form
+	1. Pump userId into the form
 		//for combining with Paing
+	2. Entity names
+		change roll to empRole (mySQL reserved keyword)
+		rename employee to user class(?)
   
  ## TODO:
  

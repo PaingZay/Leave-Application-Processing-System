@@ -1,6 +1,7 @@
 package sg.nus.iss.team6.validator;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,30 +52,40 @@ public class LeaveAppFormValidator implements Validator {
 				errors.rejectValue("leaveStartTime", "error.dates", "If you wish to book leave extending past the end day, please select the following day.");
 			}
 			
+			if (leaveAppForm.getLeaveStartDate() != null && leaveAppForm.getLeaveEndDate() != null) {
+				
+				LocalDateTime start=leaveAppForm.getLeaveStartDate().atTime(leaveAppForm.getLeaveStartTime(),0,0);
+				LocalDateTime end=leaveAppForm.getLeaveEndDate().atTime(leaveAppForm.getLeaveEndTime(),0,0);
+				long leaveAppFormDuration = ChronoUnit.SECONDS.between(start, end);
+				
+				if(leaveAppFormDuration <12*60*60) {
+					errors.reject("leaveStartTime", "Minimum leave duration is half a day.");
+					errors.rejectValue("leaveStartTime", "error.dates", "Minimum leave duration is half a day.");
+				}
 
+				if (!ldt.isValid(leaveAppForm.getLeaveStartDate().atTime(leaveAppForm.getLeaveStartTime(), 0, 0),
+						leaveAppForm.getLeaveEndDate().atTime(leaveAppForm.getLeaveEndTime(), 0, 0))) {
+					errors.reject("leaveEndDate", "The end date comes before the start date.");
+					errors.rejectValue("leaveEndDate", "error.dates", "The end date comes before the start date.");
+				}
+
+				if (!ldt.isValid(now, leaveAppForm.getLeaveStartDate().atTime(leaveAppForm.getLeaveStartTime(), 0, 0))) {
+					errors.reject("leaveStartDate", "You cannot apply for leave retroactively.");
+					errors.rejectValue("leaveStartDate", "error.dates", "You cannot apply for leave retroactively.");
+				}
+
+				if (leaveAppForm.getLeaveStartDate().getYear() != leaveAppForm.getLeaveEndDate().getYear()) {
+					errors.reject("leaveEndDate", "Leave must not cross between years.");
+					errors.rejectValue("leaveEndDate", "error.dates", "Leave must not cross between years.");
+					//do not allow to cross x days/year maxEntitlement
+				}
+				
+				
+			}
 		}
 		
 
-		if (leaveAppForm.getLeaveStartDate() != null && leaveAppForm.getLeaveEndDate() != null) {
 
-			if (!ldt.isValid(leaveAppForm.getLeaveStartDate().atTime(leaveAppForm.getLeaveStartTime(), 0, 0),
-					leaveAppForm.getLeaveEndDate().atTime(leaveAppForm.getLeaveEndTime(), 0, 0))) {
-				errors.reject("leaveEndDate", "The end date comes before the start date.");
-				errors.rejectValue("leaveEndDate", "error.dates", "The end date comes before the start date.");
-			}
-
-			if (!ldt.isValid(now, leaveAppForm.getLeaveStartDate().atTime(leaveAppForm.getLeaveStartTime(), 0, 0))) {
-				errors.reject("leaveStartDate", "You cannot apply for leave retroactively.");
-				errors.rejectValue("leaveStartDate", "error.dates", "You cannot apply for leave retroactively.");
-			}
-
-			if (leaveAppForm.getLeaveStartDate().getYear() != leaveAppForm.getLeaveEndDate().getYear()) {
-				errors.reject("leaveEndDate", "Leave must not cross between years.");
-				errors.rejectValue("leaveEndDate", "error.dates", "Leave must not cross between years.");
-				//do not allow to cross x days/year maxEntitlement
-			}
-			
-		}
 
 		
 
