@@ -111,38 +111,38 @@ public class Employee {
 	}
 	
     //METHODS-------------------------------------------------------------------
-    
-	public List<LeaveApplication> getLeaveApplicationsForPeriodAndType(Integer yearNum, LeaveType leaveType) {
-		
-		List<LeaveApplication> toReturn = getLeaveApplications();
-		List<LeaveApplication> leavesToRemove = new ArrayList<>();
-		
-		LocalDateTime yearStart =LocalDateTime.of(yearNum,1,1, 0,0,0);
-		LocalDateTime yearEnd =LocalDateTime.of(yearNum,12,31, 23,59,59);
-		
-		for(LeaveApplication la:toReturn) {
-			if(la.getLeaveType()!=leaveType) {
-				leavesToRemove.add(la);
-			}
-			else if (!ldt.isOverlap(yearStart, yearEnd, la.getLeaveStartDate(), la.getLeaveEndDate())){
-				leavesToRemove.add(la);
-			}
-		}
-		toReturn.removeAll(leavesToRemove);
-		return toReturn;
-	}
-
-
-	public void addLeaveApplication(LeaveApplication la) {
-		if (leaveApplications==null) {
-			List<LeaveApplication> toAdd=new ArrayList<>();
-			toAdd.add(la);
-			this.leaveApplications=toAdd;
-		}
-		else {
-			leaveApplications.add(la);
-		}
-	}
+//    
+//	public List<LeaveApplication> getLeaveApplicationsForPeriodAndType(Integer yearNum, LeaveType leaveType) {
+//		
+//		List<LeaveApplication> toReturn = getLeaveApplications();
+//		List<LeaveApplication> leavesToRemove = new ArrayList<>();
+//		
+//		LocalDateTime yearStart =LocalDateTime.of(yearNum,1,1, 0,0,0);
+//		LocalDateTime yearEnd =LocalDateTime.of(yearNum,12,31, 23,59,59);
+//		
+//		for(LeaveApplication la:toReturn) {
+//			if(la.getLeaveType()!=leaveType) {
+//				leavesToRemove.add(la);
+//			}
+//			else if (!ldt.isOverlap(yearStart, yearEnd, la.getLeaveStartDate(), la.getLeaveEndDate())){
+//				leavesToRemove.add(la);
+//			}
+//		}
+//		toReturn.removeAll(leavesToRemove);
+//		return toReturn;
+//	}
+//
+//
+//	public void addLeaveApplication(LeaveApplication la) {
+//		if (leaveApplications==null) {
+//			List<LeaveApplication> toAdd=new ArrayList<>();
+//			toAdd.add(la);
+//			this.leaveApplications=toAdd;
+//		}
+//		else {
+//			leaveApplications.add(la);
+//		}
+//	}
 
 
 

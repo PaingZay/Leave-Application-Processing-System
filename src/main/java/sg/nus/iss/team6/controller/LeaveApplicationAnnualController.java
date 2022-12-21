@@ -148,26 +148,17 @@ public class LeaveApplicationAnnualController {
 
 				for (LocalDateTime wkend : overlappingWeekends) {
 
-					if (ldt.isOverlap(phService.getLDTByYear(phol,leaveAppStartYear), phService.getLDTEndByYear(phol,leaveAppStartYear),
-							wkend, wkend.plusDays(2))) {
+					if (ldt.isOverlap(
+							phService.getLDTByYear(phol,leaveAppStartYear), 
+							phService.getLDTEndByYear(phol,leaveAppStartYear),
+							wkend, 
+							wkend.plusDays(2))) {
 
-						long newUniEndDateUnix;
 						LocalDateTime newUniStartDateLdt;
 						LocalDateTime newUniEndDateLdt;
 
-						long toAdd = ldt.getOverlapInSeconds(phService.getLDTByYear(phol,leaveAppStartYear),
-								phService.getLDTEndByYear(phol,leaveAppStartYear), wkend, wkend.plusDays(2));
-						long pholEndUnix = ldt.getUnixTimeStampSG(phService.getLDTEndByYear(phol,leaveAppStartYear));
-						long wkendEndUnix = ldt.getUnixTimeStampSG(wkend.plusDays(2));
-
-						if (pholEndUnix > wkendEndUnix) {
-							newUniEndDateUnix = pholEndUnix + toAdd;
-						} else {
-							newUniEndDateUnix = wkendEndUnix + toAdd;
-						}
-
 						newUniStartDateLdt = ldt.getMin(phService.getLDTByYear(phol,leaveAppStartYear), wkend);
-						newUniEndDateLdt = ldt.getUnixTimeStampSGInLdt(newUniEndDateUnix);
+						newUniEndDateLdt = ldt.getMax(phService.getLDTEndByYear(phol,leaveAppStartYear),wkend.plusDays(2));
 
 						Integer daysBetween = (int) Duration.between(newUniStartDateLdt, newUniEndDateLdt).toDays();
 
@@ -248,7 +239,7 @@ public class LeaveApplicationAnnualController {
 					newLeaveEndDateLdt);
 			laService.createLeaveApplication(myLA);
 
-			currentUser.addLeaveApplication(myLA);
+			eService.addLeaveApplication(currentUser,myLA);
 			eService.changeEmployee(currentUser);
 
 			String message = "New leave application was successfully created, excluding PH and weekends.";
@@ -261,7 +252,7 @@ public class LeaveApplicationAnnualController {
 					leaveEnd);
 			laService.createLeaveApplication(myLA);
 
-			currentUser.addLeaveApplication(myLA);
+			eService.addLeaveApplication(currentUser,myLA);
 			eService.changeEmployee(currentUser);
 
 			String message = "New annual leave application was successfully created.";

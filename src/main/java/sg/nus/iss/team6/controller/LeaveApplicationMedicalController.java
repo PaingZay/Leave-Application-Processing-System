@@ -118,7 +118,7 @@ public class LeaveApplicationMedicalController {
 		LeaveApplication myLA = lafService.convertToLA(leaveAppForm,LocalDateTime.now(), leaveType, desiredEmployee, leaveEnd);
 		laService.createLeaveApplication(myLA);
 
-		currentUser.addLeaveApplication(myLA);
+		eService.addLeaveApplication(currentUser,myLA);
 		eService.changeEmployee(currentUser);
 
 		String message = "New medical leave application was successfully created.";

@@ -121,7 +121,7 @@ public class LeaveApplicationCompensationController {
 				leaveEnd);
 		laService.createLeaveApplication(myLA);
 
-		currentUser.addLeaveApplication(myLA);
+		eService.addLeaveApplication(currentUser,myLA);
 		eService.changeEmployee(currentUser);
 
 		String message = "New compensation leave application was successfully created.";

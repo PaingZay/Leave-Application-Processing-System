@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import sg.nus.iss.team6.model.Employee;
+import sg.nus.iss.team6.model.LeaveApplication;
+import sg.nus.iss.team6.model.LeaveType;
 
 @Service
 public interface EmployeeService {
@@ -22,5 +24,9 @@ public interface EmployeeService {
 	Employee changeEmployee(Employee employee);
 	
 	Integer findTIDByEmployee(Integer empId);
+	
+	public List<LeaveApplication> getLeaveApplicationsForPeriodAndType(Employee employee, Integer yearNum, LeaveType leaveType);
+	
+	public void addLeaveApplication(Employee employee, LeaveApplication la);
 
 }

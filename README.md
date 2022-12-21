@@ -11,13 +11,13 @@
 ## Working on:
 
 	1. Refactor to service
-		employee model repo,
+		employee model repo (DONE)
 		public holiday (DONE)
 		leaveAppForm (DONE)
 
 	2. minGranularity flat half day for everyone
+	
 	3. check apply for current year
-
 
 	4. pump userId into the form
 		//for combining with Paing

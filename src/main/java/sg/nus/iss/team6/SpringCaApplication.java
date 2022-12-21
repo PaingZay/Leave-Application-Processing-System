@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import sg.nus.iss.team6.controller.service.EmployeeService;
 import sg.nus.iss.team6.model.Employee;
 import sg.nus.iss.team6.model.LeaveApplication;
 import sg.nus.iss.team6.model.LeaveType;
@@ -24,6 +26,9 @@ import sg.nus.iss.team6.util.ApplicationStatus;
 
 @SpringBootApplication
 public class SpringCaApplication {
+	
+	@Autowired
+	EmployeeService eService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringCaApplication.class, args);
@@ -39,6 +44,7 @@ public class SpringCaApplication {
 			TeamRepository teamRepo,
 			OvertimeChitRepository otcRepo) {
 		return (args) -> {
+			
 			// Add Roles
 			Role adminRole = roleRepo.save(new Role(-1, "Admin", "Admin Role"));
 			Role userRole = roleRepo.save(new Role(0, "User", "User Role"));
@@ -109,7 +115,7 @@ public class SpringCaApplication {
 
 			
 			LeaveApplication johnsLeave = leaveApplicationRepo.save(new LeaveApplication(applyDate, lSDate, lEDate, "Spending the holidays with my children.",annualS));
-			john.addLeaveApplication(johnsLeave);
+			eService.addLeaveApplication(john,johnsLeave);
 			//always flush owning side
 			employeeRepo.saveAndFlush(john);
 			

@@ -93,7 +93,7 @@ public class CompensationLeaveValidator implements Validator {
 
 				// get all leaves for the specific year
 				Integer yearToValidate = leaveAppForm.getLeaveStartDate().getYear();
-				List<LeaveApplication> appliedLeaves = currentUser.getLeaveApplicationsForPeriodAndType(yearToValidate,
+				List<LeaveApplication> appliedLeaves = eService.getLeaveApplicationsForPeriodAndType(currentUser,yearToValidate,
 						leaveType);
 				List<LeaveApplication> leavesToRemove = new ArrayList<>();
 				// remove deleted
