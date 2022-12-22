@@ -52,11 +52,11 @@ public class Employee {
     private Role role;
     
     //added by Jason--------------------------------------------------------
-	@OneToMany
-	@JoinColumn(name="employee_id") 
+	@OneToMany (fetch=FetchType.EAGER)
+	@JoinColumn(name="employeeid") 
 	private List<LeaveApplication> leaveApplications;
 	
-	@OneToMany
+	@OneToMany 
 	@JoinColumn(name="employeeid") 
 	private List<OvertimeChit> overtimeChits;
 	

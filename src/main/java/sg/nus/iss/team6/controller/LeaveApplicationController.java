@@ -69,7 +69,6 @@ public class LeaveApplicationController {
 	@InitBinder("leaveAppForm")
 	private void initCourseBinder(WebDataBinder binder) {
 		binder.addValidators(leaveAppFormValidator);
-		binder.addValidators(annualLeaveValidator);
 	}
 
 	/**
@@ -80,26 +79,31 @@ public class LeaveApplicationController {
 
 	@RequestMapping(value = "/history")
 	  public String leaveAppHistory(HttpSession session, Model model) {
-	    //Uncomment  combine with login /authentication if not for testing or
+		
+	    //TODO:Uncomment  combine with login /authentication if not for testing or
 		//String username = (String) session.getAttribute("username");
-	    //Test purpose
 		final String username="Jonjon1";
-	    System.out.println("username:"+username);
 	    
 	    Employee currentUser=eService.findEmployeeByUserName(username);
 	    int id=eService.findEmployeeByUserName(username).getId();
 	    model.addAttribute("employeeId",id);
 	    
 	    
-	    List<LeaveApplication> applicationList=currentUser.getLeaveApplications();
+	    List<LeaveApplication> applicationList=new ArrayList<>();
+	    applicationList.addAll(currentUser.getLeaveApplications());
 	    List<LeaveApplication> toRemove= new ArrayList<>();
 	    
 	    for (LeaveApplication la :applicationList) {
 	    	if (la.getActive()==false) {
 	    		toRemove.add(la);
 	    	}
+	    	else if(la.getStatus()==ApplicationStatus.APPROVED || la.getStatus()==ApplicationStatus.REJECTED) {
+	    		toRemove.add(la);
+	    	}
 	    }
 	    applicationList.removeAll(toRemove);
+	    
+	    
 	    
 	    System.out.println("employeeID:" +id);
 	    model.addAttribute("leaveHistory", applicationList);
@@ -111,30 +115,110 @@ public class LeaveApplicationController {
 	  @GetMapping("/edit/{id}")
 	  public String editLeavePage(@PathVariable Integer id, Model model) {
 		  
+	    //TODO:Uncomment  combine with login /authentication if not for testing or
+		//String username = (String) session.getAttribute("username");
+		final String username="Jonjon1";
+		
+	    Employee currentUser=eService.findEmployeeByUserName(username);
+	    int currentUserId=eService.findEmployeeByUserName(username).getId();
+	  
 	    LeaveApplication leaveApp = laService.findLeaveApplication(id);
 	    List<LeaveType> leaveTlist= ltService.findAll();
+	    LeaveAppForm leaveAppForm = new LeaveAppForm();
+	    
+	    leaveAppForm.setLeaveStartDate(leaveApp.getLeaveStartDate().toLocalDate());
+	    leaveAppForm.setLeaveEndDate(leaveApp.getLeaveEndDate().toLocalDate());
+	    leaveAppForm.setLeaveStartTime(leaveApp.getLeaveStartDate().getHour());
+	    leaveAppForm.setLeaveEndTime(leaveApp.getLeaveEndDate().getHour());
+	    
+	    if(leaveApp.getWorkDelegate()!=null) {
+	    	leaveAppForm.setWorkDelegate(leaveApp.getWorkDelegate().getName());
+	    }
+	    else {
+	    	leaveAppForm.setWorkDelegate("");
+	    }
+	    if(leaveApp.getOverseasPhone()!=null) {
+	    	leaveAppForm.setOverseasPhone(leaveApp.getOverseasPhone());
+	    }
+	    else {
+	    	leaveAppForm.setOverseasPhone("");
+	    }
+	    
+	    if(leaveApp.getReason()!=null) {
+	    	 leaveAppForm.setReason(leaveApp.getReason());
+	    }
+	    else {
+	    	leaveAppForm.setReason("");
+	    }
+		
+	    leaveAppForm.setLeaveTypeName(leaveApp.getLeaveType().getTypeName());
+	    leaveAppForm.setApplicantId(leaveApp.getId());
+	    leaveAppForm.setLeaveId(id);
+	    
 	    model.addAttribute("leaveTlist", leaveTlist);
 	    model.addAttribute("leaveApp", leaveApp);
-	    
+	    model.addAttribute("leaveAppForm", leaveAppForm);
+	   
 	    return "leave-edit";
 	  }
 	  
 
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 	  @PostMapping("/edit/{id}")
-	  public String editLeaveApp(@ModelAttribute @Valid LeaveApplication leaveApplication, BindingResult result, @PathVariable Integer id,
-	      HttpSession session) {
-	    if (result.hasErrors())
-	      return "leave-edit";
-	    
-	    
-	    leaveApplication.setStatus(ApplicationStatus.UPDATED);
-	    leaveApplication.setId(id);
-	    
-	    laService.changeLeaveApplication(leaveApplication);
-	    
-	    return "redirect:/leave/history";
+	  public String editLeaveApp(@ModelAttribute LeaveAppForm leaveAppForm, BindingResult result, @PathVariable Integer id, HttpSession session) {
+		  
+
+		    Employee currentUser = eService.findEmployee(leaveAppForm.getApplicantId());
+		    LeaveApplication leaveApp = laService.findLeaveApplication(leaveAppForm.getLeaveId());
+		    Employee desiredEmployee = eService.findEmployeeByName(leaveAppForm.getWorkDelegate());
+		    
+		    leaveApp.setWorkDelegate(desiredEmployee);
+		    leaveApp.setOverseasPhone(leaveAppForm.getOverseasPhone());
+		    leaveApp.setReason(leaveAppForm.getReason());
+		    
+		    laService.changeLeaveApplication(leaveApp);
+		    
+		    eService.changeEmployee(currentUser);
+		    
+		    return "redirect:/leave/history";
 	  }
 
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 	  
 	  
 	  

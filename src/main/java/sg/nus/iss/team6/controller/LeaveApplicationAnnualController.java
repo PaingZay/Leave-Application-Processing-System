@@ -83,6 +83,7 @@ public class LeaveApplicationAnnualController {
 	@GetMapping("/apply/annual")
 	public String newAnnualLeaveApplication(Model model) {
 
+		Employee currentUser = eService.findEmployee(1);
 		model.addAttribute("leaveAppForm", new LeaveAppForm());
 
 		return "leaveApplicationAnnual";

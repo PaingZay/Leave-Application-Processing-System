@@ -37,14 +37,11 @@ public class LeaveApplication {
 	@Column(nullable = false)
 	private LocalDateTime applicationDate;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime approvalDate;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(nullable = false)
 	private LocalDateTime leaveStartDate;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(nullable = false)
 	private LocalDateTime leaveEndDate;
 	

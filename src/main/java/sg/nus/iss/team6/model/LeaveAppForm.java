@@ -43,7 +43,9 @@ public class LeaveAppForm {
 	
 	private String leaveTypeName;
 	
-	private String applicantId;
+	private Integer applicantId;
+	
+	private Integer leaveId;
 	
 	
 	
@@ -118,11 +120,23 @@ public class LeaveAppForm {
 	}
 
 	public Integer getApplicantId() {
-		return Integer.valueOf(applicantId);
+		//return Integer.valueOf(applicantId);
+		return applicantId;
 	}
 
 	public void setApplicantId(Integer applicantId) {
-		this.applicantId = applicantId.toString();
+		//this.applicantId = applicantId.toString();
+		this.applicantId = applicantId;
+		
+		
+	}
+
+	public Integer getLeaveId() {
+		return leaveId;
+	}
+
+	public void setLeaveId(Integer leaveId) {
+		this.leaveId = leaveId;
 	}
 
 	//constructors-----------

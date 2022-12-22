@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +33,9 @@ public class SpringCaApplication {
 	
 	@Autowired
 	EmployeeService eService;
+	
+	@PersistenceContext
+	private EntityManager em;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringCaApplication.class, args);
@@ -44,6 +51,8 @@ public class SpringCaApplication {
 			TeamRepository teamRepo,
 			OvertimeChitRepository otcRepo) {
 		return (args) -> {
+
+			
 			
 			// Add Roles
 			Role adminRole = roleRepo.save(new Role(-1, "Admin", "Admin Role"));
@@ -57,10 +66,11 @@ public class SpringCaApplication {
 			LeaveType annualM = new LeaveType("Annual", 18.0, null, "Annual Leave for Managers");
 			LeaveType medical = new LeaveType("Medical", 60.0, null, "Medical leave");
 			LeaveType compensation = new LeaveType("Compensation", null, 0.5, "Compensation leave");
-			leaveTypeRepo.saveAndFlush(annualS);
-			leaveTypeRepo.saveAndFlush(annualM);
-			leaveTypeRepo.saveAndFlush(medical);
-			leaveTypeRepo.saveAndFlush(compensation);
+			leaveTypeRepo.save(annualS);
+			leaveTypeRepo.save(annualM);
+			leaveTypeRepo.save(medical);
+			leaveTypeRepo.save(compensation);
+			
 			
 			//oneToMany mapping for leaveTypes stored/owned in Roles
 			//add default admin & staff leave types
@@ -78,9 +88,9 @@ public class SpringCaApplication {
 			managerLeaveTypes.add(compensation);
 			managerRole.setLeaveTypes(managerLeaveTypes);
 			
-			roleRepo.saveAndFlush(adminRole);
-			roleRepo.saveAndFlush(staffRole);
-			roleRepo.saveAndFlush(managerRole);
+			roleRepo.save(adminRole);
+			roleRepo.save(staffRole);
+			roleRepo.save(managerRole);
 			
 			//add team
 			Team alpha = teamRepo.save(new Team("Alpha","Striving for excellence!"));
@@ -98,7 +108,7 @@ public class SpringCaApplication {
 			//set team members
 			//need to saveAndFlush whenever updating lists
 			alpha.setTeamMembers(toAdd);
-			teamRepo.saveAndFlush(alpha);
+			teamRepo.save(alpha);
 			
 			PublicHoliday christmas = publicHolidayRepo.save(new PublicHoliday("Christmas Day", 25, 12, 1));
 			PublicHoliday diwali = publicHolidayRepo.save(new PublicHoliday("Deepavali, Festival of Lights", 24, 10, 1));
@@ -112,12 +122,20 @@ public class SpringCaApplication {
 			LocalDateTime applyDate=LocalDateTime.of(2022, 1, 8, 0, 0, 0, 0);
 			LocalDateTime lSDate=LocalDateTime.of(2022, 1, 10, 0, 0, 0, 0);
 			LocalDateTime lEDate=LocalDateTime.of(2022, 1, 23, 0, 0, 0, 0);
-
 			
-			LeaveApplication johnsLeave = leaveApplicationRepo.save(new LeaveApplication(applyDate, lSDate, lEDate, "Spending the holidays with my children.",annualS));
-			eService.addLeaveApplication(john,johnsLeave);
+		
+			LeaveApplication johnsLeave1 = leaveApplicationRepo.save(new LeaveApplication(applyDate, lSDate, lEDate, "Spending the holidays with my children.",annualS));
+			
+			applyDate=LocalDateTime.of(2022, 1, 8, 0, 0, 0, 0);
+			lSDate=LocalDateTime.of(2023, 1, 9, 0, 0, 0, 0);
+			lEDate=LocalDateTime.of(2023, 1, 10, 0, 0, 0, 0);
+			
+			LeaveApplication johnsLeave2 = leaveApplicationRepo.save(new LeaveApplication(applyDate, lSDate, lEDate, "New leave",annualS));
+			
+			eService.addLeaveApplication(john,johnsLeave1);
+			eService.addLeaveApplication(john,johnsLeave2);
 			//always flush owning side
-			employeeRepo.saveAndFlush(john);
+			employeeRepo.save(john);
 			
 			LocalDateTime otc001s=LocalDateTime.of(2022, 5, 8,6,0,0,0);
 			LocalDateTime otc001e=LocalDateTime.of(2022, 5, 8,8,0,0,0);
@@ -137,7 +155,10 @@ public class SpringCaApplication {
 			otcToAdd.add(otc003);
 			john.setOvertimeChits(otcToAdd);
 			
-			employeeRepo.saveAndFlush(john);
+//			employeeRepo.saveAndFlush(john);
+			employeeRepo.save(john);
+			
+
 			
 
 			
