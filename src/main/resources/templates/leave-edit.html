@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+  <h3>Edit leave page</h3>
+
+  <form action="#" th:action="@{/leave/edit/}+${leaveApp.id}" th:object="${leaveApp}" method="post">
+    <table>
+      <tbody>
+        <tr>
+          <td><span th:text="#{fieldLabel.Id}"></span></td>
+          <td>
+            <fieldset><input type="text" th:field="*{id}" readonly="readonly" /></fieldset>
+          </td>
+          <td th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.applicationDate}"></span></td>
+          <td><input type="text" th:field="*{applicationDate}" size="40" /></td>
+          <td th:if="${#fields.hasErrors('applicationDate')}" th:errors="*{applicationDate}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.leaveStartDate}"></span></td>
+          <td><input type="text" th:field="*{leaveStartDate}" size="40" /></td>
+          <td th:if="${#fields.hasErrors('leaveStartDate')}" th:errors="*{leaveStartDate}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.leaveEndDate}"></span></td>
+          <td><input type="text" th:field="*{leaveEndDate}" size="40"/></td>
+          <td th:if="${#fields.hasErrors('leaveEndDate')}" th:errors="*{leaveEndDate}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.leaveDuration}"></span></td>
+          <td><input type="text" th:field="*{leaveDuration}" /></td>
+          <td th:if="${#fields.hasErrors('leaveDuration')}" th:errors="*{leaveDuration}"></td>
+        </tr>
+         <tr>
+          <td><span th:text="#{fieldLabel.workDelegate}"></span></td>
+          <td><input type="text" th:field="*{workDelegate}" /></td>
+          <td th:if="${#fields.hasErrors('workDelegate')}" th:errors="*{workDelegate}"></td>
+         </tr>
+          <tr>
+          <td><span th:text="#{fieldLabel.status}"></span></td>
+          <td><input type="text" th:field="*{status}" /></td>
+          <td th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></td>
+         </tr>
+          <tr>
+          <td><span th:text="#{fieldLabel.comment}"></span></td>
+          <td><input type="text" th:field="*{comment}" /></td>
+          <td th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></td>
+         </tr>
+          <tr>
+          <td><span th:text="#{fieldLabel.reason}"></span></td>
+          <td><input type="text" th:field="*{reason}" /></td>
+          <td th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}"></td>
+         </tr>
+          <tr>
+          <td><span th:text="#{fieldLabel.active}"></span></td>
+          <td><input type="text" th:field="*{active}" /></td>
+          <td th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></td>
+         </tr>
+        <!-- <tr>
+          <td><label >User roles (multiple select):</label></td>
+          <td>
+            <select size="03"
+              multiple="multiple" id="leaveType" name="leaveType">
+                <option th:each="leaveT : ${leaveTlist}" 
+                        th:value="${leaveT.id}"
+                        th:text="${leaveT.typeName}"
+                        th:selected="${leaveType.id.equalTo(leaveT.id)}">Roles</option>
+            </select>
+          </td>
+        </tr>-->
+        <!-- <!--<tr>
+          <td><span th:text="#{fieldLabel.leaveType.Id}"></span></td>
+          <td><input type="text" th:field="${leaveType.Id}" /></td>
+          <td th:if="${#fields.hasErrors('leaveType.Id')}" th:errors="*{leaveType.Id}"></td>
+         </tr>-->
+         <!--<tr>
+          <td><span th:text="#{fieldLabel.employee.id}"></span></td>
+          <td><input type="hidden" th:field="*{leave.employee}" readonly="readonly" /></td>
+          <td th:if="${#fields.hasErrors('leave.employee')}" th:errors="*{leave.employee}"></td>
+         </tr>-->
+      	 <tr>
+          <td><input type="submit" value="Update" class="blcass" /></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+</body>
+
+</html>

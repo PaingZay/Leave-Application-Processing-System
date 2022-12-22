@@ -36,6 +36,11 @@ public interface EmployeeRepository extends JpaRepository< Employee, Integer> {
 			+ " WHERE e.id = :empId")
 	Integer findTIDByEmployee(@Param("empId") Integer empId);
 	
+	@Query("SELECT e "
+			+ "from Employee e"
+			+ " WHERE e.username = :name")
+	Employee findEmployeeByUserName(@Param("name") String name);
+	
 
 	  
 	  

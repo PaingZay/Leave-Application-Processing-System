@@ -95,5 +95,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee.setLeaveApplications(toAdd);
 		}
 	}
+	
+	  @Override
+	  @Transactional
+	  public Employee findEmployeeByUserName(String name) {
+		  return eRepository.findEmployeeByUserName(name);
+	  }
 
 }

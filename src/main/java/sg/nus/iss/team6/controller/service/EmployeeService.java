@@ -28,5 +28,7 @@ public interface EmployeeService {
 	public List<LeaveApplication> getLeaveApplicationsForPeriodAndType(Employee employee, Integer yearNum, LeaveType leaveType);
 	
 	public void addLeaveApplication(Employee employee, LeaveApplication la);
+	
+	Employee findEmployeeByUserName(String name);
 
 }
