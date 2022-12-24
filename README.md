@@ -1,4 +1,4 @@
 # SPRINGCA:Leave Application Processing System (LAPS)
 
-## Admin Leave management
-1. Bugfixing
+## 221224-Final
+Core features working
