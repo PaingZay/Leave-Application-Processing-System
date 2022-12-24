@@ -21,6 +21,10 @@ public class PublicHolidayServiceImpl implements PublicHolidayService {
     return publicHolidayRepository.findAll();
   }
 
+  @Override
+  public List<PublicHoliday> findAllPublicHolidays() {
+    return publicHolidayRepository.findAll();
+  }
 
   @Override
   @Transactional

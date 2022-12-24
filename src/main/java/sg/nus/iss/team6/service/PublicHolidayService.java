@@ -12,4 +12,5 @@ public interface PublicHolidayService {
 	PublicHoliday changePublicHoliday(PublicHoliday ph);
 	void removePublicHoliday(PublicHoliday ph);
 	PublicHoliday findPublicHolidayByName(String name);
+	List<PublicHoliday> findAllPublicHolidays();
 }

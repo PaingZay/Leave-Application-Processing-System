@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sg.nus.iss.team6.controller.exception.LeaveTypeNotFound;
 import sg.nus.iss.team6.controller.exception.PHNotFound;
+import sg.nus.iss.team6.model.LeaveType;
 import sg.nus.iss.team6.model.PublicHoliday;
 import sg.nus.iss.team6.service.PublicHolidayService;
 import sg.nus.iss.team6.util.PHValidator;
