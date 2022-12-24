@@ -12,12 +12,14 @@ import org.springframework.context.annotation.Bean;
 import sg.nus.iss.team6.model.LeaveApplication;
 import sg.nus.iss.team6.model.LeaveType;
 import sg.nus.iss.team6.model.OvertimeChit;
+import sg.nus.iss.team6.model.PublicHoliday;
 import sg.nus.iss.team6.model.Role;
 import sg.nus.iss.team6.model.ApplicationStatus;
 import sg.nus.iss.team6.model.Employee;
 import sg.nus.iss.team6.repository.LeaveApplicationRepository;
 import sg.nus.iss.team6.repository.LeaveTypeRepository;
 import sg.nus.iss.team6.repository.OvertimeChitRepository;
+import sg.nus.iss.team6.repository.PublicHolidayRepository;
 import sg.nus.iss.team6.repository.RoleRepository;
 import sg.nus.iss.team6.repository.EmployeeRepository;
 
@@ -40,7 +42,8 @@ public class LeaveApplicationProcessingSystemApplication {
 			EmployeeRepository employeeRepository,
 			RoleRepository roleRepository, 
 			LeaveTypeRepository leaveTypeRepository,
-			OvertimeChitRepository otcRepo) {
+			OvertimeChitRepository otcRepo,
+			PublicHolidayRepository publicHolidayRepo) {
 		return (args) -> {
 
 			Role admin = roleRepository.save(new Role(1, 2, "admin", "Administrator", true));
@@ -252,6 +255,11 @@ public class LeaveApplicationProcessingSystemApplication {
 			user3.setOvertimeChits(otcToAdd);
 			
 			employeeRepository.save(user3);
+			
+			PublicHoliday christmas = publicHolidayRepo.save(new PublicHoliday("Christmas Day", 25, 12, 1));
+			PublicHoliday diwali = publicHolidayRepo.save(new PublicHoliday("Deepavali, Festival of Lights", 24, 10, 1));
+			PublicHoliday companyEvent1 = publicHolidayRepo.save(new PublicHoliday("Annual Fiesta 1", 26, 10, 1));	
+			PublicHoliday companyEvent2 = publicHolidayRepo.save(new PublicHoliday("Annual Fiesta 2", 10, 1, 2));	
 			
 		};
 	}

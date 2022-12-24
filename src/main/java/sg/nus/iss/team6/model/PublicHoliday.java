@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import lombok.Data;
 
@@ -27,12 +29,17 @@ public class PublicHoliday {
 	@Column(nullable = false)
 	private String name;
 	
+	@Min(value=1)
+	@Max(value=31)
 	@Column(nullable = false)
 	private Integer phDay;
 	
+	@Min(value=1)
+	@Max(value=12)
 	@Column(nullable = false)
 	private Integer phMonth;
 	
+	@Max(value=15)
 	@Column(nullable = false)
 	private Integer phLength;
 	
@@ -42,7 +49,12 @@ public class PublicHoliday {
 	
 	//Getters/setters
 	
-
+	public int getId() {	
+		return id;	
+	}	
+	public void setId(int id) {	
+		this.id = id;	
+	}
 
 	public String getName() {
 		return name;

@@ -181,13 +181,13 @@
  
          <div class="form-group text-left">
         	<label for="emailAddress">Email Address</label>
-	        <fieldset><input type="text"class="form-control emailAddress"  id = "emailAddress" th:field="*{description}"/></fieldset>
+	        <fieldset><input type="text"class="form-control emailAddress"   id = "description" th:field="*{description}"/></fieldset>
 	        <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
         </div>
         
         <div class="form-group text-left">
         	<label for="emailAddress">Email Address</label>
-	        <fieldset><input type="text"class="form-control emailAddress"  id = "emailAddress" th:field="*{active}"/></fieldset>
+	        <fieldset><input type="text"class="form-control emailAddress"  id = "active" th:field="*{active}"/></fieldset>
 	        <td th:if="${#fields.hasErrors('description')}" th:errors="*{active}"></td>
         </div>
           

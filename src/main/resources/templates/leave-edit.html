@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
@@ -47,3 +47,67 @@
 </body>
 
 </html>
+
+ -->	
+<!-- //////////////////////////////////////////////////////////////////////////////////// -->	
+<!DOCTYPE html>	
+<html xmlns:th="http://www.thymeleaf.org">	
+<head>	
+<meta charset = "ISO-8859-1">	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
+</head>	
+<body>	
+	<nav class="navbar navbar-expend-lg navbar-light bg-light">	
+	<h5 th:text="${name}"></h5>	
+	<a href="http://localhost:8080/leave/history" class = "nav-link active mr-auto"> << Back</a>	
+	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 	
+	</nav>	
+	<br></br>	
+		
+	<div class="row justify-content-center">	
+    <div class="col-sm-4">	
+    <center><div class = "card" style="width:25rem;">	
+      <form action="#" th:action="@{/leave/edit/}+${leaveAppForm.leaveId}" th:object="${leaveAppForm}" method="POST">	
+    	<fieldset class="form-group p-3">  	
+    		
+        <div class="form-group text-left">	
+          <tr>	
+            <td><input type="hidden" th:field="*{leaveId}" /></td>	
+            <td><input type="hidden" th:field="*{applicantId}" /></td>	
+            <td><input type="hidden" th:field="*{leaveStartDate}" /></td>	
+            <td><input type="hidden" th:field="*{leaveEndDate}" /></td>	
+            <td><input type="hidden" th:field="*{leaveStartTime}" /></td>	
+            <td><input type="hidden" th:field="*{leaveEndTime}" /></td>	
+          </tr>	
+        </div>  	
+        	
+    	<div class="form-group text-left">	
+          <tr>	
+            <td>Backup Employee</span></td>	
+            <fieldset><td><input type="text" class="form-control username" th:field="*{workDelegate}" size="40" /></td></fieldset>	
+            <td th:if="${#fields.hasErrors('workDelegate')}" th:errors="*{workDelegate}"></td>	
+           </tr>	
+        </div>   	
+        	
+        <div class="form-group text-left">	
+          <td>Overseas Phone</td>	
+          <fieldset><td><input type="text" class="form-control name" th:field="*{overseasPhone}" size="40" /></td></fieldset>	
+		      <td th:if="${#fields.hasErrors('overseasPhone')}" th:errors="*{overseasPhone}"></td>	
+        </div>	
+        	
+        <div class="form-group text-left">	
+          <td>Reason</td>	
+		      <fieldset><td><input type="text" class="form-control phone" th:field="*{reason}" size="40" /></td></fieldset>	
+	  	    <td th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}"></td>	
+        </div>	
+        	
+        <td>&nbsp;</td>	
+	      <td>	
+	        <input class="btn btn-secondary" type="submit" value="Update">	
+	      </td>   	
+	                       	
+        </fieldset>	
+        	
+	</form>	
+    </div></center>	
+    </div></div>
