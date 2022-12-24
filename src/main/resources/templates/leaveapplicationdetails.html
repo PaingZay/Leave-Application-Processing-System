@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset = "ISO-8859-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expend-lg navbar-light bg-light">
+	<a href="http://localhost:8080/leaveapplication/manage" class = "nav-link active mr-auto"><< Back</a>
+	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 
+	</nav>
+
+	<!-- <center><form method="post" action="#" th:action="@{/leaveapplication/viewdetail/}+${appdetails.id}" th:object="${appdetails}"></form> -->
+	<center>
+		<form method="post" action="#" th:action="@{/leaveapplication/viewdetail/}+${appdetails.id}" th:object="${appdetails}">
+	    <table class="framed">
+
+			<tr>
+			<td>No.</td>
+			<td>Employee ID</td>
+			</tr>
+
+	      <tr>
+			<td><fieldset><input type="text" class="fadeIn second" th:field="*{Id}" readonly="readonly" /></fieldset></td>
+			<td><fieldset><input type="text" class="fadeIn second" th:value="*{employee.id}" readonly="readonly" /></fieldset></td>
+	      </tr>
+	      <tr>
+			<td>Employee Name</td>
+			<td>Application Date</td>
+		  </tr>
+	      <tr>
+	        <td><fieldset><input type="text" class="fadeIn second" th:value="*{employee.name}" readonly="readonly" /></fieldset></td>
+			<td><fieldset><input type="datetime" class="fadeIn second" th:field="*{applicationDate}" readonly="readonly" /></fieldset></td>
+	      </tr>
+
+	      <br></br>
+
+		  <tr>
+			<td>From Date</td>
+			<td>To Date</td>
+		  </tr>
+        <tr>
+	        <td><fieldset><input type="datetime" class="fadeIn second" th:field="*{leaveStartDate}" readonly="readonly" /></fieldset></td>
+			<td><fieldset><input type="datetime" class="fadeIn second" th:field="*{leaveEndDate}" readonly="readonly" /></fieldset></td>
+	    </tr>
+		<tr>
+			<td>Leave Type</td>
+			<td>Reason</td>
+		  </tr>
+        <tr>
+			<td><fieldset><input type="text" class="fadeIn second" th:field="*{leaveType.typeName}" readonly="readonly" /></fieldset></td>
+			<td><fieldset><input type="text" class="fadeIn second" th:field="*{reason}" readonly="readonly" /></fieldset></td>
+	      </tr>
+
+        <tr>
+			<td colspan="2">
+				<fieldset>
+					<textarea id="w3review" th:field="*{comment}" rows="4" cols="41" placeholder="Write comment..."></textarea>
+				</fieldset>
+				<span th:if="${EmptyComment != null}" th:text="${EmptyComment}"></span>
+			</td>
+	    </tr>
+
+        <tr>
+          <td><input type="hidden" class="fadeIn second" th:field="*{leaveType}" /></td>
+          <td><input type="hidden" class="fadeIn second" th:field="*{employee}" /></td>
+        </tr>
+
+	      <tr>
+	        <td>&nbsp;</td>
+	      <td>
+			<input type="submit" class="btn btn-secondary" name="approve" value="Approve" />
+			<input type="submit" class="btn btn-secondary" name="reject" value="Reject" />
+	      </td>
+	      </tr>
+	      
+	    </table>
+	  </form>
+	</center>
+
+</body>
+
+</html>
+
+<!-- ////////////////////////////////////////////// -->

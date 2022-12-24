@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset = "ISO-8859-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expend-lg navbar-light bg-light">
+	<h5 th:text="${name}"></h5>
+	<a href="http://localhost:8080/leaveapplication/manage" class = "nav-link active mr-auto">Leave Applications</a>
+	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 
+	</nav>
+	
+  <div th:if="${#lists.isEmpty(applicationList)}">
+    <p>There is no leave history. Start applying a new one.</p>
+  </div>
+  <div th:if="${not #lists.isEmpty(applicationList)}">
+
+    <!-- this.employee = employee;
+		this.applicationDate = applicationDate;
+		this.leaveStartDate = leaveStartDate;
+		this.leaveEndDate = leaveEndDate;
+		this.approvalDate = approvalDate;
+		this.leaveType = leaveType;
+		this.comment = comment;
+		this.reason = reason;
+		this.active = active;
+		this.status = status;
+		this.workDelegate = workDelegate;
+		this.overseasPhone = overseasPhone; -->
+
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th scope="col"><span th:text="#{fieldLabel.number}"></span></th>
+        <th scope="col"><span th:text="#{fieldLabel.empId}"></span></th>
+        <th scope="col"><span th:text="#{fieldLabel.empName}"></span></th>
+        <th scope="col"><span th:text="#{fieldLabel.leaveType}"></span></th>
+        <th scope="col">Reason</th>
+        <th scope="col"><span th:text="#{fieldLabel.startDate}"></span></th>
+        <th scope="col"><span th:text="#{fieldLabel.endDate}"></span></th>
+        <th scope="col">Date of Approval</th>
+        <th scope="col">Comment</th>
+        <th scope="col"><span th:text="#{fieldLabel.status}"></span></th>
+	    </tr>
+	  </thead>
+	  
+	  
+	  <tbody>
+	    <tr th:each="application1 : ${applicationList}">
+        <td class="align-middle" th:text="${application1.id}">Id</td>
+        <td class="align-middle" th:text="${application1.employee.id}">Employee</td>
+        <td class="align-middle" th:text="${application1.employee.name}">Name</td>
+        <td class="align-middle" th:text="${application1.leaveType.typeName}">Leave Type</td>
+        <td class="align-middle" th:text="${application1.reason}">Reason</td>
+        <td class="align-middle" th:text="${#temporals.format(application1.leaveStartDate, 'yyyy-MM-dd')}">From</td>
+        <td class="align-middle" th:text="${#temporals.format(application1.leaveEndDate, 'yyyy-MM-dd')}">To</td>
+        <td class="align-middle" th:text="${#temporals.format(application1.approvalDate, 'yyyy-MM-dd')}">Date of Approval</td>
+        <td class="align-middle" th:text="${application1.comment}">Comment</td> 
+        <td class="align-middle" th:text="${application1.status}">Status</td>
+        <td>
+            <div th:if="${#strings.equals(application1.status, 'APPLIED')  or #strings.equals(application1.status,'UPDATED')}">
+            <a th:href="@{/leaveapplication/viewdetail/}+${application1.id}" class="btn btn-secondary">VIEW</a>
+        </div>
+        </td>
+	    </tr>
+	  </tbody>
+	</table>
+
+</body>
+</html>

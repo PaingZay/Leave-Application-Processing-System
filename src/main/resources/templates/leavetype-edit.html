@@ -1,0 +1,209 @@
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+  <h3>Edit leavetype page</h3>
+
+  <form action="#" th:action="@{/admin/leavetype/edit/}+${leaveType.Id}" th:object="${leaveType}" method="post">
+    <table>
+      <tbody>
+        <tr>
+          <td><span th:text="#{fieldLabel.typeId}"></span></td>
+          <td>
+            <fieldset><input type="text" th:field="*{Id}" readonly="readonly" /></fieldset>
+          </td>
+          <td th:if="${#fields.hasErrors('Id')}" th:errors="*{Id}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.typeName}"></span></td>
+          <td><input type="text" th:field="*{typeName}" /></td>
+          <td th:if="${#fields.hasErrors('typeName')}" th:errors="*{typeName}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.maxEntitlement}"></span></td>
+          <td><input type="number" min="1" th:field="*{maxEntitlement}" /></td>
+          <td th:if="${#fields.hasErrors('maxEntitlement')}" th:errors="*{maxEntitlement}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.minGranularity}"></span></td>
+          <td><input type="text" th:field="*{minGranularity}" /></td>
+          <td th:if="${#fields.hasErrors('minGranularity')}" th:errors="*{minGranularity}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.description}"></span></td>
+          <td><input type="text" th:field="*{description}" /></td>
+          <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
+        </tr>
+      	 <tr>
+          <td><input type="submit" value="Update" class="blcass" /></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+</body>
+
+</html> -->
+
+<!-- ------------------------------------------------------------ -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset = "ISO-8859-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expend-lg navbar-light bg-light">
+	<h5 th:text="${name}"></h5>
+	<a href="http://localhost:8080/admin/role/list" class = "nav-link active mr-auto"> << Back</a>
+	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 
+	</nav>
+	<br></br>
+	
+	<div class="row justify-content-center">
+    <div class="col-sm-4">
+    <center><div class = "card" style="width:25rem;">
+	<form method="post" action="#" th:action="@{/admin/leavetype/edit/}+${leaveType.Id}" th:object="${leaveType}" >
+
+    	<fieldset class="form-group p-3">  
+    	
+    	<div class="form-group text-left">
+        	<label for="username">ID</label>
+        	<input type="text" class="form-control username"  id = "username" th:field="*{Id}" readonly = "readonly"/>
+        </div>   
+        
+        <div class="form-group text-left">
+        	<label for="name">Full Name</label>
+	        <fieldset><input type="text"class="form-control name"  id = "name" th:field="*{typeName}"/></fieldset>
+          <td th:if="${#fields.hasErrors('typeName')}" th:errors="*{typeName}"></td>
+        </div>
+        
+        <div class="form-group text-left">
+        	<label for="phone">Max Entitlement</label>
+	        <fieldset><input type="number" min="0" class="form-control phone"  id = "phone" th:field="*{maxEntitlement}"/></fieldset>
+          <td th:if="${#fields.hasErrors('maxEntitlement')}" th:errors="*{maxEntitlement}"></td>
+        </div>
+ 
+         <div class="form-group text-left">
+        	<label for="emailAddress">Min Granularity</label>
+	        <fieldset><input type="text"class="form-control emailAddress"  id = "emailAddress" th:field="*{minGranularity}"/></fieldset>
+	        <td th:if="${#fields.hasErrors('minGranularity')}" th:errors="*{minGranularity}"></td>
+        </div>
+
+        <div class="form-group text-left">
+        	<label for="emailAddress">Min Granularity</label>
+	        <fieldset><input type="text"class="form-control emailAddress"  id = "emailAddress" th:field="*{description}"/></fieldset>
+	        <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
+        </div>
+        
+        <td>&nbsp;</td>
+	      <td>
+	        <input class="btn btn-secondary" type="submit" value="Update">
+	      </td>   
+	                       
+        </fieldset>
+        
+	</form>
+    </div></center>
+    </div></div>
+
+</body>
+
+</html>
+
+
+<!-- //////////////// -->
+
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset = "ISO-8859-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expend-lg navbar-light bg-light">
+	<h5 th:text="Edit"></h5>
+	<a href="http://localhost:8080/admin/menu" class = "nav-link active mr-auto">Home</a>
+	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 
+	</nav>
+	
+	<center><form method="post" action="#" th:action="@{/admin/edit/'+employee.username}" th:object="${employee}">
+	    <table class="framed">
+
+	      <tr>
+	        <fieldset><input type="text" class="fadeIn second" th:field="*{username}" readonly="readonly" /></fieldset>
+	      </tr>  
+	      <br></br>
+		  <tr>
+	        <fieldset><input type="text" class="fadeIn second" th:field="*{name}" /></fieldset>
+	        <span th:if="${EmptyName != null}" th:text="${EmptyName}"></span>
+	      </tr>  
+	      <br></br>
+	      
+	      <tr>
+	        <fieldset><input type="text" class="fadeIn second" th:field="*{phone}" /></fieldset>
+	        <span th:if="${EmptyPhone != null}" th:text="${EmptyPhone}"></span>
+	      </tr>  
+	      <br></br>
+	      
+	      <tr>
+	        <fieldset><input type="text" class="fadeIn second" th:field="*{emailAddress}" /></fieldset>
+	        <span th:if="${EmptyEmail != null}" th:text="${EmptyEmail}"></span>
+	      </tr>
+	      <tr>  
+	      <br></br>
+	      
+          <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Admin" name="Admin" class="custom-control-input" value="1" th:field="*{role.Id}">
+                <label class="custom-control-label" for="Admin">Admin</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Manager" name="Manager" class="custom-control-input" value="2" th:field="*{role.Id}">
+                <label class="custom-control-label" for="Manager">Manager</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Staff" name="Staff" class="custom-control-input" value="3" th:field="*{role.Id}">
+                <label class="custom-control-label" for="Staff">Staff</label>
+          </div>
+          <br></br>
+	      <br></br>
+	      
+          <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Team1" name="Team1" class="custom-control-input" value="1" th:field="*{teamId}">
+                <label class="custom-control-label" for="Team1">Team1</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Team2" name="Team2" class="custom-control-input" value="2" th:field="*{teamId}">
+                <label class="custom-control-label" for="Team2">Team2</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Team3" name="Team3" class="custom-control-input" value="3" th:field="*{teamId}">
+                <label class="custom-control-label" for="Team3">Team3</label>
+          </div>
+          <br></br>
+	      <br></br>
+	      
+	      <td>&nbsp;</td>
+	      <td>
+	        <input class="btn btn-secondary" type="submit" value="Update">
+	      </td>
+	      </tr>
+	      
+	    </table>
+	  </form>
+	</center>
+
+</body>
+
+</html> -->
+
+<!-- /////////////////////////////////////// -->
+

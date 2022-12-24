@@ -1,0 +1,102 @@
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body> 
+  <h3>Create New Leave Type page</h3>
+  <form action="#" th:action="@{'/admin/leavetype/create'}" th:object="${leaveType}" method="post">
+    <table>
+      <tbody>
+          <tr>
+          <td><span th:text="#{fieldLabel.typeName}"></span></td>
+          <td><input type="text" th:field="*{typeName}" /></td>
+          <td th:if="${#fields.hasErrors('typeName')}" th:errors="*{typeName}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.maxEntitlement}"></span></td>
+          <td><input type="number" min="1" th:field="*{maxEntitlement}" /></td>
+          <td th:if="${#fields.hasErrors('maxEntitlement')}" th:errors="*{maxEntitlement}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.minGranularity}"></span></td>
+          <td><input type="text" th:field="*{minGranularity}" /></td>
+          <td th:if="${#fields.hasErrors('minGranularity')}" th:errors="*{minGranularity}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.description}"></span></td>
+          <td><input type="text" th:field="*{description}" /></td>
+          <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
+        </tr>
+        <tr>
+          <td><input type="submit" value="Create" class="blcass" /></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</body>
+</html> -->
+
+<!-- ---------------------------- -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset = "ISO-8859-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+	<nav class="navbar navbar-expend-lg navbar-light bg-light">
+	<h5 th:text="${name}"></h5>
+	<a href="http://localhost:8080/admin/leavetype/list" class = "nav-link active mr-auto"> << Back </a>
+	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 
+	</nav>
+	<br></br>
+	
+	<div class="row justify-content-center">
+    <div class="col-sm-4">
+    <center><div class = "card" style="width:25rem;">
+      <form action="#" th:action="@{'/admin/leavetype/create'}" th:object="${leaveType}" method="post">
+
+    	<fieldset class="form-group p-3">  
+    	
+        <div class="form-group text-left">
+        	<label for="username">Leave Type</label>
+        	<input type="text" class="form-control username"  id = "username" th:field="*{typeName}"/>
+          <td th:if="${#fields.hasErrors('typeName')}" th:errors="*{typeName}"></td>
+        </div>   
+
+    	<div class="form-group text-left">
+        	<label for="username">Min Entitlement</label>
+        	<input type="number" min="1" class="form-control username"  id = "username" th:field="*{maxEntitlement}"/>
+          <td th:if="${#fields.hasErrors('maxEntitlement')}" th:errors="*{maxEntitlement}"></td>
+        </div>   
+        
+        <div class="form-group text-left">
+        	<label for="name">Min Granularity</label>
+	        <fieldset><input type="text"class="form-control name"  id = "name" th:field="*{minGranularity}"/></fieldset>
+	        <td th:if="${#fields.hasErrors('minGranularity')}" th:errors="*{minGranularity}"></td>
+        </div>
+        
+        <div class="form-group text-left">
+        	<label for="phone">Description</label>
+	        <fieldset><input type="text"class="form-control phone"  id = "phone" th:field="*{description}"/></fieldset>
+	        <span th:if="${description != null}" th:text="${description}"></span>
+          <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
+        </div>
+          <br></br>
+        </div>
+          
+        <td>&nbsp;</td>
+	      <td><input type="submit" value="Create" class="blcass" /></td> 
+	                       
+        </fieldset>
+        
+	</form>
+    </div></center>
+    </div></div>
+
+</body>
+
+</html>

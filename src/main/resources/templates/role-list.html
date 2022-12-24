@@ -1,0 +1,81 @@
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <h3>Role List Page</h3>
+  <a th:href="@{/admin/role/create}">Add Role</a>
+
+  <div th:if="${not #lists.isEmpty(roleList)}">
+    <table style="border: 1;">
+      <tr class="listHeading">
+        <th><span th:text="#{fieldLabel.roleId}"></span></th>
+        <th><span th:text="#{fieldLabel.hierarchyValue}"></span></th>
+        <th><span th:text="#{fieldLabel.roleName}"></span></th>
+        <th><span th:text="#{fieldLabel.roleDesc}"></span></th>
+        <th><span th:text="#{fieldLabel.active}"></span></th>
+        <th><span th:text="#{caption.edit}"></span></th>
+      </tr>
+      <tr th:each="role : ${roleList}" class="listRecord">
+        <td align="left" th:text="${role.Id}">Id</td>
+        <td align="left" th:text="${role.hierarchyValue}">hierarchyValue</td>
+         <td align="left" th:text="${role.name}">Name</td>
+        <td align="left" th:text="${role.description}">Description</td>
+        <td align="left" th:text="${role.active}">Active Status</td>
+        <td><a th:href="@{/admin/role/edit/}+${role.Id}" class="btn btn-default">
+                <span th:text="#{caption.edit}"></span></a></td>
+
+      </tr>
+    </table>
+  </div>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset = "ISO-8859-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expend-lg navbar-light bg-light">
+	<h5 th:text="${name}"></h5>
+	<a href="http://localhost:8080/admin/menu" class = "nav-link active">Home</a>
+	<a href="http://localhost:8080/admin/menu" class = "nav-link active">Manage Employees</a>
+	<a href="http://localhost:8080/admin/leavetype/list" class = "nav-link active">Manage Leave Types</a>
+	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 
+	</nav>
+	
+	<a href="http://localhost:8080/admin/role/create" class = "nav-link active">Create New Role</a>
+
+  <div th:if="${not #lists.isEmpty(roleList)}"></div>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th scope="col">ID</th>
+	      <th scope="col">Role Name</th>
+	      <th scope="col">Hierarchy Value</th>
+	      <th scope="col">Description</th>
+	      <th scope="col">Active-Status</th>
+	    </tr>
+	  </thead>
+	  
+	  <tbody>
+	    <tr th:each="role : ${roleList}">
+	        <td class="align-middle" th:text="${role.id}"></td>
+	        <td class="align-middle" th:text="${role.name}"></td>
+	        <td class="align-middle" th:text="${role.hierarchyValue}"></td>
+	        <td class="align-middle" th:text="${role.description}"></td>
+	        <td class="align-middle" th:text="${role.active}"></td>
+	        
+	        <td><a th:href="@{/admin/role/edit/}+${role.Id}" class="btn btn-secondary">Edit</a></td>
+	        <!-- <td><a th:href="@{/admin/role/delete/}+${role.Id}" class="btn btn-secondary">Delete</a></td>	         -->
+	    </tr>
+	  </tbody>
+	</table>
+
+
+</body>
+</html>

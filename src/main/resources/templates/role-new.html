@@ -1,0 +1,115 @@
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body> 
+  <h3>Create Role page</h3>
+  <form action="#" th:action="@{'/admin/role/create'}" th:object="${role}" method="post">
+    <table>
+      <tbody>
+        <tr>
+          <td><span th:text="#{fieldLabel.roleId}"></span></td>
+          <td><input type="text" th:field="*{Id}" /></td>
+          <td th:if="${#fields.hasErrors('Id')}" th:errors="*{Id}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.hierarchyValue}"></span></td>
+          <td><input type="text" th:field="*{hierarchyValue}" /></td>
+          <td th:if="${#fields.hasErrors('hierarchyValue')}" th:errors="*{hierarchyValue}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.roleName}"></span></td>
+          <td><input type="text" th:field="*{name}" /></td>
+          <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+        </tr>
+        <tr>
+          <td><span th:text="#{fieldLabel.description}"></span></td>
+          <td><input type="text" th:field="*{description}" /></td>
+          <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
+        </tr>
+         <tr>
+          <td><span th:text="#{fieldLabel.active}"></span></td>
+          <td><input type="text" th:field="*{active}" /></td>
+          <td th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></td>
+        </tr>
+        <tr>
+          <td><input type="submit" value="Create" class="blcass" /></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</body>
+
+</html> -->
+
+<!-- /////////////////////////////////////// -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset = "ISO-8859-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expend-lg navbar-light bg-light">
+	<h5 th:text="${name}"></h5>
+	<a href="http://localhost:8080/admin/role/list" class = "nav-link active mr-auto"> << Back</a>
+	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 
+	</nav>
+	<br></br>
+	
+	<div class="row justify-content-center">
+    <div class="col-sm-4">
+    <center><div class = "card" style="width:25rem;">
+	<form method="post" action="#" th:action="@{'/admin/role/create'}" th:object="${role}" >
+
+    	<fieldset class="form-group p-3">  
+    	
+    	<div class="form-group text-left">
+        	<label for="username">ID</label>
+        	<input type="text" class="form-control username"  id = "ID" th:field="*{Id}" + />
+          <td th:if="${#fields.hasErrors('Id')}" th:errors="*{Id}"></td>
+        </div>   
+        <!-- <input type="number" class="form-control username"  id = "ID" th:field="*{Id}"/> -->
+        <div class="form-group text-left">
+        	<label for="name">Hierarchy Value</label>
+	        <fieldset><input type="number" min="1" class="form-control name" id = "hierarchyvalue" th:field="*{hierarchyValue}"/></fieldset>
+	        <td th:if="${#fields.hasErrors('hierarchyValue')}" th:errors="*{hierarchyValue}"></td>
+        </div>
+        
+        <div class="form-group text-left">
+        	<label for="phone">Role</label>
+	        <fieldset><input type="text"class="form-control phone"  id = "role" th:field="*{name}"/></fieldset>
+	        <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+        </div>
+ 
+         <div class="form-group text-left">
+        	<label for="emailAddress">Description</label>
+	        <fieldset><input type="text"class="form-control emailAddress"  id = "description" th:field="*{description}"/></fieldset>
+	        <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
+        </div>
+
+        <div class="form-group text-left">
+        	<label for="emailAddress">Status</label>
+          <fieldset><select name="active" id="active">
+            <option value="true" th:field="*{active}">true</option>
+            <option value="false" th:field="*{active}">false</option>
+          </select></fieldset>
+          <td th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></td>
+        </div>
+        <td>&nbsp;</td>
+	      <td>
+	        <td><input type="submit" value="Create" class="blcass" /></td>
+	      </td>
+
+	</form>
+    </div>
+  </center>
+    </div></div>
+
+</body>
+
+</html>
