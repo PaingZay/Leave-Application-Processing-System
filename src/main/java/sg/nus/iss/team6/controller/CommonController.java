@@ -30,8 +30,6 @@ public class CommonController {
 			  String pass = e.getPassword();
 			  int role = e.getRole().getId();
 			  
-			 
-			  
 			  System.out.println(name);
 			  
 			  if (name.equals(username) && pass.equals(password) && (role == 1)) 
@@ -43,7 +41,7 @@ public class CommonController {
 			  else if (name.equals(username) && pass.equals(password) && (role == 2)) 
 			  {
 			      session.setAttribute("username", username);
-			      return "redirect:/leaveapplication/manage";
+			      return "redirect:/leave/manage";
 			  }
 			  
 			  else if (name.equals(username) && pass.equals(password) && (role == 3)) 

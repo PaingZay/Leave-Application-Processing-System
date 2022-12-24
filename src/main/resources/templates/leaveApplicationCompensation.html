@@ -1,8 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset = "ISO-8859-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
 
 <body>
 
+	<nav class="navbar navbar-expend-lg navbar-light bg-light">
+	<h5 th:text="${name}"></h5>
+	<a href="http://localhost:8080/leave/apply/annual" class = "nav-link active mr-auto">Apply for Annual Leave</a>
+	<a href="http://localhost:8080/leave/apply/medical" class = "nav-link active mr-auto">Apply for Medical Leave</a>
+	<a href="http://localhost:8080/leave/apply/compensation" class = "nav-link active mr-auto">Apply for Compensation Leave</a>
+		<a href="http://localhost:8080/leave/history" class = "nav-link active mr-auto">My Leave History</a>
+	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 
+	</nav>
+	
 	<h1>Compensation Leave Application Page</h1>
 	<form action="#" th:action="@{/leave/apply/compensation}" th:object="${leaveAppForm}" method="post">
 		<table>

@@ -24,10 +24,20 @@ List<LeaveApplication> findLeaveApplicationByActivity(@Param("active") int activ
 @Query("update LeaveApplication la set la.comment = :cmt, la.status = :status, la.approvalDate = :approvalDate where la.id = :id")
 	void updateApplicationById(@Param("id") Integer id, @Param("cmt") String cmt, @Param("status") ApplicationStatus status,@Param("approvalDate") LocalDateTime approvalDate);
 	  
+
+//	@Query("SELECT leaveApplications "
+//	+ "from Employee e"
+//	+ " WHERE e.teamId = :teamId group by e.name")
+//List<LeaveApplication> findApplicationsByTeamId(@Param("teamId") Integer teamId);
+	
+
 	@Query("SELECT leaveApplications "
 	+ "from Employee e"
-	+ " WHERE e.teamId = :teamId group by e.name")
+	+ " WHERE e.teamId = :teamId")
 List<LeaveApplication> findApplicationsByTeamId(@Param("teamId") Integer teamId);
+	
+	
+	
 
 @Query("SELECT e.leaveApplications from Employee e WHERE e.teamId = :teamId")
 List<LeaveApplication> findLeaveHistoryByTeamId(@Param("teamId") Integer teamId);

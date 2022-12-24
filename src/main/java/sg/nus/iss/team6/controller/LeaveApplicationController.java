@@ -2,7 +2,10 @@ package sg.nus.iss.team6.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,17 +92,85 @@ public class LeaveApplicationController {
 	    	if (la.getActive()==false) {
 	    		toRemove.add(la);
 	    	}
-	    	else if(la.getStatus()==ApplicationStatus.APPROVED || la.getStatus()==ApplicationStatus.REJECTED) {
-	    		toRemove.add(la);
+//	    	else if(la.getStatus()==ApplicationStatus.APPROVED || la.getStatus()==ApplicationStatus.REJECTED) {
+//	    		toRemove.add(la);
+//	    	}
+	    }
+	    applicationList.removeAll(toRemove);
+	    toRemove= new ArrayList<>();
+	    
+	    //------------------
+//	    List<LeaveApplication> appApproved=new ArrayList<>();
+//	    List<LeaveApplication> appRejected=new ArrayList<>();
+//	    
+	    List<LeaveApplication> appAnnual=new ArrayList<>();
+	    List<LeaveApplication> appMedical=new ArrayList<>();
+	    List<LeaveApplication> appCompensation=new ArrayList<>();
+
+	    
+//	    //Approved
+//	    for (LeaveApplication la:applicationList) {
+//	    	if(la.getStatus()==ApplicationStatus.APPROVED) {
+//		    	appApproved.add(la);
+//		    	toRemove.add(la);
+//	    	}
+//	    }
+//	    applicationList.removeAll(toRemove);
+//	    toRemove= new ArrayList<>();
+//	    
+//	    //Rejected
+//	    for (LeaveApplication la:applicationList) {
+//	    	if(la.getStatus()==ApplicationStatus.REJECTED) {
+//		    	appRejected.add(la);
+//		    	toRemove.add(la);
+//	    	}
+//	    }
+	    applicationList.removeAll(toRemove);
+	    toRemove= new ArrayList<>();
+	    
+	    //Annual
+	    for (LeaveApplication la:applicationList) {
+	    	if(la.getLeaveType().getTypeName()=="Annual") {
+		    	appAnnual.add(la);
+		    	toRemove.add(la);
 	    	}
 	    }
 	    applicationList.removeAll(toRemove);
+	    toRemove= new ArrayList<>();
 	    
+	    //Medical
+	    for (LeaveApplication la:applicationList) {
+	    	if(la.getLeaveType().getTypeName()=="Medical") {
+		    	appMedical.add(la);
+		    	toRemove.add(la);
+	    	}
+	    }
+	    applicationList.removeAll(toRemove);
+	    toRemove= new ArrayList<>();
+	    
+	    //Compensation
+	    for (LeaveApplication la:applicationList) {
+	    	if(la.getLeaveType().getTypeName()=="Compensation") {
+		    	appCompensation.add(la);
+		    	toRemove.add(la);
+	    	}
+	    }
+	    applicationList.removeAll(toRemove);
+	    toRemove= new ArrayList<>();
+	    
+
+
+	    //------------------
 	    
 	    
 	    System.out.println("employeeID:" +id);
 	    model.addAttribute("leaveHistory", applicationList);
-	      
+	    model.addAttribute("annual", appAnnual);
+	    model.addAttribute("medical", appMedical);
+	    model.addAttribute("compensation", appCompensation);
+//	    model.addAttribute("approved", appApproved);
+//	    model.addAttribute("rejected", appRejected);
+//	      
 	    return "leave-my-history";
 	  }
 	
@@ -187,48 +258,6 @@ public class LeaveApplicationController {
 		return "redirect:/leave/history";
 	}
 
-	// @RequestMapping(value = "/history")
-	// public String LeaveApplicationHistory(HttpSession session, Model model) {
-
-	// // hardcode EmployeeId first
-	// int currentUserId = 1;
-	// Employee currentUser = eService.findEmployee(currentUserId);
-	// System.out.println(currentUser.getName());
-
-	// List<LeaveApplication> leaveApplications =
-	// currentUser.getLeaveApplications();
-	// List<LeaveApplication> laAnnual= new ArrayList<>();
-	// List<LeaveApplication> laMedical= new ArrayList<>();
-	// List<LeaveApplication> laCompensation= new ArrayList<>();
-	// for(LeaveApplication la:leaveApplications) {
-	// if(!la.getActive())
-	// continue;
-	// if (la.getLeaveType().getTypeName()=="Annual")
-	// laAnnual.add(la);
-	// if (la.getLeaveType().getTypeName()=="Medical")
-	// laMedical.add(la);
-	// if (la.getLeaveType().getTypeName()=="Compensation")
-	// laCompensation.add(la);
-	// }
-
-	// model.addAttribute("laAnnual", laAnnual);
-	// model.addAttribute("laMedical", laMedical);
-	// model.addAttribute("laCompensation", laCompensation);
-
-	// return "leaveApplicationHistory";
-	// }
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@RequestMapping(value = "/manage")
 	public String employeeCourseHistory(HttpSession session, Model model) {
@@ -237,31 +266,54 @@ public class LeaveApplicationController {
 		Employee e = employeeService.findUser(username);
 		// List<LeaveApplication> applications =
 		// applicationService.findAllApplication();
-		List<LeaveApplication> applications = applicationService.findApplicationsByTeamId(e.getTeamId());
+		List<LeaveApplication> prelimApplications = applicationService.findApplicationsByTeamId(e.getTeamId());
+		
+		List<LeaveApplication> applications = prelimApplications
+			.stream()
+			.sorted((la1,la2)->
+				la1.getEmployee().getUsername()
+				.compareTo(
+				la2.getEmployee().getUsername()))
+			.collect(Collectors.toList())
+			;
+			
 		model.addAttribute("chistory", applications);
 		return "leaveapplication";
 	}
 
+	
+	
 	@RequestMapping(value = "/subordinateleavehistory")
 	public String subordinateLeaveHistory(HttpSession session, Model model) {
 
 		String username = (String) session.getAttribute("username");
 		Employee e = employeeService.findUser(username);
 		List<LeaveApplication> applications = applicationService.findLeaveHistoryByTeamId(e.getTeamId());
-		List<LeaveApplication> newApplications = new ArrayList<>();
+		List<LeaveApplication> prelimNewApplications = new ArrayList<>();
 		for (LeaveApplication la : applications) {
 			if (la.getStatus().equals(ApplicationStatus.REJECTED)
 					|| la.getStatus().equals(ApplicationStatus.APPROVED)) {
-				newApplications.add(la);
+				prelimNewApplications.add(la);
 			}
 		}
-		for (LeaveApplication la : newApplications) {
+		for (LeaveApplication la : prelimNewApplications) {
 			System.out.println(la.getStatus());
 		}
+		List<LeaveApplication> newApplications =prelimNewApplications
+				.stream()
+				.sorted((la1,la2)->
+					la1.getEmployee().getUsername()
+					.compareTo(
+					la2.getEmployee().getUsername()))
+				.collect(Collectors.toList())
+				;
+				
 
 		model.addAttribute("applicationList", newApplications);
 		return "subordinateLeaveHistory";
 	}
+	
+	
 
 	@RequestMapping(value = "/viewdetail/{id}", method = RequestMethod.GET)
 	public String viewDetails(@PathVariable Integer id, Model model) {
@@ -286,7 +338,7 @@ public class LeaveApplicationController {
 //				EmailAPI.GetApproveEmailTitle(application.getEmployee().getName()),
 //				EmailAPI.GetApproveEmailBody(application.getEmployee().getName(), url));
 
-		return "redirect:/leaveapplication/manage";
+		return "redirect:/leave/manage";
 	}
 
 	@RequestMapping(value = "/viewdetail/{id}", method = RequestMethod.POST, params = "reject")
@@ -319,7 +371,7 @@ public class LeaveApplicationController {
 //				EmailAPI.GetRejectEmailBody(application1.getEmployee().getName(), url));
 		
 		
-		return "redirect:/leaveapplication/manage";
+		return "redirect:/leave/manage";
 	}
 
 	public LeaveApplicationService getApplicationService() {

@@ -11,7 +11,7 @@
 
 	<nav class="navbar navbar-expend-lg navbar-light bg-light">
 	<h5 th:text="${name}"></h5>
-	<a href="http://localhost:8080/leaveapplication/subordinateleavehistory" class = "nav-link active mr-auto">View Leave History</a>
+	<a href="http://localhost:8080/leave/subordinateleavehistory" class = "nav-link active mr-auto">View Leave History</a>
 	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 
 	</nav>
 	
@@ -43,8 +43,8 @@
         <td class="align-middle" th:text="${application1.comment}">Comment</td>
         <td>
             <div th:if="${#strings.equals(application1.status, 'APPLIED')  or #strings.equals(application1.status,'UPDATED')}">
-            <a th:href="@{/leaveapplication/viewdetail/}+${application1.id}" class="btn btn-secondary">VIEW</a>
-        </div>
+            <a th:href="@{/leave/viewdetail/}+${application1.id}" class="btn btn-secondary">VIEW</a>
+        	</div>
         </td>
 	    </tr>
 	  </tbody>

@@ -9,12 +9,12 @@
 
 	<nav class="navbar navbar-expend-lg navbar-light bg-light">
 	<h5 th:text="${name}"></h5>
-	<a href="http://localhost:8080/leaveapplication/manage" class = "nav-link active mr-auto">Leave Applications</a>
+	<a href="http://localhost:8080/leave/manage" class = "nav-link active mr-auto">Leave Applications</a>
 	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 
 	</nav>
 	
   <div th:if="${#lists.isEmpty(applicationList)}">
-    <p>There is no leave history. Start applying a new one.</p>
+    <p>None of your employees have any approved/rejected leave history.</p>
   </div>
   <div th:if="${not #lists.isEmpty(applicationList)}">
 

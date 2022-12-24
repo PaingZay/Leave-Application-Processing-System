@@ -8,13 +8,13 @@
 <body>
 
 	<nav class="navbar navbar-expend-lg navbar-light bg-light">
-	<a href="http://localhost:8080/leaveapplication/manage" class = "nav-link active mr-auto"><< Back</a>
+	<a href="http://localhost:8080/leave/manage" class = "nav-link active mr-auto"><< Back</a>
 	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 
 	</nav>
 
 	<!-- <center><form method="post" action="#" th:action="@{/leaveapplication/viewdetail/}+${appdetails.id}" th:object="${appdetails}"></form> -->
 	<center>
-		<form method="post" action="#" th:action="@{/leaveapplication/viewdetail/}+${appdetails.id}" th:object="${appdetails}">
+		<form method="post" action="#" th:action="@{/leave/viewdetail/}+${appdetails.id}" th:object="${appdetails}">
 	    <table class="framed">
 
 			<tr>

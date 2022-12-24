@@ -1,43 +1,212 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset = "ISO-8859-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+
 
 <body>
-  <h3>leaveApplication List Page</h3>
 
-  <div th:if="${not #lists.isEmpty(leaveHistory)}">
-    <table style="border: 1;">
+	<nav class="navbar navbar-expend-lg navbar-light bg-light">
+	<h5 th:text="${name}"></h5>
+	<a href="http://localhost:8080/leave/apply/annual" class = "nav-link active mr-auto">Apply for Annual Leave</a>
+	<a href="http://localhost:8080/leave/apply/medical" class = "nav-link active mr-auto">Apply for Medical Leave</a>
+	<a href="http://localhost:8080/leave/apply/compensation" class = "nav-link active mr-auto">Apply for Compensation Leave</a>
+		<a href="http://localhost:8080/leave/history" class = "nav-link active mr-auto">My Leave History</a>
+	<a href="http://localhost:8080/logout" class = "nav-link active">Logout</a> 
+	</nav>
+	
+  <h3>Personal Leave Application List Page</h3>
+</br>
+
+  <div th:if="${not #lists.isEmpty(annual)}">
+    <h4>Annual Leave Applied</h4>
+    <table class="table table-striped">
       <tr class="listHeading">
         <th><span th:text="#{fieldLabel.Id}"></span></th>
         <th><span th:text="#{fieldLabel.applicationDate}"></span></th>
         <th><span th:text="#{fieldLabel.leaveStartDate}"></span></th>
         <th><span th:text="#{fieldLabel.leaveEndDate}"></span></th>
-        <th><span th:text="#{fieldLabel.workDelegate}"></span></th>
         <th><span th:text="#{fieldLabel.status}"></span></th>
         <th><span th:text="#{fieldLabel.comment}"></span></th>
-        <th><span th:text="#{fieldLabel.active}"></span></th>
+
         <th><span th:text="#{fieldLabel.reason}"></span></th>
-        <th><span th:text="#{fieldLabel.leaveType.Id}"></span></th>
-        <th><span th:text="#{fieldLabel.employee.id}"></span></th>
+
         <th><span th:text="#{caption.edit}"></span></th>
         <th><span th:text="#{caption.delete}"></span></th>
       </tr>
-      <tr th:each="leave : ${leaveHistory}" class="listRecord">
+      <tr th:each="leave : ${annual}" class="listRecord">
         <td align="left" th:text="${leave.Id}">Id</td>
          <td align="left" th:text="${leave.applicationDate}">Name</td>
         <td align="left" th:text="${leave.leaveStartDate}">maxEntitlement</td>
         <td align="left" th:text="${leave.leaveEndDate}">minGranularity</td>
-        <td align="left" th:text="${leave.workDelegate}">workDelegate</td>
-        
         <td align="left" th:text="${leave.status}">Status</td>
         <td align="left" th:text="${leave.comment}">Comment</td>
-        <td align="left" th:text="${leave.active}">Active</td>
+
         <td align="left" th:text="${leave.reason}">reason</td>
-        <td align="left" th:text="${leave.leaveType.Id}">Leave type Id</td>
-        <td align="left" th:text="${employeeId}">Employee Id</td>
-		<td><a th:href="@{/leave/edit/}+${leave.id}" class="btn btn-default">Edit</a></td>
-        <td><a th:href="@{/leave/withdraw/}+${leave.id}" class="btn btn-default">Delete</a></td>
+
+		<td>            
+			<div th:if="${#strings.equals(leave.status, 'APPLIED')  or #strings.equals(leave.status,'UPDATED')}">
+	            <a th:href="@{/leave/edit/}+${leave.Id}" class="btn btn-secondary">Edit</a>
+	    	</div>
+		</td>
+		<!--<a  th:href="@{/leave/edit/}+${leave.Id}" class="btn btn-default"></a>-->
+        <td>
+			<div th:if="${#strings.equals(leave.status, 'APPLIED')  or #strings.equals(leave.status,'UPDATED')}">
+	            <a th:href="@{/leave//withdraw/}+${leave.Id}" class="btn btn-secondary">Delete</a>
+	    	</div>
+        <!--<a  th:href="@{/leave/withdraw/}+${leave.Id}" class="btn btn-default">Delete</a>-->
+      </tr>
+    </table>
+   
+</br>
+  <div th:if="${not #lists.isEmpty(medical)}">
+    <h4>Medical Leave Applied</h4>
+    <table class="table table-striped">
+       <tr class="listHeading">
+        <th><span th:text="#{fieldLabel.Id}"></span></th>
+        <th><span th:text="#{fieldLabel.applicationDate}"></span></th>
+        <th><span th:text="#{fieldLabel.leaveStartDate}"></span></th>
+        <th><span th:text="#{fieldLabel.leaveEndDate}"></span></th>
+        <th><span th:text="#{fieldLabel.status}"></span></th>
+        <th><span th:text="#{fieldLabel.comment}"></span></th>
+
+        <th><span th:text="#{fieldLabel.reason}"></span></th>
+
+        <th><span th:text="#{caption.edit}"></span></th>
+        <th><span th:text="#{caption.delete}"></span></th>
+      </tr>
+      <tr th:each="leave : ${medical}" class="listRecord">
+        <td align="left" th:text="${leave.Id}">Id</td>
+         <td align="left" th:text="${leave.applicationDate}">Name</td>
+        <td align="left" th:text="${leave.leaveStartDate}">maxEntitlement</td>
+        <td align="left" th:text="${leave.leaveEndDate}">minGranularity</td>
+        <td align="left" th:text="${leave.status}">Status</td>
+        <td align="left" th:text="${leave.comment}">Comment</td>
+
+        <td align="left" th:text="${leave.reason}">reason</td>
+
+		<td>            
+			<div th:if="${#strings.equals(leave.status, 'APPLIED')  or #strings.equals(leave.status,'UPDATED')}">
+	            <a th:href="@{/leave/edit/}+${leave.Id}" class="btn btn-secondary">Edit</a>
+	    	</div>
+		</td>
+		<!--<a  th:href="@{/leave/edit/}+${leave.Id}" class="btn btn-default"></a>-->
+        <td>
+			<div th:if="${#strings.equals(leave.status, 'APPLIED')  or #strings.equals(leave.status,'UPDATED')}">
+	            <a th:href="@{/leave//withdraw/}+${leave.Id}" class="btn btn-secondary">Delete</a>
+	    	</div>
+        <!--<a  th:href="@{/leave/withdraw/}+${leave.Id}" class="btn btn-default">Delete</a>-->
+      </tr>
+    </table>
+    
+   </br>
+  <div th:if="${not #lists.isEmpty(compensation)}">
+  	<h4>Compensation Leave Applied</h4>
+    <table class="table table-striped">
+      <tr class="listHeading">
+       <tr class="listHeading">
+        <th><span th:text="#{fieldLabel.Id}"></span></th>
+        <th><span th:text="#{fieldLabel.applicationDate}"></span></th>
+        <th><span th:text="#{fieldLabel.leaveStartDate}"></span></th>
+        <th><span th:text="#{fieldLabel.leaveEndDate}"></span></th>
+        <th><span th:text="#{fieldLabel.status}"></span></th>
+        <th><span th:text="#{fieldLabel.comment}"></span></th>
+
+        <th><span th:text="#{fieldLabel.reason}"></span></th>
+
+        <th><span th:text="#{caption.edit}"></span></th>
+        <th><span th:text="#{caption.delete}"></span></th>
+      </tr>
+      <tr th:each="leave : ${compensation}" class="listRecord">
+        <td align="left" th:text="${leave.Id}">Id</td>
+         <td align="left" th:text="${leave.applicationDate}">Name</td>
+        <td align="left" th:text="${leave.leaveStartDate}">maxEntitlement</td>
+        <td align="left" th:text="${leave.leaveEndDate}">minGranularity</td>
+        <td align="left" th:text="${leave.status}">Status</td>
+        <td align="left" th:text="${leave.comment}">Comment</td>
+
+        <td align="left" th:text="${leave.reason}">reason</td>
+
+		<td>            
+			<div th:if="${#strings.equals(leave.status, 'APPLIED')  or #strings.equals(leave.status,'UPDATED')}">
+	            <a th:href="@{/leave/edit/}+${leave.Id}" class="btn btn-secondary">Edit</a>
+	    	</div>
+		</td>
+		<!--<a  th:href="@{/leave/edit/}+${leave.Id}" class="btn btn-default"></a>-->
+        <td>
+			<div th:if="${#strings.equals(leave.status, 'APPLIED')  or #strings.equals(leave.status,'UPDATED')}">
+	            <a th:href="@{/leave//withdraw/}+${leave.Id}" class="btn btn-secondary">Delete</a>
+	    	</div>
+        <!--<a  th:href="@{/leave/withdraw/}+${leave.Id}" class="btn btn-default">Delete</a>-->
+        </td>
       </tr>
     </table>
   </div>
+  
+  <!--
+     </br>
+  <div th:if="${not #lists.isEmpty(approved)}">
+  	<h4>Approved Leaves</h4>
+    <table class="table table-striped">
+      <tr class="listHeading">
+       <tr class="listHeading">
+        <th><span th:text="#{fieldLabel.Id}"></span></th>
+        <th><span th:text="#{fieldLabel.applicationDate}"></span></th>
+        <th><span th:text="#{fieldLabel.leaveStartDate}"></span></th>
+        <th><span th:text="#{fieldLabel.leaveEndDate}"></span></th>
+        <th><span th:text="#{fieldLabel.status}"></span></th>
+        <th><span th:text="#{fieldLabel.comment}"></span></th>
+
+        <th><span th:text="#{fieldLabel.reason}"></span></th>
+
+      </tr>
+      <tr th:each="leave : ${approved}" class="listRecord">
+        <td align="left" th:text="${leave.Id}">Id</td>
+         <td align="left" th:text="${leave.applicationDate}">Name</td>
+        <td align="left" th:text="${leave.leaveStartDate}">maxEntitlement</td>
+        <td align="left" th:text="${leave.leaveEndDate}">minGranularity</td>
+        <td align="left" th:text="${leave.status}">Status</td>
+        <td align="left" th:text="${leave.comment}">Comment</td>
+
+        <td align="left" th:text="${leave.reason}">reason</td>
+
+      </tr>
+    </table>
+  </div>
+  
+     </br>
+ <div th:if="${not #lists.isEmpty(rejected)}">
+  	<h4>Approved Leaves</h4>
+    <table class="table table-striped">
+      <tr class="listHeading">
+       <tr class="listHeading">
+        <th><span th:text="#{fieldLabel.Id}"></span></th>
+        <th><span th:text="#{fieldLabel.applicationDate}"></span></th>
+        <th><span th:text="#{fieldLabel.leaveStartDate}"></span></th>
+        <th><span th:text="#{fieldLabel.leaveEndDate}"></span></th>
+        <th><span th:text="#{fieldLabel.status}"></span></th>
+        <th><span th:text="#{fieldLabel.comment}"></span></th>
+
+        <th><span th:text="#{fieldLabel.reason}"></span></th>
+
+      </tr>
+      <tr th:each="leave : ${rejected}" class="listRecord">
+        <td align="left" th:text="${leave.Id}">Id</td>
+         <td align="left" th:text="${leave.applicationDate}">Name</td>
+        <td align="left" th:text="${leave.leaveStartDate}">maxEntitlement</td>
+        <td align="left" th:text="${leave.leaveEndDate}">minGranularity</td>
+        <td align="left" th:text="${leave.status}">Status</td>
+        <td align="left" th:text="${leave.comment}">Comment</td>
+
+        <td align="left" th:text="${leave.reason}">reason</td>
+
+      </tr>
+    </table>
+  </div>
+  -->
+  
 </body>
 </html>
