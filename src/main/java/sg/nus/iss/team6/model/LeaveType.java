@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
@@ -32,6 +33,7 @@ public class LeaveType {
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id;
 	
+	@NotBlank(message = "{error.leavetype.name.empty}")
 	@Column(name = "type_name", unique = true, nullable = false)
 	private String name;
 	
@@ -41,6 +43,7 @@ public class LeaveType {
 	@Column(name="Min_granularity", nullable=false)
 	private double minGranularity;
 	
+	@NotBlank(message = "{error.leavetype.description.empty}")
 	@Column(name="Descrition", nullable=true)
 	private String descrition;
 	

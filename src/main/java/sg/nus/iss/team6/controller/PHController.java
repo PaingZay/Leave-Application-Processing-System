@@ -25,7 +25,7 @@ import sg.nus.iss.team6.service.PublicHolidayService;
 import sg.nus.iss.team6.util.PHValidator;
 
 @Controller
-@RequestMapping(value = "/publicholiday")
+@RequestMapping(value = "/admin/publicholiday")
 public class PHController {
   @Autowired
   private PublicHolidayService publicHolidayService;
@@ -69,7 +69,7 @@ public class PHController {
     String message = "New pubic holiday " + ph.getId() + " was successfully created.";
     System.out.println(message);
     
-    return "redirect:/publicholiday/list";
+    return "redirect:/admin/publicholiday/list";
   }
   
   @GetMapping("/edit/{id}")
@@ -91,7 +91,7 @@ public class PHController {
 		System.out.println(message);
 		publicHolidayService.changePublicHoliday(publicholiday);
 		
-		return "redirect:/publicholiday/list";
+		return "redirect:/admin/publicholiday/list";
 	}
   
 }

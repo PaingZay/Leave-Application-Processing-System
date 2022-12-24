@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
@@ -30,21 +31,18 @@ public class PublicHoliday {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(nullable = false)
+	//@NotBlank(message = "{error.ph.name.empty}")
 	private String name;
 	
-	@Column(nullable = false)
 	@Min(value=1)
 	@Max(value=31)
 	private Integer phDay;
 	
-	@Column(nullable = false)
 	@Min(value=1)
 	@Max(value=12)
 	private Integer phMonth;
 	
 	@Max(value=15)
-	@Column(nullable = false)
 	private Integer phLength;
 	
 	@Column(name = "active_status", nullable = false)

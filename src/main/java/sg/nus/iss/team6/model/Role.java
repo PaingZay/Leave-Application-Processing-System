@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
@@ -22,16 +23,18 @@ public class Role {
 	@Id
 	private int Id;
 	
-    @Column(name = "hie_value", nullable = false)
+    @Column(name = "hie_value")
 	private int hierarchyValue;
 	
-    @Column(name = "role_name", unique = true, nullable = false)
+    @NotBlank(message = "{error.role.name.empty}")
+    @Column(name = "role_name", unique = true)
 	private String name;
 	
-    @Column(name = "role_description", nullable = true)
+    @NotBlank(message = "{error.role.description.empty}")
+    @Column(name = "role_description")
 	private String description;
 	
-    @Column(name = "active_status", nullable = false)
+    @Column(name = "active_status")
 	private boolean active;
     
     @OneToMany(mappedBy="role")

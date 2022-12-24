@@ -19,10 +19,14 @@ public class PHValidator implements Validator {
   public void validate(Object target, Errors errors) {
     System.out.println(target);
     
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "error.name", "Holiday name is required.");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phDay", "error.phDay", "Day is required.");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phMonth", "error.phMonth", "Month is required.");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phLength", "error.phLength", "Period is required.");
+    ValidationUtils.rejectIfEmpty(errors, "name", "error.ph.name.empty");
+	/*
+	 * ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phDay",
+	 * "error.ph.day.empty"); ValidationUtils.rejectIfEmptyOrWhitespace(errors,
+	 * "phMonth", "error.ph.month.empty");
+	 * ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phLength",
+	 * "error.ph.length.empty");
+	 */
 
   }
 

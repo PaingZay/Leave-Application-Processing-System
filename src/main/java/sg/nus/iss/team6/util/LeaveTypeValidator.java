@@ -9,7 +9,7 @@ import sg.nus.iss.team6.model.Role;
 
 
 @Component
-public class RoleValidator implements Validator {
+public class LeaveTypeValidator implements Validator {
 
   @Override
   public boolean supports(Class<?> clazz) {
@@ -20,9 +20,9 @@ public class RoleValidator implements Validator {
   public void validate(Object target, Errors errors) {
     System.out.println(target);
     
-    ValidationUtils.rejectIfEmpty(errors, "Id", "error.role.id.empty");
-    ValidationUtils.rejectIfEmpty(errors, "name", "error.role.name.empty");
-    ValidationUtils.rejectIfEmpty(errors, "description", "error.role.description.empty");
+    ValidationUtils.rejectIfEmpty(errors, "Id", "error.leavetype.id.empty");
+    ValidationUtils.rejectIfEmpty(errors, "name", "error.leavetype.name.empty");
+    ValidationUtils.rejectIfEmpty(errors, "description", "error.leavetype.description.empty");
   }
   
 }

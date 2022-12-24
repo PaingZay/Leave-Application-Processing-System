@@ -3,7 +3,7 @@
 
 <body>
   <h3>Public Holiday List Page</h3>
-  <a th:href="@{/publicholiday/create}">Add new holiday</a>
+  <a th:href="@{/admin/publicholiday/create}">Add new holiday</a>
 
   <div th:if="${not #lists.isEmpty(phList)}">
     <table style="border: 1;">
@@ -23,7 +23,7 @@
         <td align="left" th:text="${ph.phMonth}">Month</td>
         <td align="left" th:text="${ph.phLength}">Period</td>
         <td align="left" th:text="${ph.active}">Active Status</td>
-        <td><a th:href="@{/publicholiday/edit/}+${ph.id}" class="btn btn-default">
+        <td><a th:href="@{/admin/publicholiday/edit/}+${ph.id}" class="btn btn-default">
                 <span th:text="#{caption.edit}"></span></a></td>
         
       </tr>
