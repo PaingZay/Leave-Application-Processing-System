@@ -11,7 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import lombok.Data;
 
 @Data
@@ -24,16 +25,18 @@ public class PublicHoliday {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(nullable = false)
+	//@NotBlank(message = "{error.ph.name.empty}")
 	private String name;
 	
-	@Column(nullable = false)
+	@Min(value=1)
+	@Max(value=31)
 	private Integer phDay;
 	
-	@Column(nullable = false)
+	@Min(value=1)
+	@Max(value=12)
 	private Integer phMonth;
 	
-	@Column(nullable = false)
+	@Max(value=15)
 	private Integer phLength;
 	
 	@Column(name = "active_status", nullable = false)
@@ -98,7 +101,6 @@ public class PublicHoliday {
 	public PublicHoliday() {}
 
 
-
 	public PublicHoliday(String name, Integer day, Integer month, Integer phLength) {
 		this.name = name;
 		this.phDay = day;
@@ -108,13 +110,7 @@ public class PublicHoliday {
 		this.active=true;
 	}
 	
-	
-	
 
-	
-	
-	
-	
 	//Methods
 
 	public LocalDateTime getLDTCurrYear() {
@@ -153,5 +149,4 @@ public class PublicHoliday {
 		DayOfWeek day = date.getDayOfWeek();
 	    return day.getValue();
 	}
-
 }
